@@ -1,0 +1,38 @@
+<article class="card-product">
+  <a class="media" [routerLink]="['/product', product().id]" [attr.aria-label]="product().name + ' — детальніше'">
+    @if (product().image; as src) {
+      <img [src]="src" [alt]="product().name" loading="lazy" />
+    } @else {
+      <app-bouquet-art [spec]="product().art" [label]="product().name" />
+    }
+  </a>
+
+  @if (product().badge; as badge) {
+    <span class="badge tag" [class.badge--hit]="badge === 'hit'">
+      {{ badge === 'hit' ? 'Хіт' : 'Новинка' }}
+    </span>
+  }
+
+  <button
+    type="button"
+    class="fav"
+    [class.is-active]="isFavorite()"
+    (click)="toggleFavorite()"
+    [attr.aria-pressed]="isFavorite()"
+    [attr.aria-label]="isFavorite() ? 'Прибрати з обраного' : 'Додати в обране'"
+  >
+    <app-icon name="heart" [filled]="isFavorite()" />
+  </button>
+
+  <div class="body">
+    <a [routerLink]="['/product', product().id]" class="name">{{ product().name }}</a>
+    <p class="short">{{ product().short }}</p>
+    <div class="foot">
+      <span class="price">{{ product().price | uah }}</span>
+      <button type="button" class="add" (click)="addToCart()" [attr.aria-label]="'Додати ' + product().name + ' в кошик'">
+        <app-icon name="bag" [size]="18" />
+        <span>В кошик</span>
+      </button>
+    </div>
+  </div>
+</article>

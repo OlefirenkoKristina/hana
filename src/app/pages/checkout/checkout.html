@@ -1,0 +1,197 @@
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Хлібні крихти">
+      <a routerLink="/">Головна</a><span aria-hidden="true">/</span>
+      <a routerLink="/cart">Кошик</a><span aria-hidden="true">/</span><span>Оформлення</span>
+    </nav>
+    <h1>Оформлення замовлення</h1>
+  </div>
+</section>
+
+<div class="container">
+  @if (cart.isEmpty()) {
+    <div class="empty-state">
+      <h2>Кошик порожній</h2>
+      <p>Щоб оформити замовлення, спершу додайте товари в кошик.</p>
+      <a routerLink="/catalog" class="btn btn--primary">До каталогу</a>
+    </div>
+  } @else {
+    <form class="layout" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="steps">
+        <!-- 1. Дані покупця -->
+        <fieldset class="block card" formGroupName="customer">
+          <legend><span class="num">1</span> Дані покупця</legend>
+          <div class="grid">
+            @let name = form.controls.customer.controls.name;
+            <div class="field span-2">
+              <label for="name">Ім'я та прізвище *</label>
+              <input id="name" class="input" formControlName="name" autocomplete="name" [class.is-invalid]="invalid(name)" [attr.aria-invalid]="invalid(name)" aria-describedby="name-error" />
+              @if (invalid(name)) {
+                <span id="name-error" class="field-error">Вкажіть ім'я (щонайменше 2 символи)</span>
+              }
+            </div>
+
+            @let phone = form.controls.customer.controls.phone;
+            <div class="field">
+              <label for="phone">Телефон *</label>
+              <input id="phone" class="input" type="tel" formControlName="phone" autocomplete="tel" placeholder="+380 67 123 45 67" [class.is-invalid]="invalid(phone)" [attr.aria-invalid]="invalid(phone)" aria-describedby="phone-error" />
+              @if (invalid(phone)) {
+                <span id="phone-error" class="field-error">
+                  {{ phone.hasError('required') ? 'Вкажіть номер телефону' : 'Формат: +380 XX XXX XX XX' }}
+                </span>
+              }
+            </div>
+
+            @let email = form.controls.customer.controls.email;
+            <div class="field">
+              <label for="email">Email <span class="optional">(за бажанням)</span></label>
+              <input id="email" class="input" type="email" formControlName="email" autocomplete="email" placeholder="you@example.com" [class.is-invalid]="invalid(email)" [attr.aria-invalid]="invalid(email)" aria-describedby="email-error" />
+              @if (invalid(email)) {
+                <span id="email-error" class="field-error">Перевірте адресу електронної пошти</span>
+              }
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 2. Доставка -->
+        <fieldset class="block card" formGroupName="delivery">
+          <legend><span class="num">2</span> Доставка</legend>
+
+          <div class="options" role="radiogroup" aria-label="Спосіб отримання">
+            <label class="option" [class.is-active]="deliveryType() === 'courier'">
+              <input type="radio" formControlName="type" value="courier" class="sr-only" />
+              <app-icon name="truck" [size]="24" />
+              <span>
+                <strong>Кур'єр</strong>
+                <small>{{ cart.deliveryCost('courier') ? (cart.deliveryCost('courier') | uah) : 'Безкоштовно' }}</small>
+              </span>
+            </label>
+            <label class="option" [class.is-active]="deliveryType() === 'pickup'">
+              <input type="radio" formControlName="type" value="pickup" class="sr-only" />
+              <app-icon name="pin" [size]="24" />
+              <span>
+                <strong>Самовивіз</strong>
+                <small>Безкоштовно</small>
+              </span>
+            </label>
+          </div>
+
+          <div class="grid">
+            @if (deliveryType() === 'courier') {
+              @let city = form.controls.delivery.controls.city;
+              <div class="field">
+                <label for="city">Місто *</label>
+                <input id="city" class="input" formControlName="city" autocomplete="address-level2" [class.is-invalid]="invalid(city)" [attr.aria-invalid]="invalid(city)" />
+                @if (invalid(city)) {
+                  <span class="field-error">Вкажіть місто</span>
+                }
+              </div>
+
+              @let address = form.controls.delivery.controls.address;
+              <div class="field">
+                <label for="address">Адреса або відділення пошти *</label>
+                <input id="address" class="input" formControlName="address" autocomplete="street-address" placeholder="вул. Хрещатик, 1, кв. 5" [class.is-invalid]="invalid(address)" [attr.aria-invalid]="invalid(address)" />
+                @if (invalid(address)) {
+                  <span class="field-error">Вкажіть адресу доставки</span>
+                }
+              </div>
+            } @else {
+              <div class="pickup span-2">
+                <app-icon name="pin" />
+                <p>
+                  <strong>Студія HANA</strong> — Київ, вул. Ярославів Вал, 14.<br />
+                  Щодня з 08:00 до 21:00. Букет буде готовий до обраного часу.
+                </p>
+              </div>
+            }
+
+            @let date = form.controls.delivery.controls.date;
+            <div class="field">
+              <label for="date">Дата *</label>
+              <input id="date" class="input" type="date" formControlName="date" [min]="minDate" [class.is-invalid]="invalid(date)" [attr.aria-invalid]="invalid(date)" />
+              @if (invalid(date)) {
+                <span class="field-error">{{ date.hasError('past') ? 'Дата не може бути в минулому' : 'Оберіть дату' }}</span>
+              }
+            </div>
+
+            <div class="field">
+              <label for="time">Бажаний час *</label>
+              <select id="time" class="input" formControlName="time">
+                @for (slot of timeSlots; track slot) {
+                  <option [value]="slot">{{ slot }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="field span-2">
+              <label for="comment">Коментар до замовлення</label>
+              <textarea id="comment" class="input" formControlName="comment" maxlength="300" placeholder="Текст листівки, побажання щодо доставки…"></textarea>
+              <span class="field-hint">{{ commentLength().length }} / 300</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 3. Оплата -->
+        <fieldset class="block card">
+          <legend><span class="num">3</span> Оплата</legend>
+          <div class="options" role="radiogroup" aria-label="Спосіб оплати">
+            <label class="option" [class.is-active]="payment() === 'cash'">
+              <input type="radio" formControlName="payment" value="cash" class="sr-only" />
+              <app-icon name="cash" [size]="24" />
+              <span>
+                <strong>При отриманні</strong>
+                <small>Готівкою або карткою</small>
+              </span>
+            </label>
+            <label class="option" [class.is-active]="payment() === 'card'">
+              <input type="radio" formControlName="payment" value="card" class="sr-only" />
+              <app-icon name="card" [size]="24" />
+              <span>
+                <strong>Онлайн</strong>
+                <small>Демонстраційний режим</small>
+              </span>
+            </label>
+          </div>
+          @if (payment() === 'card') {
+            <p class="demo-note">
+              Це навчальний проєкт: онлайн-оплата лише імітується, жодні кошти не списуються і дані картки не запитуються.
+            </p>
+          }
+        </fieldset>
+      </div>
+
+      <!-- 4. Підтвердження -->
+      <aside class="summary card" aria-label="Ваше замовлення">
+        <h2><span class="num">4</span> Ваше замовлення</h2>
+        <ul class="mini">
+          @for (item of cart.items(); track item.key) {
+            <li>
+              <div class="mini-thumb"><app-bouquet-art [spec]="item.art" /></div>
+              <span class="mini-name">
+                {{ item.name }}
+                <small>{{ item.size ? 'Розмір ' + item.size + ' · ' : '' }}{{ item.quantity }} шт.</small>
+              </span>
+              <strong>{{ item.price * item.quantity | uah }}</strong>
+            </li>
+          }
+        </ul>
+
+        <dl class="totals">
+          <div><dt>Товари</dt><dd>{{ cart.subtotal() | uah }}</dd></div>
+          @if (cart.discount()) {
+            <div class="discount"><dt>Знижка ({{ cart.promo() }})</dt><dd>−{{ cart.discount() | uah }}</dd></div>
+          }
+          <div><dt>Доставка</dt><dd>{{ deliveryCost() ? (deliveryCost() | uah) : 'Безкоштовно' }}</dd></div>
+          <div class="grand"><dt>Разом</dt><dd>{{ total() | uah }}</dd></div>
+        </dl>
+
+        @if (submitted() && form.invalid) {
+          <p class="form-error" role="alert">Заповніть, будь ласка, усі обов'язкові поля, позначені *</p>
+        }
+
+        <button type="submit" class="btn btn--primary btn--block">Підтвердити замовлення</button>
+        <a routerLink="/cart" class="link back"><app-icon name="back" [size]="18" /> Повернутися до кошика</a>
+      </aside>
+    </form>
+  }
+</div>

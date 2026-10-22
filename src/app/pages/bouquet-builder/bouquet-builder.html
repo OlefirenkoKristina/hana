@@ -1,0 +1,243 @@
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Хлібні крихти">
+      <a routerLink="/">Головна</a><span aria-hidden="true">/</span><span>Конструктор букета</span>
+    </nav>
+    <span class="eyebrow">Create your bouquet</span>
+    <h1>Створи власний букет</h1>
+    <p class="lead">Обери квіти, пакування та доповнення — ми покажемо, як виглядатиме композиція, і одразу порахуємо вартість.</p>
+  </div>
+</section>
+
+<div class="container layout">
+  <div class="panel">
+    <!-- Кроки -->
+    <ol class="stepper" aria-label="Кроки конструктора">
+      @for (s of steps; track s.n) {
+        <li>
+          <button
+            type="button"
+            [class.is-active]="step() === s.n"
+            [class.is-done]="step() > s.n"
+            [attr.aria-current]="step() === s.n ? 'step' : null"
+            [disabled]="s.n > 1 && !canFinish()"
+            (click)="goTo(s.n)"
+          >
+            <span class="dot">
+              @if (step() > s.n) {
+                <app-icon name="check" [size]="14" [stroke]="2.2" />
+              } @else {
+                {{ s.n }}
+              }
+            </span>
+            <span class="step-title">{{ s.title }}</span>
+          </button>
+        </li>
+      }
+    </ol>
+
+    @switch (step()) {
+      @case (1) {
+        <section class="step" aria-labelledby="step1">
+          <div class="step-head">
+            <h2 id="step1">Обери квіти</h2>
+            <p>Змінюй кількість кожного виду. Мінімум {{ minStems }}, максимум {{ maxStems }} стебло.</p>
+          </div>
+
+          <div class="presets">
+            <span>Швидкий старт:</span>
+            @for (p of presets; track p.name) {
+              <button type="button" class="chip" (click)="applyPreset(p)">{{ p.name }}</button>
+            }
+          </div>
+
+          <ul class="flowers">
+            @for (f of flowersList; track f.id) {
+              <li class="flower" [class.is-chosen]="countOf(f.id) > 0">
+                <div class="flower-art"><app-bouquet-art [spec]="flowerSpec(f)" [bare]="true" /></div>
+                <div class="flower-info">
+                  <strong>{{ f.name }}</strong>
+                  <span>{{ f.price | uah }} / шт.</span>
+                </div>
+                <div class="counter">
+                  <button type="button" (click)="change(f.id, -1)" [disabled]="!countOf(f.id)" [attr.aria-label]="'Менше: ' + f.name">
+                    <app-icon name="minus" [size]="16" />
+                  </button>
+                  <output aria-live="polite">{{ countOf(f.id) }}</output>
+                  <button type="button" (click)="change(f.id, 1)" [attr.aria-label]="'Більше: ' + f.name">
+                    <app-icon name="plus" [size]="16" />
+                  </button>
+                </div>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+
+      @case (2) {
+        <section class="step" aria-labelledby="step2">
+          <div class="step-head">
+            <h2 id="step2">Обери пакування</h2>
+            <p>Пакування задає настрій букета, а стрічка — фінальний акцент.</p>
+          </div>
+
+          <h3 class="sub">Папір</h3>
+          <div class="swatches" role="radiogroup" aria-label="Пакування">
+            @for (w of wraps; track w.id) {
+              <label class="swatch" [class.is-active]="wrapId() === w.id">
+                <input type="radio" name="wrap" class="sr-only" [checked]="wrapId() === w.id" (change)="wrapId.set(w.id)" />
+                <span class="paper" [style.background]="w.color"></span>
+                <strong>{{ w.name }}</strong>
+                <span class="muted">{{ w.price | uah }}</span>
+              </label>
+            }
+          </div>
+
+          <h3 class="sub">Стрічка</h3>
+          <div class="swatches" role="radiogroup" aria-label="Стрічка">
+            @for (r of ribbons; track r.id) {
+              <label class="swatch" [class.is-active]="ribbonId() === r.id">
+                <input type="radio" name="ribbon" class="sr-only" [checked]="ribbonId() === r.id" (change)="ribbonId.set(r.id)" />
+                @if (r.color) {
+                  <span class="ribbon" [style.background]="r.color"></span>
+                } @else {
+                  <span class="ribbon none"><app-icon name="close" [size]="18" /></span>
+                }
+                <strong>{{ r.name }}</strong>
+                <span class="muted">{{ r.price ? (r.price | uah) : 'Безкоштовно' }}</span>
+              </label>
+            }
+          </div>
+        </section>
+      }
+
+      @case (3) {
+        <section class="step" aria-labelledby="step3">
+          <div class="step-head">
+            <h2 id="step3">Додай деталі</h2>
+            <p>Необов'язково, але саме дрібниці роблять подарунок особливим.</p>
+          </div>
+
+          <div class="extras">
+            @for (e of extrasList; track e.id) {
+              <label class="extra" [class.is-active]="extras().includes(e.id)">
+                <input type="checkbox" [checked]="extras().includes(e.id)" (change)="toggleExtra(e.id)" />
+                <span class="extra-text">
+                  <strong>{{ e.name }}</strong>
+                  <span class="muted">{{ e.description }}</span>
+                </span>
+                <span class="extra-price">+{{ e.price | uah }}</span>
+              </label>
+            }
+          </div>
+
+          @if (extras().includes('card')) {
+            <div class="field card-text">
+              <label for="card-text">Текст листівки</label>
+              <textarea
+                id="card-text"
+                class="input"
+                maxlength="120"
+                placeholder="З днем народження! Нехай кожен день буде як цей букет…"
+                [value]="cardText()"
+                (input)="cardText.set($any($event.target).value)"
+              ></textarea>
+              <span class="field-hint">{{ cardText().length }} / 120</span>
+            </div>
+          }
+        </section>
+      }
+
+      @case (4) {
+        <section class="step" aria-labelledby="step4">
+          <div class="step-head">
+            <h2 id="step4">Твій букет готовий</h2>
+            <p>Перевір склад і додай букет у кошик. Флорист збере його вручну саме за цим рецептом.</p>
+          </div>
+
+          <ul class="recipe">
+            @for (f of chosenFlowers(); track f.id) {
+              <li><span>{{ f.name }} × {{ f.count }}</span><span>{{ f.price * f.count | uah }}</span></li>
+            }
+            <li><span>Пакування «{{ wrap().name }}»</span><span>{{ wrap().price | uah }}</span></li>
+            @if (ribbon().color) {
+              <li><span>Стрічка «{{ ribbon().name }}»</span><span>{{ ribbon().price | uah }}</span></li>
+            }
+            @for (e of chosenExtras(); track e.id) {
+              <li><span>{{ e.name }}</span><span>{{ e.price | uah }}</span></li>
+            }
+            <li><span>Робота флориста</span><span>{{ price().assembly | uah }}</span></li>
+          </ul>
+          @if (extras().includes('card') && cardText().trim()) {
+            <blockquote class="note">«{{ cardText().trim() }}»</blockquote>
+          }
+        </section>
+      }
+    }
+
+    <div class="nav">
+      @if (step() > 1) {
+        <button type="button" class="btn btn--ghost" (click)="goTo(step() - 1)">
+          <app-icon name="back" [size]="18" /> Назад
+        </button>
+      } @else {
+        <button type="button" class="btn btn--ghost" (click)="reset()" [disabled]="!stemCount()">Очистити</button>
+      }
+      @if (step() < 4) {
+        <button type="button" class="btn btn--primary" (click)="goTo(step() + 1)" [disabled]="!canFinish()">
+          Далі <app-icon name="arrow" [size]="18" />
+        </button>
+      } @else {
+        <button type="button" class="btn btn--primary" (click)="addToCart()" [disabled]="!canFinish()">
+          <app-icon name="bag" [size]="18" /> Додати в кошик
+        </button>
+      }
+    </div>
+    @if (!canFinish()) {
+      <p class="hint">Додайте щонайменше {{ minStems }} квітки, щоб перейти далі.</p>
+    }
+  </div>
+
+  <!-- Прев'ю -->
+  <aside class="preview" aria-label="Попередній перегляд букета">
+    <div class="stage">
+      @if (stemCount()) {
+        <app-bouquet-art [spec]="spec()" label="Попередній перегляд вашого букета" />
+      } @else {
+        <div class="placeholder">
+          <app-icon name="flower" [size]="56" [stroke]="1" />
+          <p>Обери перші квіти — і тут з'явиться твій букет</p>
+        </div>
+      }
+    </div>
+
+    <div class="price card">
+      <div class="price-row">
+        <span>Квітів</span>
+        <strong>{{ stemCount() }} шт.</strong>
+      </div>
+      <div class="price-row">
+        <span>Квіти</span>
+        <span>{{ price().flowers | uah }}</span>
+      </div>
+      <div class="price-row">
+        <span>Пакування і стрічка</span>
+        <span>{{ stemCount() ? (price().wrap + price().ribbon | uah) : '—' }}</span>
+      </div>
+      @if (price().extras) {
+        <div class="price-row">
+          <span>Доповнення</span>
+          <span>{{ price().extras | uah }}</span>
+        </div>
+      }
+      <div class="price-row">
+        <span>Робота флориста</span>
+        <span>{{ stemCount() ? (price().assembly | uah) : '—' }}</span>
+      </div>
+      <div class="price-row total" aria-live="polite">
+        <span>Разом</span>
+        <strong>{{ price().total | uah }}</strong>
+      </div>
+    </div>
+  </aside>
+</div>

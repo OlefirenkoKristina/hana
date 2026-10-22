@@ -1,0 +1,147 @@
+@if (product(); as p) {
+  <div class="container">
+    <nav class="breadcrumbs crumbs" aria-label="Хлібні крихти">
+      <a routerLink="/">Головна</a><span aria-hidden="true">/</span>
+      <a routerLink="/catalog">Каталог</a><span aria-hidden="true">/</span>
+      <a routerLink="/catalog" [queryParams]="{ category: p.category }">{{ categoryLabels[p.category] }}</a>
+      <span aria-hidden="true">/</span><span>{{ p.name }}</span>
+    </nav>
+
+    <div class="product">
+      <!-- Галерея -->
+      <div class="gallery">
+        <div class="stage" [style.background]="view().background">
+          @if (p.badge; as badge) {
+            <span class="badge tag" [class.badge--hit]="badge === 'hit'">{{ badge === 'hit' ? 'Хіт' : 'Новинка' }}</span>
+          }
+          @if (p.image && view().id === 'full') {
+            <img [src]="p.image" [alt]="p.name" />
+          } @else {
+            <app-bouquet-art [spec]="p.art" [zoom]="view().zoom" [label]="p.name + ' — ' + view().label" />
+          }
+        </div>
+        <div class="thumbs" role="group" aria-label="Ракурси">
+          @for (v of gallery; track v.id) {
+            <button
+              type="button"
+              class="thumb"
+              [class.is-active]="view().id === v.id"
+              [style.background]="v.background"
+              (click)="view.set(v)"
+              [attr.aria-label]="v.label"
+              [attr.aria-pressed]="view().id === v.id"
+            >
+              <app-bouquet-art [spec]="p.art" [zoom]="v.zoom" />
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Інформація -->
+      <div class="info">
+        <span class="eyebrow">{{ categoryLabels[p.category] }}</span>
+        <h1>{{ p.name }}</h1>
+        <p class="price">
+          {{ unitPrice() | uah }}
+          @if (selectedSize(); as s) {
+            <span class="price-note">· розмір {{ s.code }}, {{ s.stems }} шт.</span>
+          }
+        </p>
+        <p class="description">{{ p.description }}</p>
+
+        @if (sizes().length) {
+          <fieldset class="sizes">
+            <legend>Розмір букета</legend>
+            <div class="size-list">
+              @for (s of sizes(); track s.code) {
+                <label class="size" [class.is-active]="sizeCode() === s.code">
+                  <input type="radio" name="size" class="sr-only" [value]="s.code" [checked]="sizeCode() === s.code" (change)="sizeCode.set(s.code)" />
+                  <span class="size-code">{{ s.code }}</span>
+                  <span class="size-label">{{ s.label }}</span>
+                  <span class="size-price">{{ s.price | uah }}</span>
+                </label>
+              }
+            </div>
+          </fieldset>
+        }
+
+        <div class="buy">
+          <app-quantity-stepper
+            [value]="quantity()"
+            [max]="maxQuantity"
+            [label]="p.name"
+            (increase)="changeQuantity(1)"
+            (decrease)="changeQuantity(-1)"
+          />
+          <button type="button" class="btn btn--primary add" (click)="addToCart()">
+            <app-icon name="bag" [size]="18" />
+            Додати в кошик · {{ totalPrice() | uah }}
+          </button>
+          <button
+            type="button"
+            class="icon-btn fav"
+            [class.is-active]="isFavorite()"
+            (click)="toggleFavorite()"
+            [attr.aria-pressed]="isFavorite()"
+            [attr.aria-label]="isFavorite() ? 'Прибрати з обраного' : 'Додати в обране'"
+          >
+            <app-icon name="heart" [size]="22" [filled]="isFavorite()" />
+          </button>
+        </div>
+
+        <details class="panel" open>
+          <summary>Склад букета</summary>
+          <ul class="composition">
+            @for (line of p.composition; track line) {
+              <li><app-icon name="flower" [size]="16" />{{ line }}</li>
+            }
+          </ul>
+          <p class="occasions">
+            Пасує для:
+            @for (o of p.occasions; track o; let last = $last) {
+              {{ occasionLabels[o] }}{{ last ? '' : ', ' }}
+            }
+          </p>
+        </details>
+
+        <details class="panel">
+          <summary>Доставка та оплата</summary>
+          <ul class="delivery">
+            <li><app-icon name="truck" [size]="18" /> Доставка по Києву — 150 грн, безкоштовно від 3 000 грн</li>
+            <li><app-icon name="clock" [size]="18" /> Доставимо за 2 години або у зручний для вас час</li>
+            <li><app-icon name="pin" [size]="18" /> Самовивіз — вул. Ярославів Вал, 14, щодня 08:00–21:00</li>
+            <li><app-icon name="cash" [size]="18" /> Оплата при отриманні або онлайн</li>
+          </ul>
+        </details>
+
+        <details class="panel">
+          <summary>Догляд за квітами</summary>
+          <p>
+            Підріжте стебла під кутом на 1–2 см, поставте букет у чисту прохолодну воду та міняйте її щодня.
+            Тримайте квіти подалі від прямого сонця, батарей і фруктів.
+          </p>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <section class="section related" aria-labelledby="related-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="related-title">Схожі букети</h2>
+        <a routerLink="/catalog" class="link">Весь каталог <app-icon name="arrow" [size]="18" /></a>
+      </div>
+      <div class="product-grid">
+        @for (r of related(); track r.id) {
+          <app-product-card [product]="r" />
+        }
+      </div>
+    </div>
+  </section>
+} @else {
+  <div class="container empty-state">
+    <h1>Букет не знайдено</h1>
+    <p>Можливо, його вже немає в каталозі. Перегляньте інші композиції.</p>
+    <a routerLink="/catalog" class="btn btn--primary">До каталогу</a>
+  </div>
+}

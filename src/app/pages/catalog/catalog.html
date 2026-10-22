@@ -1,0 +1,181 @@
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Хлібні крихти">
+      <a routerLink="/">Головна</a><span aria-hidden="true">/</span><span>Каталог</span>
+    </nav>
+    <span class="eyebrow">Our flowers</span>
+    <h1>{{ title() }}</h1>
+
+    <div class="search">
+      <app-icon name="search" [size]="22" />
+      <label for="catalog-search" class="sr-only">Пошук у каталозі</label>
+      <input
+        id="catalog-search"
+        type="search"
+        placeholder="Знайти букет, квітку або склад…"
+        autocomplete="off"
+        [value]="query()"
+        (input)="setQuery($any($event.target).value)"
+      />
+      @if (query()) {
+        <button type="button" class="clear" (click)="setQuery('')" aria-label="Очистити пошук">
+          <app-icon name="close" [size]="18" />
+        </button>
+      }
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="categories" role="group" aria-label="Категорії">
+    <button type="button" class="chip" [class.is-active]="!activeCategory()" (click)="setCategory(null)">
+      Усі
+    </button>
+    @for (c of categories; track c) {
+      <button
+        type="button"
+        class="chip"
+        [class.is-active]="activeCategory() === c"
+        [attr.aria-pressed]="activeCategory() === c"
+        (click)="setCategory(c)"
+      >
+        {{ categoryLabels[c] }}
+      </button>
+    }
+  </div>
+
+  <div class="layout">
+    <!-- Панель фільтрів -->
+    <aside class="filters" [class.is-open]="filtersOpen()" aria-label="Фільтри">
+      <div class="filters-head">
+        <h2>Фільтри</h2>
+        <button type="button" class="icon-btn close-filters" (click)="filtersOpen.set(false)" aria-label="Закрити фільтри">
+          <app-icon name="close" />
+        </button>
+      </div>
+
+      <fieldset>
+        <legend>Ціна, грн</legend>
+        <div class="price-row">
+          <label class="sr-only" for="min-price">Мінімальна ціна</label>
+          <input
+            id="min-price"
+            class="input"
+            type="number"
+            inputmode="numeric"
+            min="0"
+            step="50"
+            [placeholder]="'від ' + bounds.min"
+            [value]="minPrice() ?? ''"
+            (input)="setPrice('min', $any($event.target).value)"
+          />
+          <span aria-hidden="true">—</span>
+          <label class="sr-only" for="max-price">Максимальна ціна</label>
+          <input
+            id="max-price"
+            class="input"
+            type="number"
+            inputmode="numeric"
+            min="0"
+            step="50"
+            [placeholder]="'до ' + bounds.max"
+            [value]="maxPrice() ?? ''"
+            (input)="setPrice('max', $any($event.target).value)"
+          />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Колір</legend>
+        <div class="swatches">
+          @for (c of colors; track c) {
+            <label class="swatch" [class.is-active]="selectedColors().includes(c)">
+              <input type="checkbox" class="sr-only" [checked]="selectedColors().includes(c)" (change)="toggle(selectedColors, c)" />
+              <span class="dot" [style.background]="swatches[c]"></span>
+              {{ colorLabels[c] }}
+            </label>
+          }
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Привід</legend>
+        @for (o of occasions; track o) {
+          <label class="check">
+            <input type="checkbox" [checked]="selectedOccasions().includes(o)" (change)="toggle(selectedOccasions, o)" />
+            {{ occasionLabels[o] }}
+          </label>
+        }
+      </fieldset>
+
+      <fieldset>
+        <legend>Кількість квітів</legend>
+        @for (s of stemRanges; track s) {
+          <label class="check">
+            <input type="checkbox" [checked]="selectedStems().includes(s)" (change)="toggle(selectedStems, s)" />
+            {{ stemLabels[s] }}
+          </label>
+        }
+      </fieldset>
+
+      <div class="filters-foot">
+        <button type="button" class="btn btn--ghost btn--block" (click)="resetFilters()" [disabled]="!activeCount() && !query()">
+          Скинути все
+        </button>
+        <button type="button" class="btn btn--primary btn--block show-results" (click)="filtersOpen.set(false)">
+          Показати {{ results().length }}
+        </button>
+      </div>
+    </aside>
+
+    @if (filtersOpen()) {
+      <div class="filters-backdrop" (click)="filtersOpen.set(false)" aria-hidden="true"></div>
+    }
+
+    <!-- Результати -->
+    <section class="results" aria-label="Товари">
+      <div class="toolbar">
+        <button type="button" class="btn btn--ghost btn--sm open-filters" (click)="filtersOpen.set(true)">
+          <app-icon name="filter" [size]="18" />
+          Фільтри
+          @if (activeCount()) {
+            <span class="count">{{ activeCount() }}</span>
+          }
+        </button>
+        <p class="found" aria-live="polite">Знайдено: <strong>{{ results().length }}</strong></p>
+        <label class="sort">
+          <span class="sr-only">Сортування</span>
+          <select class="input" [value]="sort()" (change)="setSort($any($event.target).value)">
+            @for (s of sortOptions; track s) {
+              <option [value]="s">{{ sortLabels[s] }}</option>
+            }
+          </select>
+        </label>
+      </div>
+
+      @if (visible().length) {
+        <div class="product-grid">
+          @for (p of visible(); track p.id) {
+            <app-product-card [product]="p" />
+          }
+        </div>
+
+        @if (visible().length < results().length) {
+          <div class="more">
+            <p>Показано {{ visible().length }} з {{ results().length }}</p>
+            <button type="button" class="btn btn--ghost" (click)="showMore()">Показати ще</button>
+          </div>
+        }
+      } @else {
+        <div class="empty-state card">
+          <h3>Нічого не знайдено</h3>
+          <p>Спробуйте змінити запит або скинути фільтри. А ще можна зібрати власний букет у конструкторі.</p>
+          <div class="empty-actions">
+            <button type="button" class="btn btn--primary" (click)="resetFilters()">Скинути фільтри</button>
+            <a routerLink="/bouquet-builder" class="btn btn--ghost">До конструктора</a>
+          </div>
+        </div>
+      }
+    </section>
+  </div>
+</div>

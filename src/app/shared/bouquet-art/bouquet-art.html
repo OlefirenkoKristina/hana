@@ -1,0 +1,135 @@
+<svg [attr.viewBox]="viewBox()" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  @if (!bare()) {
+    <ellipse cx="100" cy="210" rx="52" ry="6" fill="rgba(55,48,47,0.08)" />
+
+    <!-- Задня частина пакування -->
+    @if (!isPot()) {
+      <path
+        d="M26,76 C62,56 138,56 174,76 L113,200 L87,200 Z"
+        [attr.fill]="wrapColors().back"
+      />
+    }
+
+    <!-- Стебла -->
+    <g stroke="#6E8E62" stroke-width="1.6" stroke-linecap="round" fill="none">
+      @if (isOrchid()) {
+        <path [attr.d]="orchidSpike()" stroke-width="2" />
+      } @else {
+        @for (h of heads(); track $index) {
+          <line [attr.x1]="h.x" [attr.y1]="h.y" [attr.x2]="gather().x" [attr.y2]="gather().y" />
+        }
+      }
+    </g>
+  }
+
+  <!-- Зелень: евкаліпт і лаванда -->
+  @for (s of sprigs(); track $index) {
+    <g [attr.transform]="s.transform">
+      <line x1="0" y1="0" x2="0" y2="-84" stroke="#6E8E62" stroke-width="1.4" />
+      @if (s.kind === 'eucalyptus') {
+        @for (leaf of eucalyptusLeaves; track $index) {
+          <ellipse [attr.cx]="leaf.x" [attr.cy]="leaf.y" rx="7" ry="5.5" [attr.fill]="s.fill" [attr.stroke]="s.dark" stroke-width="0.6" />
+        }
+      } @else {
+        @for (bud of lavenderBuds; track $index) {
+          <ellipse [attr.cx]="bud.x" [attr.cy]="bud.y" rx="3" ry="4.5" [attr.fill]="s.fill" />
+        }
+      }
+    </g>
+  }
+
+  <!-- Листя орхідеї / горщика -->
+  @if (isPot() && !bare()) {
+    <g fill="#6E8E62">
+      <path d="M100,150 C70,148 50,138 42,126 C62,124 84,132 100,146 Z" />
+      <path d="M100,150 C130,148 150,138 158,126 C138,124 116,132 100,146 Z" />
+      <path d="M100,150 C92,140 90,128 94,118 C102,126 104,138 100,150 Z" fill="#7F9C74" />
+    </g>
+  }
+
+  <!-- Головки квітів -->
+  @for (h of heads(); track $index) {
+    <g [attr.transform]="h.transform">
+      @switch (h.kind) {
+        @case ('rose') {
+          <circle r="16" [attr.fill]="h.fill" [attr.stroke]="h.dark" stroke-width="0.8" stroke-opacity="0.45" />
+          <circle r="11" [attr.fill]="h.mid" />
+          <path
+            d="M-9,-2 C-9,-12 9,-12 9,-1 C9,8 -5,9 -5,1 C-5,-5 4,-5 4,0"
+            fill="none"
+            [attr.stroke]="h.dark"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          />
+          <path d="M-14,4 C-10,12 10,13 14,4" fill="none" [attr.stroke]="h.dark" stroke-width="1" stroke-opacity="0.5" />
+        }
+        @case ('tulip') {
+          <path
+            d="M-12,-6 C-13,8 -6,15 0,15 C6,15 13,8 12,-6 C8,-2 5,-2 3,-13 C1,-6 -1,-6 -3,-13 C-5,-2 -8,-2 -12,-6 Z"
+            [attr.fill]="h.fill"
+            [attr.stroke]="h.dark"
+            stroke-width="0.8"
+            stroke-opacity="0.5"
+          />
+          <path d="M-5,-11 C-6,4 -3,13 0,14 C3,13 6,4 5,-11 C3,-7 -3,-7 -5,-11 Z" [attr.fill]="h.mid" />
+          <path d="M-8,0 C-7,8 -3,11 0,12" fill="none" [attr.stroke]="h.light" stroke-width="1.2" stroke-linecap="round" />
+        }
+        @case ('peony') {
+          @for (p of peonyRing; track $index) {
+            <circle [attr.cx]="p.x" [attr.cy]="p.y" r="8.5" [attr.fill]="h.fill" [attr.stroke]="h.dark" stroke-width="0.6" stroke-opacity="0.4" />
+          }
+          <circle r="10" [attr.fill]="h.light" />
+          @for (p of peonyInner; track $index) {
+            <circle [attr.cx]="p.x" [attr.cy]="p.y" r="5" [attr.fill]="h.mid" [attr.stroke]="h.dark" stroke-width="0.5" stroke-opacity="0.4" />
+          }
+          <circle r="2.6" [attr.fill]="h.dark" fill-opacity="0.5" />
+        }
+        @case ('daisy') {
+          @for (a of petals12; track a) {
+            <ellipse cy="-9" rx="3.2" ry="9" [attr.transform]="'rotate(' + a + ')'" [attr.fill]="h.fill" stroke="#DCCFC1" stroke-width="0.6" />
+          }
+          <circle r="5.8" fill="#F2C14E" />
+          <circle r="3.4" fill="#DDA238" />
+        }
+        @case ('orchid') {
+          <ellipse cx="-8" cy="-2" rx="7" ry="11" transform="rotate(-58 -8 -2)" [attr.fill]="h.fill" [attr.stroke]="h.dark" stroke-width="0.6" stroke-opacity="0.5" />
+          <ellipse cx="8" cy="-2" rx="7" ry="11" transform="rotate(58 8 -2)" [attr.fill]="h.fill" [attr.stroke]="h.dark" stroke-width="0.6" stroke-opacity="0.5" />
+          <ellipse cx="0" cy="-9" rx="5" ry="8" [attr.fill]="h.mid" />
+          <ellipse cx="-5" cy="7" rx="4.5" ry="7" transform="rotate(28 -5 7)" [attr.fill]="h.mid" />
+          <ellipse cx="5" cy="7" rx="4.5" ry="7" transform="rotate(-28 5 7)" [attr.fill]="h.mid" />
+          <path d="M-3,1 C-4,7 4,7 3,1 Z" fill="#B8456E" />
+          <circle r="2" fill="#F2C14E" />
+        }
+      }
+    </g>
+  }
+
+  <!-- Передня частина пакування / горщик -->
+  @if (bare()) {
+    <!-- без пакування -->
+  } @else if (isPot()) {
+    <path d="M62,152 L138,152 L128,206 L72,206 Z" [attr.fill]="wrapColors().front" />
+    <rect x="57" y="144" width="86" height="13" rx="4" [attr.fill]="wrapColors().back" />
+    <path d="M70,170 L130,170" [attr.stroke]="wrapColors().fold" stroke-width="1" stroke-opacity="0.4" />
+  } @else {
+    <path
+      d="M38,128 C70,144 130,144 162,128 L113,206 C105,210 95,210 87,206 Z"
+      [attr.fill]="wrapColors().front"
+      [attr.stroke]="wrapColors().fold"
+      stroke-width="0.8"
+      stroke-opacity="0.5"
+    />
+    <path d="M62,134 L96,206 M138,134 L104,206" [attr.stroke]="wrapColors().fold" stroke-width="1" stroke-opacity="0.35" fill="none" />
+  }
+
+  <!-- Стрічка -->
+  @if (bare() ? null : ribbonColors(); as r) {
+    <g [attr.fill]="r.fill" [attr.stroke]="r.edge" stroke-width="0.8">
+      <path d="M97,176 C90,188 86,196 82,204 L88,202 L91,206 C94,196 98,188 100,178 Z" />
+      <path d="M103,176 C110,188 114,196 118,204 L112,202 L109,206 C106,196 102,188 100,178 Z" />
+      <ellipse cx="88" cy="174" rx="12" ry="6.5" transform="rotate(-18 88 174)" />
+      <ellipse cx="112" cy="174" rx="12" ry="6.5" transform="rotate(18 112 174)" />
+      <circle cx="100" cy="175" r="5" />
+    </g>
+  }
+</svg>

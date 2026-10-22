@@ -1,0 +1,136 @@
+<!-- Головний банер -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow rise">Квіткова студія HANA · Київ</span>
+      <h1 class="rise" style="animation-delay: 80ms">Flowers for your <em>little</em> moments</h1>
+      <p class="lead rise" style="animation-delay: 160ms">
+        Авторські букети, які ми збираємо вручну щоранку. Обирайте готову композицію або створіть власну —
+        доставимо за дві години.
+      </p>
+      <div class="hero-actions rise" style="animation-delay: 240ms">
+        <a routerLink="/catalog" class="btn btn--primary">Переглянути каталог <app-icon name="arrow" [size]="18" /></a>
+        <a routerLink="/bouquet-builder" class="btn btn--ghost">Створити букет</a>
+      </div>
+      <dl class="stats rise" style="animation-delay: 320ms">
+        <div><dt>Букетів доставлено</dt><dd>12 000+</dd></div>
+        <div><dt>Середня оцінка</dt><dd>4.9</dd></div>
+        <div><dt>Доставка</dt><dd>2 год</dd></div>
+      </dl>
+    </div>
+
+    <div class="hero-visual">
+      <div class="arch">
+        <app-bouquet-art [spec]="heroArt" label="Букет Pink Dream" />
+      </div>
+      <a routerLink="/product/pink-dream" class="floating floating--top">
+        <span class="badge badge--hit">Хіт</span>
+        <span><strong>Pink Dream</strong><small>1 450 грн</small></span>
+      </a>
+      <div class="floating floating--bottom">
+        <app-icon name="leaf" />
+        <span><strong>Свіжі квіти</strong><small>поставка щоранку</small></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Категорії -->
+<section class="section" aria-labelledby="cat-title">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Категорії</span>
+        <h2 id="cat-title">Що подарувати сьогодні?</h2>
+      </div>
+      <a routerLink="/catalog" class="link">Усі квіти <app-icon name="arrow" [size]="18" /></a>
+    </div>
+    <div class="categories">
+      @for (c of categories; track c.id) {
+        <a class="category" routerLink="/catalog" [queryParams]="{ category: c.id }">
+          <div class="category-art"><app-bouquet-art [spec]="c.art" /></div>
+          <span class="category-name">{{ c.label }}</span>
+          <span class="category-count">{{ c.count }} {{ c.count === 1 ? 'товар' : c.count < 5 ? 'товари' : 'товарів' }}</span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Популярні товари -->
+<section class="section popular" aria-labelledby="pop-title">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Bestsellers</span>
+        <h2 id="pop-title">Популярні букети</h2>
+      </div>
+      <a routerLink="/catalog" class="link">Перейти до каталогу <app-icon name="arrow" [size]="18" /></a>
+    </div>
+    <div class="product-grid">
+      @for (p of popular; track p.id) {
+        <app-product-card [product]="p" />
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Конструктор -->
+<section class="section" aria-labelledby="builder-title">
+  <div class="container">
+    <div class="builder">
+      <div class="builder-text">
+        <span class="eyebrow">Конструктор</span>
+        <h2 id="builder-title">Створи власний букет</h2>
+        <p>
+          Обери квіти, кількість, пакування та стрічку — і побач результат одразу. Вартість рахується
+          автоматично, а флорист збере букет саме за вашим рецептом.
+        </p>
+        <ol class="builder-steps">
+          <li><span>1</span>Квіти</li>
+          <li><span>2</span>Пакування</li>
+          <li><span>3</span>Деталі</li>
+          <li><span>4</span>Готово</li>
+        </ol>
+        <a routerLink="/bouquet-builder" class="btn btn--light">Створити букет <app-icon name="arrow" [size]="18" /></a>
+      </div>
+      <div class="builder-art" aria-hidden="true">
+        <app-bouquet-art [spec]="builderArt" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Історія бренду -->
+<section class="section story" aria-labelledby="story-title">
+  <div class="container story-grid">
+    <div class="story-quote">
+      <span class="mark" aria-hidden="true">“</span>
+      <p>Ми віримо, що квіти — це найпростіший спосіб сказати те, для чого бракує слів.</p>
+      <span class="author">Ханна, засновниця HANA</span>
+    </div>
+    <div>
+      <span class="eyebrow">Наша історія</span>
+      <h2 id="story-title">Маленька студія з великою любов'ю до квітів</h2>
+      <p class="lead">
+        HANA почалася у 2019 році з невеликого столу флориста на Подолі. Сьогодні ми — команда з восьми
+        людей, але підхід не змінився: кожен букет збираємо вручну, підбираємо квіти під настрій і дбаємо,
+        щоб вони стояли якомога довше.
+      </p>
+      <a routerLink="/about" class="link more">Більше про нас <app-icon name="arrow" [size]="18" /></a>
+    </div>
+  </div>
+</section>
+
+<!-- Переваги -->
+<section class="section advantages" aria-label="Наші переваги">
+  <div class="container adv-grid">
+    @for (a of advantages; track a.title) {
+      <div class="adv">
+        <span class="adv-icon"><app-icon [name]="a.icon" [size]="26" /></span>
+        <h3>{{ a.title }}</h3>
+        <p>{{ a.text }}</p>
+      </div>
+    }
+  </div>
+</section>

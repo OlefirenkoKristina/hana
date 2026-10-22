@@ -1,0 +1,81 @@
+<header class="header">
+  <div class="container bar">
+    <button
+      type="button"
+      class="icon-btn burger"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="main-nav"
+      [attr.aria-label]="menuOpen() ? 'Закрити меню' : 'Відкрити меню'"
+    >
+      <app-icon [name]="menuOpen() ? 'close' : 'menu'" [size]="22" />
+    </button>
+
+    <a routerLink="/" class="logo" aria-label="HANA — на головну">
+      <span class="logo-mark" aria-hidden="true"></span>
+      HANA
+    </a>
+
+    <nav id="main-nav" class="nav" [class.is-open]="menuOpen()" aria-label="Основна навігація">
+      @for (link of links; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: link.exact }"
+          ariaCurrentWhenActive="page"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="actions">
+      <button
+        type="button"
+        class="icon-btn"
+        (click)="toggleSearch()"
+        [attr.aria-expanded]="searchOpen()"
+        aria-controls="site-search"
+        aria-label="Пошук"
+      >
+        <app-icon name="search" [size]="22" />
+      </button>
+      <a routerLink="/favorites" class="icon-btn" aria-label="Обране">
+        <app-icon name="heart" [size]="22" />
+        @if (favorites.count()) {
+          <span class="counter">{{ favorites.count() }}</span>
+        }
+      </a>
+      <a routerLink="/cart" class="icon-btn" [attr.aria-label]="'Кошик, товарів: ' + cart.count()">
+        <app-icon name="bag" [size]="22" />
+        @if (cart.count()) {
+          <span class="counter counter--accent">{{ cart.count() }}</span>
+        }
+      </a>
+    </div>
+  </div>
+
+  @if (searchOpen()) {
+    <form id="site-search" class="search" role="search" (ngSubmit)="submitSearch()">
+      <div class="container search-inner">
+        <app-icon name="search" [size]="22" />
+        <label for="header-search" class="sr-only">Пошук букетів і квітів</label>
+        <input
+          #searchInput
+          id="header-search"
+          type="search"
+          name="q"
+          placeholder="Троянди, півонії, Pink Dream…"
+          autocomplete="off"
+          [ngModel]="query()"
+          (ngModelChange)="query.set($event)"
+        />
+        <button type="submit" class="btn btn--primary btn--sm">Знайти</button>
+      </div>
+    </form>
+  }
+</header>
+
+@if (menuOpen()) {
+  <div class="backdrop" (click)="closeAll()" aria-hidden="true"></div>
+}

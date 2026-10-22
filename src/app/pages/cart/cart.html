@@ -1,0 +1,137 @@
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Хлібні крихти">
+      <a routerLink="/">Головна</a><span aria-hidden="true">/</span><span>Кошик</span>
+    </nav>
+    <h1>Кошик</h1>
+    @if (!cart.isEmpty()) {
+      <p class="lead">Товарів: {{ cart.count() }}. Перевірте замовлення перед оформленням.</p>
+    }
+  </div>
+</section>
+
+<div class="container">
+  @if (cart.isEmpty()) {
+    <div class="empty-state">
+      <app-icon name="bag" [size]="48" [stroke]="1.2" />
+      <h2>Кошик порожній</h2>
+      <p>Додайте букет із каталогу або створіть власний у конструкторі.</p>
+      <div class="actions">
+        <a routerLink="/catalog" class="btn btn--primary">До каталогу</a>
+        <a routerLink="/bouquet-builder" class="btn btn--ghost">Створити букет</a>
+      </div>
+    </div>
+
+    <section class="suggest" aria-labelledby="suggest-title">
+      <h2 id="suggest-title">Популярне зараз</h2>
+      <div class="product-grid">
+        @for (p of suggestions(); track p.id) {
+          <app-product-card [product]="p" />
+        }
+      </div>
+    </section>
+  } @else {
+    <div class="layout">
+      <section aria-label="Товари в кошику">
+        <ul class="items">
+          @for (item of cart.items(); track item.key) {
+            <li class="item">
+              <div class="thumb">
+                <app-bouquet-art [spec]="item.art" [label]="item.name" />
+              </div>
+
+              <div class="meta">
+                @if (item.productId) {
+                  <a [routerLink]="['/product', item.productId]" class="name">{{ item.name }}</a>
+                } @else {
+                  <span class="name">{{ item.name }}</span>
+                }
+                @if (item.size) {
+                  <span class="sub">Розмір {{ item.size }}</span>
+                }
+                @if (item.details?.length) {
+                  <span class="sub">{{ item.details!.join(' · ') }}</span>
+                }
+                <span class="unit">{{ item.price | uah }} / шт.</span>
+              </div>
+
+              <app-quantity-stepper
+                class="compact"
+                [value]="item.quantity"
+                [min]="1"
+                [max]="maxQuantity"
+                [label]="item.name"
+                (increase)="cart.increment(item.key)"
+                (decrease)="cart.decrement(item.key)"
+              />
+
+              <strong class="line-total">{{ item.price * item.quantity | uah }}</strong>
+
+              <button type="button" class="icon-btn remove" (click)="cart.remove(item.key)" [attr.aria-label]="'Видалити ' + item.name">
+                <app-icon name="trash" />
+              </button>
+            </li>
+          }
+        </ul>
+
+        <div class="below">
+          <a routerLink="/catalog" class="link"><app-icon name="back" [size]="18" /> Продовжити покупки</a>
+          <button type="button" class="btn btn--sm btn--ghost" (click)="cart.clear()">Очистити кошик</button>
+        </div>
+      </section>
+
+      <aside class="summary card" aria-label="Підсумок замовлення">
+        <h2>Разом</h2>
+
+        <div class="free" [class.is-done]="!untilFree()">
+          @if (untilFree()) {
+            <p>Додайте ще <strong>{{ untilFree() | uah }}</strong> — і доставка буде безкоштовною</p>
+          } @else {
+            <p><app-icon name="check" [size]="16" /> Доставка безкоштовна</p>
+          }
+          <div class="bar" role="progressbar" [attr.aria-valuenow]="freeProgress()" aria-valuemin="0" aria-valuemax="100" aria-label="Прогрес до безкоштовної доставки">
+            <span [style.width.%]="freeProgress()"></span>
+          </div>
+        </div>
+
+        <form class="promo" (submit)="$event.preventDefault(); applyPromo()">
+          @if (cart.promo(); as code) {
+            <div class="promo-applied">
+              <span>Промокод <strong>{{ code }}</strong> · −{{ cart.discountPercent() }}%</span>
+              <button type="button" class="link" (click)="cart.removePromo()">Прибрати</button>
+            </div>
+          } @else {
+            <label for="promo" class="label">Промокод</label>
+            <div class="promo-row">
+              <input
+                id="promo"
+                class="input"
+                [class.is-invalid]="promoError()"
+                placeholder="Напр. HANA10"
+                [value]="promoInput()"
+                (input)="promoInput.set($any($event.target).value); promoError.set('')"
+                [attr.aria-describedby]="promoError() ? 'promo-error' : null"
+              />
+              <button type="submit" class="btn btn--ghost btn--sm">Застосувати</button>
+            </div>
+            @if (promoError()) {
+              <span id="promo-error" class="field-error">{{ promoError() }}</span>
+            }
+          }
+        </form>
+
+        <dl class="totals">
+          <div><dt>Товари</dt><dd>{{ cart.subtotal() | uah }}</dd></div>
+          @if (cart.discount()) {
+            <div class="discount"><dt>Знижка</dt><dd>−{{ cart.discount() | uah }}</dd></div>
+          }
+          <div><dt>Доставка кур'єром</dt><dd>{{ delivery() ? (delivery() | uah) : 'Безкоштовно' }}</dd></div>
+          <div class="grand"><dt>До сплати</dt><dd>{{ total() | uah }}</dd></div>
+        </dl>
+
+        <a routerLink="/checkout" class="btn btn--primary btn--block">Оформити замовлення</a>
+        <p class="note">Самовивіз — безкоштовно. Спосіб доставки оберете на наступному кроці.</p>
+      </aside>
+    </div>
+  }
+</div>
