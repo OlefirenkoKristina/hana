@@ -3,6 +3,8 @@
 Курсовий проєкт: адаптивний сайт квіткового магазину з інтерактивним каталогом, кошиком,
 оформленням замовлення та конструктором букетів.
 
+**Сайт:** https://olefirenkokristina.github.io/hana/
+
 **Стек:** Angular 22 (standalone-компоненти, signals), TypeScript, SCSS, Vitest.
 
 ## Запуск
@@ -19,6 +21,9 @@ npm start
 | `npm start`     | Dev-сервер з автоматичним перезавантаженням  |
 | `npm test`      | Юніт-тести (Vitest)                          |
 | `npm run build` | Production-збірка в `dist/hana`              |
+
+Після кожного `git push` у гілку `main` GitHub Actions ([deploy.yml](.github/workflows/deploy.yml))
+запускає тести, збирає сайт командою `npm run build:pages` і публікує його на GitHub Pages.
 
 ## Сторінки
 
