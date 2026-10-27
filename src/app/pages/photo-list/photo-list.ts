@@ -1,107 +1,65 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-interface PhotoRow {
-  id: string;
+interface FlowerRow {
   name: string;
-  find: string;
-  wrap: string;
+  colors: string;
 }
 
-interface PhotoGroup {
+interface ComboRow {
+  n: number;
+  name: string;
+  composition: string;
+}
+
+interface CatalogType {
   title: string;
-  note?: string;
-  rows: PhotoRow[];
+  text: string;
 }
 
-/** Список фото, які потрібні сайту. Той самий текст лежить у docs/photos-needed.md. */
-const GROUPS: PhotoGroup[] = [
-  {
-    title: 'Банер головної',
-    rows: [
-      {
-        id: 'H01',
-        name: 'Банер',
-        find: 'Широкий кадр 3:2: великий букет або квіти у вазі, спокійний фон. Зверху й посередині місце під текст «HANA».',
-        wrap: 'не важливо',
-      },
-    ],
-  },
-  {
-    title: 'Категорії на головній',
-    note: 'Вертикальні фото 9:13. Їх можна брати з готових букетів P.',
-    rows: [
-      { id: 'C1', name: 'Авторські букети', find: 'Змішаний пастельний букет: троянди, півонії, лізіантус', wrap: 'так, кремове' },
-      { id: 'C2', name: 'Троянди', find: 'Лише троянди, без інших квіток', wrap: 'так' },
-      { id: 'C3', name: 'Тюльпани', find: 'Лише тюльпани', wrap: 'так, крафт або біле' },
-      { id: 'C4', name: 'Півонії', find: 'Лише півонії', wrap: 'так, біле або кремове' },
-      { id: 'C5', name: 'Сезонні квіти', find: 'Польовий букет: ромашки, тюльпани, лаванда', wrap: 'крафт' },
-      { id: 'C6', name: 'Квіти в горщиках', find: 'Орхідея або міні-троянда в горщику', wrap: 'без, замість нього горщик' },
-    ],
-  },
-  {
-    title: 'Авторські букети',
-    rows: [
-      { id: 'P01', name: 'Pink Dream', find: 'Рожеві троянди, півонії, білі троянди, евкаліпт', wrap: 'так, кремове, стрічка пудрова' },
-      { id: 'P07', name: 'Bridal White', find: 'Весільний: білі троянди, білі півонії, ромашки, евкаліпт, пишний', wrap: 'так, біле, стрічка кремова' },
-      { id: 'P09', name: 'Berry Velvet', find: 'Бордові троянди, півонії, лаванда, темні винні відтінки', wrap: 'так, кремове, стрічка бордова' },
-      { id: 'P13', name: 'Golden Hour', find: 'Персикові троянди, жовті тюльпани, ромашки', wrap: 'так, крафт, стрічка кремова' },
-    ],
-  },
-  {
-    title: 'Троянди',
-    rows: [
-      { id: 'P03', name: 'Classic Red 25', find: '25 червоних троянд на довгому стеблі, лише троянди', wrap: 'так, бордове' },
-      { id: 'P08', name: 'Coral Kiss', find: '11 коралових і персикових троянд, лише троянди', wrap: 'так, рожеве' },
-      { id: 'P14', name: 'First Date', find: '9 червоних і рожевих троянд, компактний', wrap: 'так, кремове, стрічка ягідна' },
-      { id: 'P15', name: 'Pastel Roses (новий)', find: 'Рожеві або білі троянди, лише троянди', wrap: 'без: у вазі або зв’язані стрічкою' },
-    ],
-  },
-  {
-    title: 'Тюльпани',
-    rows: [
-      { id: 'P02', name: 'White Tulips', find: '15 білих тюльпанів, лише тюльпани', wrap: 'так, крафт, стрічка біла' },
-      { id: 'P10', name: 'Tulip Rainbow', find: '25 тюльпанів: рожеві, жовті, червоні', wrap: 'так, біле, стрічка пудрова' },
-    ],
-  },
-  {
-    title: 'Півонії',
-    rows: [
-      { id: 'P04', name: 'Peony Cloud', find: '9 великих рожевих півоній, лише півонії', wrap: 'так, кремове, стрічка пудрова' },
-      { id: 'P11', name: 'Blush Trio', find: '5 півоній, пудрові й білі, з евкаліптом', wrap: 'так, рожеве, стрічка біла' },
-    ],
-  },
-  {
-    title: 'Сезонні квіти',
-    rows: [
-      { id: 'P05', name: 'Sunny Morning', find: 'Ромашки, жовті тюльпани, евкаліпт', wrap: 'так, крафт, стрічка біла' },
-      { id: 'P06', name: 'Lavender Field', find: 'Лаванда і бузкові троянди', wrap: 'так, кремове, стрічка ягідна' },
-      { id: 'P12', name: 'Spring Whisper', find: 'Рожеві тюльпани, білі троянди, ромашки', wrap: 'так, рожеве, стрічка біла' },
-    ],
-  },
-  {
-    title: 'Квіти в горщиках',
-    rows: [
-      { id: 'P16', name: 'Phalaenopsis', find: 'Біла або ліловa орхідея з двома квітконосами', wrap: 'без: керамічне кашпо' },
-      { id: 'P17', name: 'Mini Rose Pot', find: 'Рожева кущова міні-троянда', wrap: 'без: горщик Ø 12 см' },
-    ],
-  },
-  {
-    title: 'Для конструктора (не обов’язково)',
-    note: 'Одна квітка або кілька на білому фоні, без пакування.',
-    rows: [
-      { id: 'F01', name: 'Троянда червона', find: 'Окрема квітка', wrap: 'без' },
-      { id: 'F02', name: 'Троянда рожева', find: 'Окрема квітка', wrap: 'без' },
-      { id: 'F03', name: 'Троянда біла', find: 'Окрема квітка', wrap: 'без' },
-      { id: 'F04', name: 'Троянда персикова', find: 'Окрема квітка', wrap: 'без' },
-      { id: 'F05', name: 'Півонія', find: 'Окрема квітка', wrap: 'без' },
-      { id: 'F06', name: 'Тюльпан жовтий', find: 'Окрема квітка', wrap: 'без' },
-      { id: 'F07', name: 'Тюльпан рожевий', find: 'Окрема квітка', wrap: 'без' },
-      { id: 'F08', name: 'Ромашка', find: 'Окрема квітка', wrap: 'без' },
-      { id: 'F09', name: 'Лаванда', find: 'Окрема гілка', wrap: 'без' },
-      { id: 'F10', name: 'Евкаліпт', find: 'Окрема гілка', wrap: 'без' },
-    ],
-  },
+const FLOWERS: FlowerRow[] = [
+  { name: 'Троянди', colors: 'Червоний, білий, рожевий, бордовий, персиковий, жовтий' },
+  { name: 'Півонії', colors: 'Рожевий, білий, кораловий' },
+  { name: 'Тюльпани', colors: 'Червоний, жовтий, білий, рожевий, фіолетовий' },
+  { name: 'Еустоми', colors: 'Білий, рожевий, бузковий, кремовий' },
+  { name: 'Гербери', colors: 'Червоний, помаранчевий, рожевий, жовтий' },
+  { name: 'Хризантеми', colors: 'Білий, жовтий, рожевий, бузковий' },
+  { name: 'Кали', colors: 'Білий, бордовий, жовтий, рожевий' },
+  { name: 'Орхідеї', colors: 'Білий, рожевий, фіолетовий' },
+  { name: 'Гортензії', colors: 'Білий, блакитний, рожевий, бузковий' },
+  { name: 'Ромашки', colors: 'Білий із жовтою серединкою' },
+  { name: 'Гіпсофіла', colors: 'Білий, рожевий' },
+  { name: 'Альстромерії', colors: 'Білий, рожевий, жовтий, помаранчевий' },
+  { name: 'Гвоздики', colors: 'Білий, рожевий, червоний, бузковий' },
+  { name: 'Нарциси', colors: 'Жовтий, білий' },
+  { name: 'Гіацинти', colors: 'Білий, рожевий, синій, фіолетовий' },
+  { name: 'Лілії', colors: 'Білий, рожевий, помаранчевий' },
+  { name: 'Соняшники', colors: 'Жовтий' },
+  { name: 'Дельфініум', colors: 'Блакитний, синій, білий' },
+  { name: 'Іриси', colors: 'Синій, фіолетовий, білий' },
+  { name: 'Матіола', colors: 'Білий, рожевий, бузковий' },
+  { name: 'Ранункулюси', colors: 'Білий, рожевий, персиковий, бордовий' },
+  { name: 'Евкаліпт', colors: 'Сріблясто-зелений, декоративна зелень' },
+];
+
+const COMBOS: ComboRow[] = [
+  { n: 31, name: 'Cherry Blossom', composition: 'Червоні троянди + рожеві півонії' },
+  { n: 32, name: 'Ivory Blush', composition: 'Білі троянди + кремові еустоми + зелень' },
+  { n: 33, name: 'Pink Sunset', composition: 'Рожеві троянди + персикові гербери' },
+  { n: 34, name: 'Purple Rain', composition: 'Фіолетові іриси + бузкова еустома + білі квіти' },
+  { n: 35, name: 'Cotton Candy', composition: 'Рожеві тюльпани + біла гіпсофіла' },
+  { n: 36, name: 'Summer Bloom', composition: 'Соняшники + білі ромашки + польова зелень' },
+  { n: 37, name: 'Coral Kiss', composition: 'Коралові троянди + кремові квіти' },
+  { n: 38, name: 'Blue Mist', composition: 'Білі троянди + блакитна гортензія' },
+  { n: 39, name: 'Autumn Glow', composition: 'Помаранчеві троянди + бордові хризантеми' },
+  { n: 40, name: 'Garden Party', composition: 'Ранункулюси + троянди + еустоми різних пастельних відтінків' },
+];
+
+const TYPES: CatalogType[] = [
+  { title: 'Монобукети', text: 'Один вид квітів, наприклад лише червоні троянди.' },
+  { title: 'Збірні букети', text: 'Поєднання кількох кольорів троянд або різних квітів.' },
+  { title: 'Авторські композиції', text: 'Унікальні дизайнерські букети.' },
+  { title: 'Сезонні букети', text: 'Тюльпани, півонії, польові та інші сезонні квіти.' },
 ];
 
 @Component({
@@ -113,45 +71,66 @@ const GROUPS: PhotoGroup[] = [
         <nav class="breadcrumbs" aria-label="Хлібні крихти">
           <a routerLink="/">Головна</a><span aria-hidden="true">/</span><span>Список</span>
         </nav>
-        <span class="eyebrow">Фото для сайту</span>
+        <span class="eyebrow">Каталог HANA</span>
         <h1>Список</h1>
-        <p class="lead">
-          Які фото потрібні сайту. Назвіть файл за ID, наприклад <code>P03.jpg</code>, і покладіть у
-          <code>public/flowers/</code>. Вертикальні фото від 1200 px, світлий чистий фон, без людей і написів.
-        </p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        @for (g of groups; track g.title) {
-          <h2>{{ g.title }}</h2>
-          @if (g.note) {
-            <p class="note">{{ g.note }}</p>
-          }
-          <div class="table-wrap">
-            <table>
-              <thead>
+        <h2>Які квіти мають бути в каталозі</h2>
+        <p class="note">Окремий список для фільтрів і конструктора букетів, щоб покупець міг вибирати не лише готові композиції.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Квітка</th>
+                <th>Основні кольори</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (f of flowers; track f.name) {
                 <tr>
-                  <th>ID</th>
-                  <th>Назва</th>
-                  <th>Що знайти</th>
-                  <th>Пакування</th>
+                  <td class="strong">{{ f.name }}</td>
+                  <td>{{ f.colors }}</td>
                 </tr>
-              </thead>
-              <tbody>
-                @for (r of g.rows; track r.id) {
-                  <tr>
-                    <td class="id">{{ r.id }}</td>
-                    <td>{{ r.name }}</td>
-                    <td>{{ r.find }}</td>
-                    <td>{{ r.wrap }}</td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-        }
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Додаткові комбінації для розширення каталогу</h2>
+        <p class="note">Ще варіанти, які можна додати згодом.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>Назва</th>
+                <th>Склад і кольори</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (c of combos; track c.n) {
+                <tr>
+                  <td class="strong">{{ c.n }}</td>
+                  <td>{{ c.name }}</td>
+                  <td>{{ c.composition }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Як організувати каталог HANA</h2>
+        <ul class="types">
+          @for (t of types; track t.title) {
+            <li>
+              <strong>{{ t.title }}</strong>
+              <span>{{ t.text }}</span>
+            </li>
+          }
+        </ul>
       </div>
     </section>
   `,
@@ -169,14 +148,6 @@ const GROUPS: PhotoGroup[] = [
       color: var(--muted);
     }
 
-    code {
-      padding: 1px 6px;
-      border-radius: 6px;
-      background: var(--blush);
-      color: var(--ink);
-      font-size: 0.9em;
-    }
-
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--line);
@@ -186,7 +157,7 @@ const GROUPS: PhotoGroup[] = [
 
     table {
       width: 100%;
-      min-width: 640px;
+      min-width: 480px;
       border-collapse: collapse;
       font-size: 0.95rem;
     }
@@ -211,14 +182,38 @@ const GROUPS: PhotoGroup[] = [
       border-bottom: 0;
     }
 
-    .id {
-      width: 72px;
+    .strong {
+      width: 190px;
       font-weight: 700;
       color: var(--berry);
-      white-space: nowrap;
+    }
+
+    .types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-4);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .types li {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      padding: var(--space-5);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .types span {
+      color: var(--muted);
     }
   `,
 })
 export class PhotoList {
-  protected readonly groups = GROUPS;
+  protected readonly flowers = FLOWERS;
+  protected readonly combos = COMBOS;
+  protected readonly types = TYPES;
 }
