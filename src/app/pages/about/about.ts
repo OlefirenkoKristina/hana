@@ -152,7 +152,7 @@ import { Icon, IconName } from '../../shared/icon/icon';
     .value {
       padding: var(--space-6);
       border-radius: var(--radius);
-      background: #fff;
+      background: var(--surface);
       border: 1px solid var(--line);
     }
     .value h3 {
@@ -179,7 +179,7 @@ import { Icon, IconName } from '../../shared/icon/icon';
       background: var(--blush);
     }
     .tile:nth-child(even) {
-      background: #f1e6dc;
+      background: var(--tile-alt);
       transform: translateY(var(--space-6));
     }
     .cta {

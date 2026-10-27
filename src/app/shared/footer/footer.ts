@@ -9,7 +9,9 @@ import { Icon } from '../icon/icon';
     <footer class="footer">
       <div class="container grid">
         <div class="brand">
-          <a routerLink="/" class="logo">HANA</a>
+          <a routerLink="/" class="logo" aria-label="HANA — на головну">
+            <img src="logo-light.png" alt="HANA — flower shop" width="569" height="386" />
+          </a>
           <p>Квіти для ваших маленьких моментів. Збираємо букети вручну щодня з 2019 року.</p>
           <div class="social">
             <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
@@ -56,8 +58,8 @@ import { Icon } from '../icon/icon';
     .footer {
       margin-top: var(--space-9);
       padding-top: var(--space-8);
-      background: var(--ink);
-      color: #e9e0dd;
+      background: var(--footer-bg);
+      color: #ece8de;
     }
     .grid {
       display: grid;
@@ -65,11 +67,12 @@ import { Icon } from '../icon/icon';
       gap: var(--space-7);
     }
     .logo {
-      font-family: var(--font-display);
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      color: #fff;
+      display: inline-block;
+    }
+    .logo img {
+      display: block;
+      width: auto;
+      height: 110px;
     }
     .brand p {
       margin-top: var(--space-3);
@@ -119,7 +122,7 @@ import { Icon } from '../icon/icon';
     .social a:hover {
       background: var(--rose);
       border-color: var(--rose);
-      color: var(--ink);
+      color: #2e2e2e;
     }
     .bottom {
       display: flex;

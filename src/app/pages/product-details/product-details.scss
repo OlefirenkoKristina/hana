@@ -111,7 +111,7 @@
   padding: var(--space-3) var(--space-4);
   border: 1.5px solid var(--line);
   border-radius: var(--radius-sm);
-  background: #fff;
+  background: var(--surface);
   cursor: pointer;
   transition: border-color 0.2s, box-shadow 0.2s;
 
@@ -120,7 +120,7 @@
   }
 
   &:focus-within {
-    box-shadow: 0 0 0 3px rgba(135, 63, 85, 0.2);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--berry) 28%, transparent);
   }
 
   &.is-active {

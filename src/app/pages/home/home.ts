@@ -17,7 +17,6 @@ export class Home {
   private readonly products = inject(ProductService);
 
   protected readonly popular = this.products.getPopular(8);
-  protected readonly heroArt = this.products.getById('pink-dream')!.art;
   protected readonly builderArt = {
     stems: stems(['eucalyptus', PETAL.green, 2], ['rose', PETAL.peach, 4], ['tulip', PETAL.yellow, 3], ['daisy', PETAL.white, 3]),
     wrap: '#F3E6D3',

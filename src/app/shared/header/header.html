@@ -1,4 +1,4 @@
-<header class="header">
+<header class="header" [class.is-overlay]="overlay()" [class.is-scrolled]="scrolled()" [class.is-hidden]="hidden()">
   <div class="container bar">
     <button
       type="button"
@@ -12,8 +12,13 @@
     </button>
 
     <a routerLink="/" class="logo" aria-label="HANA — на головну">
-      <span class="logo-mark" aria-hidden="true"></span>
-      HANA
+      <img
+        class="logo-img"
+        [src]="theme.isDark() || overlay() ? 'logo-wordmark-light.png' : 'logo-wordmark.png'"
+        alt="HANA"
+        width="569"
+        height="322"
+      />
     </a>
 
     <nav id="main-nav" class="nav" [class.is-open]="menuOpen()" aria-label="Основна навігація">
@@ -30,6 +35,15 @@
     </nav>
 
     <div class="actions">
+      <button
+        type="button"
+        class="icon-btn"
+        (click)="theme.toggle()"
+        [attr.aria-label]="theme.isDark() ? 'Увімкнути світлу тему' : 'Увімкнути темну тему'"
+        [attr.aria-pressed]="theme.isDark()"
+      >
+        <app-icon [name]="theme.isDark() ? 'sun' : 'moon'" [size]="22" />
+      </button>
       <button
         type="button"
         class="icon-btn"

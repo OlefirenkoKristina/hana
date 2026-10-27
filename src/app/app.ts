@@ -35,7 +35,7 @@ import { Toasts } from './shared/toasts/toasts';
       z-index: 200;
       padding: 10px 16px;
       background: var(--ink);
-      color: #fff;
+      color: var(--on-ink);
       border-radius: var(--radius-sm);
     }
     .skip-link:focus {

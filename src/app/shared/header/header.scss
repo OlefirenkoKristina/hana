@@ -1,3 +1,8 @@
+/* Без цього sticky обмежений висотою самого <app-header> і шапка не прилипає */
+:host {
+  display: contents;
+}
+
 .header {
   position: sticky;
   top: 0;
@@ -11,8 +16,33 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: rgba(255, 249, 245, 0.92);
+    background: var(--header-bg);
     backdrop-filter: blur(12px);
+  }
+}
+
+/* Прозора шапка над фото на головній: світлий текст і логотип */
+.header.is-overlay {
+  --ink: #fff;
+  --berry: #fff;
+  --on-ink: #2e2e2e;
+  --on-berry: #2e2e2e;
+  --line: transparent;
+  color: #fff;
+
+  &::before {
+    background: transparent;
+    backdrop-filter: none;
+  }
+}
+
+.header {
+  transition:
+    border-color 0.3s,
+    transform 0.35s var(--ease);
+
+  &::before {
+    transition: background 0.3s;
   }
 }
 
@@ -26,23 +56,17 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-display);
-  font-size: 1.9rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: var(--berry);
 }
 
-.logo-mark {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 30%, var(--rose) 0 5px, transparent 5.5px),
-    radial-gradient(circle at 30% 60%, var(--rose) 0 5px, transparent 5.5px),
-    radial-gradient(circle at 70% 60%, var(--rose) 0 5px, transparent 5.5px),
-    var(--blush);
+.logo-img {
+  display: block;
+  width: auto;
+  height: 50px;
+  transition: opacity 0.2s;
+}
+
+.logo:hover .logo-img {
+  opacity: 0.8;
 }
 
 .nav {
@@ -96,7 +120,7 @@
   padding: 0 5px;
   border-radius: var(--radius-pill);
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
   font-size: 0.7rem;
   font-weight: 700;
   line-height: 18px;
@@ -105,6 +129,7 @@
 
 .counter--accent {
   background: var(--berry);
+  color: var(--on-berry);
 }
 
 .burger {
@@ -113,7 +138,7 @@
 
 .search {
   border-top: 1px solid var(--line);
-  background: #fff;
+  background: var(--surface);
   animation: rise 0.3s var(--ease);
 }
 
@@ -158,7 +183,10 @@
 
   .logo {
     margin-right: auto;
-    font-size: 1.6rem;
+  }
+
+  .logo-img {
+    height: 42px;
   }
 
   .nav {
@@ -198,8 +226,18 @@
   }
 }
 
-@media (max-width: 380px) {
-  .logo-mark {
-    display: none;
+/* При прокрутці шапка стає матовою й прозорішою: фон крізь неї розмитий */
+.header.is-scrolled {
+  border-bottom-color: color-mix(in srgb, var(--line) 60%, transparent);
+
+  &::before {
+    background: var(--header-glass);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
   }
+}
+
+/* Ховаємо шапку при прокрутці вниз */
+.header.is-hidden {
+  transform: translateY(-100%);
 }

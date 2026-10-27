@@ -1,37 +1,21 @@
 <!-- Головний банер -->
 <section class="hero">
-  <div class="container hero-grid">
-    <div class="hero-text">
-      <span class="eyebrow rise">Квіткова студія HANA · Київ</span>
-      <h1 class="rise" style="animation-delay: 80ms">Flowers for your <em>little</em> moments</h1>
-      <p class="lead rise" style="animation-delay: 160ms">
-        Авторські букети, які ми збираємо вручну щоранку. Обирайте готову композицію або створіть власну —
-        доставимо за дві години.
-      </p>
-      <div class="hero-actions rise" style="animation-delay: 240ms">
-        <a routerLink="/catalog" class="btn btn--primary">Переглянути каталог <app-icon name="arrow" [size]="18" /></a>
-        <a routerLink="/bouquet-builder" class="btn btn--ghost">Створити букет</a>
-      </div>
-      <dl class="stats rise" style="animation-delay: 320ms">
-        <div><dt>Букетів доставлено</dt><dd>12 000+</dd></div>
-        <div><dt>Середня оцінка</dt><dd>4.9</dd></div>
-        <div><dt>Доставка</dt><dd>2 год</dd></div>
-      </dl>
+  <img class="hero-photo" src="hero.jpg" alt="" width="2000" height="1333" fetchpriority="high" />
+  <div class="container hero-content">
+    <h1 class="rise">HANA</h1>
+    <p class="lead rise" style="animation-delay: 160ms">
+      Авторські букети, які ми збираємо вручну щоранку. Обирайте готову композицію або створіть власну —
+      доставимо за дві години.
+    </p>
+    <div class="hero-actions rise" style="animation-delay: 240ms">
+      <a routerLink="/catalog" class="btn btn--primary">Переглянути каталог <app-icon name="arrow" [size]="18" /></a>
+      <a routerLink="/bouquet-builder" class="btn btn--ghost">Створити букет</a>
     </div>
-
-    <div class="hero-visual">
-      <div class="arch">
-        <app-bouquet-art [spec]="heroArt" label="Букет Pink Dream" />
-      </div>
-      <a routerLink="/product/pink-dream" class="floating floating--top">
-        <span class="badge badge--hit">Хіт</span>
-        <span><strong>Pink Dream</strong><small>1 450 грн</small></span>
-      </a>
-      <div class="floating floating--bottom">
-        <app-icon name="leaf" />
-        <span><strong>Свіжі квіти</strong><small>поставка щоранку</small></span>
-      </div>
-    </div>
+    <dl class="stats rise" style="animation-delay: 320ms">
+      <div><dt>Букетів доставлено</dt><dd>12 000+</dd></div>
+      <div><dt>Середня оцінка</dt><dd>4.9</dd></div>
+      <div><dt>Доставка</dt><dd>2 год</dd></div>
+    </dl>
   </div>
 </section>
 

@@ -40,7 +40,7 @@ import { Icon } from '../icon/icon';
       min-height: 52px;
       padding: 8px 8px 8px 16px;
       border-radius: var(--radius-sm);
-      background: var(--ink);
+      background: var(--toast-bg);
       color: #fff;
       box-shadow: var(--shadow);
       animation: rise 0.35s var(--ease);
@@ -65,7 +65,7 @@ import { Icon } from '../icon/icon';
       color: #fff;
     }
     button:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.14);
     }
   `,
 })

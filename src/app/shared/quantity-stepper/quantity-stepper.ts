@@ -32,7 +32,7 @@ import { Icon } from '../icon/icon';
       align-items: center;
       border: 1.5px solid var(--line);
       border-radius: var(--radius-pill);
-      background: #fff;
+      background: var(--surface);
       height: 44px;
     }
     :host(.compact) {

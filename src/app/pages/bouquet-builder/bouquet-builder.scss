@@ -46,7 +46,7 @@
 
       .dot {
         background: var(--berry);
-        color: #fff;
+        color: var(--on-berry);
       }
     }
   }
@@ -108,12 +108,12 @@
   padding: var(--space-3);
   border: 1.5px solid var(--line);
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--surface);
   transition: border-color 0.2s, background 0.2s;
 
   &.is-chosen {
     border-color: var(--berry);
-    background: #fffafb;
+    background: var(--blush);
   }
 }
 
@@ -201,7 +201,7 @@
   padding: var(--space-4) var(--space-2);
   border: 1.5px solid var(--line);
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--surface);
   text-align: center;
   cursor: pointer;
   transition: border-color 0.2s, transform 0.2s var(--ease);
@@ -211,12 +211,12 @@
   }
 
   &:focus-within {
-    box-shadow: 0 0 0 3px rgba(135, 63, 85, 0.2);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--berry) 28%, transparent);
   }
 
   &.is-active {
     border-color: var(--berry);
-    background: #fffafb;
+    background: var(--blush);
   }
 
   strong {
@@ -239,7 +239,7 @@
   height: 44px;
   margin-bottom: var(--space-2);
   border-radius: 50%;
-  box-shadow: inset 0 0 0 1px rgba(55, 48, 47, 0.18);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 20%, transparent);
 
   &.none {
     color: var(--muted);
@@ -266,7 +266,7 @@
   padding: var(--space-4) var(--space-5);
   border: 1.5px solid var(--line);
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--surface);
   cursor: pointer;
   transition: border-color 0.2s;
 
@@ -316,7 +316,7 @@
   margin: var(--space-5) 0 0;
   padding: var(--space-4) var(--space-5);
   border-left: 3px solid var(--rose);
-  background: #fff;
+  background: var(--surface);
   font-family: var(--font-display);
   font-size: 1.3rem;
   font-style: italic;
@@ -355,7 +355,7 @@
   padding: 10% 12% 4%;
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(circle at 50% 35%, #fff 0, transparent 60%),
+    radial-gradient(circle at 50% 35%, var(--surface) 0, transparent 60%),
     var(--blush);
 }
 

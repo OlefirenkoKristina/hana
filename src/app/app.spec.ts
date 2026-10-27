@@ -20,8 +20,8 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const el = fixture.nativeElement as HTMLElement;
-    expect(el.querySelector('.logo')?.textContent).toContain('HANA');
+    expect(el.querySelector('.logo img')?.getAttribute('alt')).toBe('HANA');
     const links = [...el.querySelectorAll('#main-nav a')].map((a) => a.textContent?.trim());
-    expect(links).toEqual(['Головна', 'Каталог', 'Конструктор букета', 'Про нас', 'Контакти']);
+    expect(links).toEqual(['Каталог', 'Конструктор букета', 'Про нас', 'Контакти']);
   });
 });

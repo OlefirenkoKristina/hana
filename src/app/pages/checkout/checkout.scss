@@ -94,7 +94,7 @@
   }
 
   &:focus-within {
-    box-shadow: 0 0 0 3px rgba(135, 63, 85, 0.2);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--berry) 28%, transparent);
   }
 
   &.is-active {
@@ -227,7 +227,7 @@
 .form-error {
   padding: var(--space-3);
   border-radius: var(--radius-sm);
-  background: #fbe9ec;
+  background: color-mix(in srgb, var(--danger) 14%, var(--surface));
   color: var(--danger);
   font-size: 0.9rem;
 }

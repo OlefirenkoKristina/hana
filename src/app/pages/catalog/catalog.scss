@@ -7,7 +7,7 @@
   margin-top: var(--space-6);
   padding: 0 var(--space-3) 0 var(--space-5);
   border-radius: var(--radius-pill);
-  background: #fff;
+  background: var(--surface);
   box-shadow: var(--shadow-sm);
   color: var(--muted);
 
@@ -125,7 +125,7 @@
   padding: 6px 12px 6px 6px;
   border: 1.5px solid var(--line);
   border-radius: var(--radius-pill);
-  background: #fff;
+  background: var(--surface);
   font-size: 0.85rem;
   cursor: pointer;
   transition: border-color 0.2s;
@@ -145,7 +145,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  box-shadow: inset 0 0 0 1px rgba(55, 48, 47, 0.15);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 18%, transparent);
 }
 
 .filters-foot {
@@ -182,7 +182,7 @@
   height: 20px;
   border-radius: var(--radius-pill);
   background: var(--berry);
-  color: #fff;
+  color: var(--on-berry);
   font-size: 0.72rem;
 }
 

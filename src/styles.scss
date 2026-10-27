@@ -5,20 +5,32 @@
 
 :root {
   /* Палітра бренду */
-  --blush: #f7e5e8;
-  --cream: #fff9f5;
-  --rose: #d99aa8;
-  --berry: #873f55;
-  --berry-dark: #6c3043;
-  --ink: #37302f;
+  --blush: #e8d5d0; /* Blush Pink */
+  --cream: #f7f4ed; /* Cream */
+  --rose: #c9b8a7; /* Taupe */
+  --berry: #4a5a4a; /* Sage Green — основний колір бренду */
+  --berry-dark: #384538;
+  --ink: #2e2e2e; /* Charcoal */
 
   /* Допоміжні кольори */
-  --muted: #74676a;
-  --line: #eddcdc;
+  --muted: #6b6a63;
+  --line: #e4dccf;
   --surface: #ffffff;
   --sage: #7f9c7b;
   --success: #3f7a52;
   --danger: #b3364a;
+
+  /* Семантичні кольори, які змінюються разом із темою */
+  --on-berry: #ffffff; /* текст на основному кольорі */
+  --on-ink: #ffffff; /* текст на фоні --ink */
+  --header-bg: rgba(247, 244, 237, 0.92);
+  --header-glass: rgba(247, 244, 237, 0.55);
+  --footer-bg: #2e2e2e;
+  --toast-bg: #2e2e2e;
+  --media-hover: #ecd9d4;
+  --tile-alt: #ebe3d6;
+  --arch-bg: #f3d6dc;
+  color-scheme: light;
 
   /* Типографіка */
   --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
@@ -40,13 +52,44 @@
   --radius: 18px;
   --radius-lg: 28px;
   --radius-pill: 999px;
-  --shadow-sm: 0 2px 10px rgba(55, 48, 47, 0.06);
-  --shadow: 0 14px 40px rgba(135, 63, 85, 0.12);
+  --shadow-sm: 0 2px 10px rgba(46, 46, 46, 0.06);
+  --shadow: 0 14px 40px rgba(74, 90, 74, 0.14);
 
   --header-h: 76px;
   --container: 1200px;
   --gutter: 24px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Темна тема: перемикається атрибутом data-theme на <html> (див. ThemeService) */
+:root[data-theme='dark'] {
+  --blush: #2b2e29;
+  --cream: #1c1e1b;
+  --rose: #c9b8a7;
+  --berry: #a3b8a3;
+  --berry-dark: #bccfbc;
+  --ink: #f1ede4;
+
+  --muted: #a7a69c;
+  --line: #3a3d36;
+  --surface: #262924;
+  --sage: #8fae8a;
+  --success: #6fb585;
+  --danger: #e0707f;
+
+  --on-berry: #1c241c;
+  --on-ink: #1c1e1b;
+  --header-bg: rgba(28, 30, 27, 0.92);
+  --header-glass: rgba(28, 30, 27, 0.5);
+  --footer-bg: #121412;
+  --toast-bg: #3a3d36;
+  --media-hover: #33372f;
+  --tile-alt: #31342d;
+  --arch-bg: #3a3330;
+
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
 }
 
 @media (max-width: 640px) {
@@ -237,7 +280,7 @@ p {
 
 .btn--primary {
   background: var(--berry);
-  color: #fff;
+  color: var(--on-berry);
 }
 
 .btn--primary:hover:not(:disabled) {
@@ -252,11 +295,11 @@ p {
 
 .btn--ghost:hover:not(:disabled) {
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
 }
 
 .btn--light {
-  background: #fff;
+  background: var(--surface);
   color: var(--ink);
 }
 
@@ -313,7 +356,7 @@ p {
   padding: 0 var(--space-4);
   border: 1.5px solid var(--line);
   border-radius: var(--radius-pill);
-  background: #fff;
+  background: var(--surface);
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.2s var(--ease);
@@ -326,7 +369,7 @@ p {
 .chip.is-active {
   background: var(--ink);
   border-color: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
 }
 
 .badge {
@@ -337,13 +380,13 @@ p {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  background: #fff;
+  background: var(--surface);
   color: var(--berry);
 }
 
 .badge--hit {
   background: var(--berry);
-  color: #fff;
+  color: var(--on-berry);
 }
 
 /* ---------- Форми ---------- */
@@ -366,7 +409,7 @@ p {
   padding: 10px var(--space-4);
   border: 1.5px solid var(--line);
   border-radius: var(--radius-sm);
-  background: #fff;
+  background: var(--surface);
   transition:
     border-color 0.2s var(--ease),
     box-shadow 0.2s var(--ease);
@@ -375,7 +418,7 @@ p {
 .input:focus {
   outline: none;
   border-color: var(--berry);
-  box-shadow: 0 0 0 4px rgba(135, 63, 85, 0.12);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--berry) 22%, transparent);
 }
 
 textarea.input {
@@ -386,7 +429,7 @@ textarea.input {
 select.input {
   appearance: none;
   padding-right: 40px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%2337302F' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%232E2E2E' stroke-width='1.6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
 }
@@ -423,7 +466,7 @@ select.input {
 /* ---------- Картки ---------- */
 
 .card {
-  background: #fff;
+  background: var(--surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
 }
