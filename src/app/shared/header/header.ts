@@ -46,6 +46,7 @@ export class Header {
     { path: '/bouquet-builder', label: 'Конструктор букета', exact: false },
     { path: '/about', label: 'Про нас', exact: false },
     { path: '/contacts', label: 'Контакти', exact: false },
+    { path: '/list', label: 'Список', exact: false },
   ];
 
   constructor() {

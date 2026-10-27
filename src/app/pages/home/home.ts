@@ -23,11 +23,10 @@ export class Home {
     ribbon: '#873F55',
   };
 
-  /** Кожна категорія ілюструється найпопулярнішим товаром у ній. */
+  /** Фото кожної категорії лежать у public/flowers/<id>.jpg */
   protected readonly categories = (Object.keys(CATEGORY_LABELS) as Category[]).map((id) => {
     const items = this.products.getByCategory(id);
-    const top = [...items].sort((a, b) => b.popularity - a.popularity)[0];
-    return { id, label: CATEGORY_LABELS[id], count: items.length, art: top.art };
+    return { id, label: CATEGORY_LABELS[id], count: items.length };
   });
 
   protected readonly advantages: { icon: IconName; title: string; text: string }[] = [

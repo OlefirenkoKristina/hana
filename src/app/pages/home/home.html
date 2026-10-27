@@ -1,6 +1,6 @@
 <!-- Головний банер -->
 <section class="hero">
-  <img class="hero-photo" src="hero.jpg" alt="" width="2000" height="1333" fetchpriority="high" />
+  <img class="hero-photo" src="flowers/hero.jpg" alt="" width="2000" height="1333" fetchpriority="high" />
   <div class="container hero-content">
     <h1 class="rise">HANA</h1>
     <p class="lead rise" style="animation-delay: 160ms">
@@ -20,7 +20,7 @@
 </section>
 
 <!-- Категорії -->
-<section class="section" aria-labelledby="cat-title">
+<section class="section categories-section" aria-labelledby="cat-title">
   <div class="container">
     <div class="section-head">
       <div>
@@ -29,15 +29,17 @@
       </div>
       <a routerLink="/catalog" class="link">Усі квіти <app-icon name="arrow" [size]="18" /></a>
     </div>
-    <div class="categories">
-      @for (c of categories; track c.id) {
-        <a class="category" routerLink="/catalog" [queryParams]="{ category: c.id }">
-          <div class="category-art"><app-bouquet-art [spec]="c.art" /></div>
+  </div>
+  <div class="categories">
+    @for (c of categories; track c.id) {
+      <a class="category" routerLink="/catalog" [queryParams]="{ category: c.id }">
+        <img [src]="'flowers/' + c.id + '.jpg'" alt="" width="900" height="1300" loading="lazy" />
+        <span class="category-info">
           <span class="category-name">{{ c.label }}</span>
           <span class="category-count">{{ c.count }} {{ c.count === 1 ? 'товар' : c.count < 5 ? 'товари' : 'товарів' }}</span>
-        </a>
-      }
-    </div>
+        </span>
+      </a>
+    }
   </div>
 </section>
 

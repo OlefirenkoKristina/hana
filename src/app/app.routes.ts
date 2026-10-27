@@ -54,6 +54,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/contacts/contacts').then((m) => m.Contacts),
   },
   {
+    path: 'list',
+    title: 'Список — HANA',
+    loadComponent: () => import('./pages/photo-list/photo-list').then((m) => m.PhotoList),
+  },
+  {
     path: '**',
     title: 'Сторінку не знайдено — HANA',
     loadComponent: () => import('./pages/not-found/not-found').then((m) => m.NotFound),

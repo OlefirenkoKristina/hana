@@ -22,6 +22,6 @@ describe('App', () => {
     const el = fixture.nativeElement as HTMLElement;
     expect(el.querySelector('.logo img')?.getAttribute('alt')).toBe('HANA');
     const links = [...el.querySelectorAll('#main-nav a')].map((a) => a.textContent?.trim());
-    expect(links).toEqual(['Каталог', 'Конструктор букета', 'Про нас', 'Контакти']);
+    expect(links).toEqual(['Каталог', 'Конструктор букета', 'Про нас', 'Контакти', 'Список']);
   });
 });
