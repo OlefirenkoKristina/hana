@@ -54,7 +54,9 @@
           <ul class="flowers">
             @for (f of flowersList; track f.id) {
               <li class="flower" [class.is-chosen]="countOf(f.id) > 0">
-                <div class="flower-art"><app-bouquet-art [spec]="flowerSpec(f)" [bare]="true" /></div>
+                <div class="flower-art">
+                  <img [src]="'flowers/builder/' + f.id + '.jpg'" [alt]="f.name" width="160" height="160" loading="lazy" />
+                </div>
                 <div class="flower-info">
                   <strong>{{ f.name }}</strong>
                   <span>{{ f.price | uah }} / шт.</span>

@@ -1,13 +1,30 @@
 # Фото квітів
 
-Тут зібрані всі фото квітів і букетів сайту. Імена файлів описують, що на фото.
+Усі фото сайту. Імена файлів збігаються з `id` товару в `src/app/core/data/products.ts`.
 
-| Файл | Що на фото | Де використовується |
+| Файл | Товар | Що на фото |
 |---|---|---|
-| `hero.jpg` | Квіти у вазі (Pexels, [ліцензія](https://www.pexels.com/license/)) | Банер на головній |
-| `ref-spray-roses-lisianthus-pink-wrap.jpg` | Кущові троянди й лізіантуси в рожевому пакуванні | поки не використовується |
-| `ref-roses-alstroemeria-kraft-pink-ribbon.jpg` | Троянди й альстромерії в крафті з рожевою стрічкою | поки не використовується |
-| `ref-spray-roses-white-wrap-on-chair.jpg` | Кущові троянди в білому пакуванні на стільці | поки не використовується |
+| `cherry-blossom.jpg` | Cherry Blossom | червоні троянди й рожеві півонії, рожеве пакування |
+| `ivory-blush.jpg` | Ivory Blush | білі троянди, кремові еустоми, евкаліпт |
+| `purple-rain.jpg` | Purple Rain | бузкові й білі еустоми, бузкове пакування |
+| `summer-bloom.jpg` | Summer Bloom | соняшники, гіпсофіла, польова зелень |
+| `blue-mist.jpg` | Blue Mist | білі троянди, блакитна гортензія |
+| `peach-whisper.jpg` | Peach Whisper | персикові троянди, сухоцвіти, кремове пакування |
+| `powder-pink.jpg` | Powder Pink | рожеві троянди й хризантеми |
+| `rose-garden.jpg` | Rose Garden | рожеві кущові троянди з білими квітами |
+| `love-letter.jpg` | Love Letter | червоні й рожеві троянди з гіпсофілою |
+| `snow-tulips.jpg` | Snow Tulips | білі тюльпани, без пакування |
+| `tulip-cloud.jpg` | Tulip Cloud | білі тюльпани в білому пакуванні |
+| `pink-tulips-classic.jpg` | Pink Tulips Classic | рожеві тюльпани зі стрічкою, без пакування |
+| `pink-tulips-in-pink.jpg` | Pink Tulips in Pink | рожеві тюльпани в рожевому пакуванні |
+| `pink-tulips-mini.jpg` | Pink Tulips Mini | невеликий букет рожевих тюльпанів |
+| `pink-tulips-grand.jpg` | Pink Tulips Grand | великий букет рожевих тюльпанів |
+| `hero.jpg` | банер головної | квіти у вазі (Pexels) |
+| `ref-*.jpg` | поки не використовуються | референси стилю |
 
-Для категорій на головній сайт очікує файли `bouquets.jpg`, `roses.jpg`, `tulips.jpg`, `peonies.jpg`,
-`seasonal.jpg`, `potted.jpg`.
+## Конструктор букета
+
+У `builder/` лежать квадратні фото окремих квітів (`rose-red.jpg`, `rose-pink.jpg`, `rose-white.jpg`,
+`rose-peach.jpg`, `peony.jpg`, `tulip-yellow.jpg`, `tulip-pink.jpg`, `daisy.jpg`, `lavender.jpg`,
+`eucalyptus.jpg`). Імена збігаються з `id` квітки в `builder-options.ts`. Фото з Pexels
+([ліцензія](https://www.pexels.com/license/)). Щоб замінити фото, покладіть своє з тим самим іменем.

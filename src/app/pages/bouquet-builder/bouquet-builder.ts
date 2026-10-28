@@ -6,7 +6,6 @@ import {
   BUILDER_FLOWERS,
   BUILDER_RIBBONS,
   BUILDER_WRAPS,
-  BuilderFlower,
   MAX_STEMS,
 } from '../../core/data/builder-options';
 import { BouquetArtSpec } from '../../core/models/art.model';
@@ -93,10 +92,6 @@ export class BouquetBuilder {
     wrap: this.wrap().color,
     ribbon: this.ribbon().color,
   }));
-
-  protected flowerSpec(f: BuilderFlower): BouquetArtSpec {
-    return { stems: [{ kind: f.kind, color: f.color }], wrap: '#ffffff', ribbon: null };
-  }
 
   protected countOf(id: string): number {
     return this.counts()[id] ?? 0;
