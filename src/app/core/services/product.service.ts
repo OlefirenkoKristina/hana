@@ -46,7 +46,7 @@ export class ProductService {
   sizesFor(product: Product): ProductSize[] {
     if (product.category === 'potted') return [];
     const round10 = (n: number) => Math.round(n / 10) * 10;
-    return [
+    const sizes: ProductSize[] = [
       {
         code: 'S',
         label: 'Компактний',
@@ -61,5 +61,6 @@ export class ProductService {
         price: round10(product.price * 1.4),
       },
     ];
+    return sizes.map((s) => ({ ...s, ...product.sizeOverrides?.[s.code] }));
   }
 }

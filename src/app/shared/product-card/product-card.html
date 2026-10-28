@@ -1,5 +1,5 @@
 <article class="card-product">
-  <a class="media" [routerLink]="['/product', product().id]" [attr.aria-label]="product().name + ' — детальніше'">
+  <a class="media" [class.media--photo]="product().image" [routerLink]="['/product', product().id]" [attr.aria-label]="product().name + ' — детальніше'">
     @if (product().image; as src) {
       <img [src]="src" [alt]="product().name" loading="lazy" />
     } @else {

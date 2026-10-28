@@ -12,8 +12,6 @@ import { ProductCard } from '../../shared/product-card/product-card';
 import { QuantityStepper } from '../../shared/quantity-stepper/quantity-stepper';
 import { UahPipe } from '../../shared/uah.pipe';
 
-type GalleryView = { id: string; label: string; zoom: boolean; background: string };
-
 @Component({
   selector: 'app-product-details',
   imports: [RouterLink, BouquetArt, Icon, ProductCard, QuantityStepper, UahPipe],
@@ -33,12 +31,6 @@ export class ProductDetails {
   protected readonly occasionLabels = OCCASION_LABELS;
   protected readonly maxQuantity = MAX_QUANTITY;
 
-  protected readonly gallery: GalleryView[] = [
-    { id: 'full', label: 'Букет повністю', zoom: false, background: 'var(--blush)' },
-    { id: 'close', label: 'Крупний план', zoom: true, background: '#F6EDE6' },
-    { id: 'light', label: 'На світлому тлі', zoom: false, background: '#EEF2EA' },
-  ];
-
   protected readonly product = computed(() => this.products.getById(this.id()));
   protected readonly sizes = computed(() => {
     const p = this.product();
@@ -50,14 +42,12 @@ export class ProductDetails {
   });
 
   // Стан сторінки скидається, коли користувач переходить до іншого товару.
-  protected readonly view = linkedSignal<string, GalleryView>({
-    source: this.id,
-    computation: () => this.gallery[0],
-  });
   protected readonly sizeCode = linkedSignal<SizeCode | null>(() => (this.sizes().length ? 'M' : null));
   protected readonly quantity = linkedSignal({ source: this.id, computation: () => 1 });
 
   protected readonly selectedSize = computed(() => this.sizes().find((s) => s.code === this.sizeCode()));
+  /** Фото вибраного розміру, а якщо його немає — головне фото товару. */
+  protected readonly photo = computed(() => this.selectedSize()?.image ?? this.product()?.image);
   protected readonly unitPrice = computed(() => this.selectedSize()?.price ?? this.product()?.price ?? 0);
   protected readonly totalPrice = computed(() => this.unitPrice() * this.quantity());
   protected readonly isFavorite = computed(() => this.favorites.ids().includes(this.id()));

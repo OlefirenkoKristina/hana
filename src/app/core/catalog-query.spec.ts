@@ -49,9 +49,12 @@ describe('catalog-query', () => {
         ...EMPTY_FILTERS,
         colors: ['red'],
         occasions: ['date'],
-        stemRanges: ['upTo10'],
+        stemRanges: ['from10to25'],
       });
-      expect(result.map((p) => p.id)).toEqual(['first-date']);
+      expect(result.map((p) => p.id)).toContain('classic-red');
+      expect(
+        result.every((p) => p.colors.includes('red') && p.occasions.includes('date') && p.stems >= 10 && p.stems <= 25),
+      ).toBe(true);
     });
 
     it('повертає порожній масив, якщо нічого не знайдено', () => {

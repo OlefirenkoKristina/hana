@@ -10,29 +10,14 @@
     <div class="product">
       <!-- Галерея -->
       <div class="gallery">
-        <div class="stage" [style.background]="view().background">
+        <div class="stage" [class.stage--photo]="photo()">
           @if (p.badge; as badge) {
             <span class="badge tag" [class.badge--hit]="badge === 'hit'">{{ badge === 'hit' ? 'Хіт' : 'Новинка' }}</span>
           }
-          @if (p.image && view().id === 'full') {
-            <img [src]="p.image" [alt]="p.name" />
+          @if (photo()) {
+            <img [src]="photo()" [alt]="p.name" />
           } @else {
-            <app-bouquet-art [spec]="p.art" [zoom]="view().zoom" [label]="p.name + ' — ' + view().label" />
-          }
-        </div>
-        <div class="thumbs" role="group" aria-label="Ракурси">
-          @for (v of gallery; track v.id) {
-            <button
-              type="button"
-              class="thumb"
-              [class.is-active]="view().id === v.id"
-              [style.background]="v.background"
-              (click)="view.set(v)"
-              [attr.aria-label]="v.label"
-              [attr.aria-pressed]="view().id === v.id"
-            >
-              <app-bouquet-art [spec]="p.art" [zoom]="v.zoom" />
-            </button>
+            <app-bouquet-art [spec]="p.art" [label]="p.name" />
           }
         </div>
       </div>

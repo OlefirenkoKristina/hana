@@ -25,6 +25,8 @@ export interface Product {
   art: BouquetArtSpec;
   /** Шлях до фотографії. Якщо не задано — показується SVG-ілюстрація. */
   image?: string;
+  /** Власні розміри з реальними фото. Для розмірів, яких тут немає, лишається розрахунок за замовчуванням. */
+  sizeOverrides?: Partial<Record<SizeCode, { stems: number; price: number; image?: string }>>;
 }
 
 export interface ProductSize {
@@ -32,6 +34,8 @@ export interface ProductSize {
   label: string;
   stems: number;
   price: number;
+  /** Фото саме цього розміру (якщо є). */
+  image?: string;
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
