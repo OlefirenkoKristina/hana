@@ -679,7 +679,7 @@ export const PRODUCTS: Product[] = [
     },
     badge: 'new',
     popularity: 91,
-    addedAt: '2026-10-30',
+    addedAt: '2026-10-29',
     image: 'flowers/spray-peach.jpg',
     art: { stems: stems(['rose', PETAL.peach, 19]), wrap: '#C9D8CF', ribbon: '#FFFFFF' },
   },
