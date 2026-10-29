@@ -159,28 +159,6 @@ export const PRODUCTS: Product[] = [
   },
 
   {
-    id: 'berry-velvet',
-    name: 'Berry Velvet',
-    category: 'bouquets',
-    price: 1750,
-    stems: 17,
-    colors: ['red', 'purple'],
-    occasions: ['date'],
-    short: 'Глибокі ягідні відтінки та оксамитові пелюстки',
-    description:
-      'Драматичний букет у винних тонах: бордові троянди з евкаліптом у темному пакуванні з бордовою стрічкою. Для особливого вечора.',
-    composition: ['Троянда бордова — 15 шт.', 'Евкаліпт — 5 гілок', 'Пакування темне, стрічка бордова'],
-    badge: 'new',
-    popularity: 85,
-    addedAt: '2026-06-01',
-    image: 'flowers/berry-velvet.jpg',
-    art: {
-      stems: stems(['lavender', PETAL.lavender, 3], ['rose', PETAL.burgundy, 9], ['peony', PETAL.red, 3]),
-      wrap: '#F3E6D3',
-      ribbon: '#7A2F45',
-    },
-  },
-  {
     id: 'tulip-rainbow',
     name: 'Tulip Rainbow',
     category: 'tulips',
