@@ -12,6 +12,8 @@
 | `peach-whisper.jpg` | Peach Whisper | персикові троянди, сухоцвіти, кремове пакування |
 | `powder-pink.jpg` | Powder Pink | рожеві троянди й хризантеми |
 | `rose-garden.jpg` | Rose Garden | рожеві кущові троянди з білими квітами |
+| `spray-peach.jpg` (+ `-s`, `-l`) | Spray Peach | персиково-рожеві кущові троянди, м’ятне пакування |
+| `spray-fuchsia.jpg` (+ `-s`, `-l`) | Spray Fuchsia | малинові кущові троянди, рожеве пакування |
 | `love-letter.jpg` | Love Letter | червоні й рожеві троянди з гіпсофілою |
 | `snow-tulips.jpg` | Snow Tulips | білі тюльпани, без пакування |
 | `tulip-cloud.jpg` | Tulip Cloud | білі тюльпани в білому пакуванні |
