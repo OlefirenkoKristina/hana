@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PRODUCTS } from '../data/products';
-import { Category, Product, ProductSize } from '../models/product.model';
+import { Category, NO_SIZE_CATEGORIES, Product, ProductSize } from '../models/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -41,10 +41,10 @@ export class ProductService {
 
   /**
    * Варіанти розміру S / M / L. Базова ціна — це розмір M.
-   * Квіти в горщиках мають лише один варіант.
+   * Квіти в горщиках та авторські букети мають лише один варіант.
    */
   sizesFor(product: Product): ProductSize[] {
-    if (product.category === 'potted') return [];
+    if (NO_SIZE_CATEGORIES.includes(product.category)) return [];
     const round10 = (n: number) => Math.round(n / 10) * 10;
     const sizes: ProductSize[] = [
       {

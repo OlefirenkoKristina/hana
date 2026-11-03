@@ -14,6 +14,14 @@
 | `rose-garden.jpg` | Rose Garden | рожеві кущові троянди з білими квітами |
 | `spray-peach.jpg` (+ `-s`, `-l`) | Spray Peach | персиково-рожеві кущові троянди, м’ятне пакування |
 | `spray-fuchsia.jpg` (+ `-s`, `-l`) | Spray Fuchsia | малинові кущові троянди, рожеве пакування |
+| `peony-pink.jpg` (+ `-s`, `-l`) | Pink Peonies | рожеві півонії, рожеве пакування |
+| `peony-duo.jpg` (+ `-s`, `-l`) | Peony Duo | рожеві й білі півонії, біле пакування |
+| `peony-white.jpg` (+ `-s`, `-l`) | White Peonies | білі півонії, біле пакування |
+| `hydrangea-pink.jpg` (+ `-s`, `-l`) | Pink Hydrangea | рожеві гортензії, біле пакування |
+| `hydrangea-blue.jpg` (+ `-s`, `-l`) | Blue Hydrangea | блакитні гортензії, біле пакування |
+| `pink-kraft.jpg` | Pink Kraft | рожеві альстромерії й еустоми в крафті |
+| `pink-duo.jpg` | Pink Duo | рожеві й кущові троянди, біле пакування |
+| `roses.jpg`, `hydrangeas.jpg` | плитки категорій на головній | копії фото Classic Red і Pink Hydrangea |
 | `love-letter.jpg` | Love Letter | червоні й рожеві троянди з гіпсофілою |
 | `snow-tulips.jpg` | Snow Tulips | білі тюльпани, без пакування |
 | `tulip-cloud.jpg` | Tulip Cloud | білі тюльпани в білому пакуванні |

@@ -224,7 +224,7 @@ import { Icon, IconName } from '../../shared/icon/icon';
 export class About {
   private readonly products = inject(ProductService);
 
-  protected readonly artA = this.products.getById('peony-cloud')!.art;
+  protected readonly artA = this.products.getById('peony-pink')!.art;
   protected readonly gallery = ['bridal-white', 'blush-garden', 'sunny-morning', 'golden-hour'].map(
     (id) => this.products.getById(id)!.art,
   );

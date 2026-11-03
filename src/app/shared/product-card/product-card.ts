@@ -1,6 +1,6 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Product } from '../../core/models/product.model';
+import { NO_SIZE_CATEGORIES, Product } from '../../core/models/product.model';
 import { CartService } from '../../core/services/cart.service';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { ToastService } from '../../core/services/toast.service';
@@ -35,7 +35,7 @@ export class ProductCard {
   protected addToCart(): void {
     const p = this.product();
     // Із картки додаємо стандартний розмір M.
-    const size = p.category === 'potted' ? undefined : 'M';
+    const size = NO_SIZE_CATEGORIES.includes(p.category) ? undefined : 'M';
     this.cart.add({
       key: size ? `${p.id}:${size}` : p.id,
       productId: p.id,
