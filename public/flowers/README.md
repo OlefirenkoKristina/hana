@@ -7,7 +7,6 @@
 | `ivory-blush.jpg` | Ivory Blush | білі троянди, кремові еустоми, евкаліпт |
 | `blue-mist.jpg` | Blue Mist | білі троянди, блакитна гортензія |
 | `peach-whisper.jpg` | Peach Whisper | персикові троянди, сухоцвіти, кремове пакування |
-| `rose-garden.jpg` | Rose Garden | рожеві кущові троянди з білими квітами |
 | `spray-peach.jpg` (+ `-s`, `-l`) | Spray Peach | персиково-рожеві кущові троянди, м’ятне пакування |
 | `spray-fuchsia.jpg` (+ `-s`, `-l`) | Spray Fuchsia | малинові кущові троянди, рожеве пакування |
 | `peony-pink.jpg` (+ `-s`, `-l`) | Pink Peonies | рожеві півонії, рожеве пакування |
@@ -19,6 +18,11 @@
 | `hydrangea-mix.jpg` (+ `-s`, `-l`) | Hydrangea Mix | рожеві, білі й блакитні гортензії, біле пакування |
 | `pink-kraft.jpg` | Pink Kraft | рожеві альстромерії й еустоми в крафті |
 | `pink-duo.jpg` | Pink Duo | рожеві й кущові троянди, біле пакування |
+| `snow-romance.jpg` | Snow Romance | білі гортензії, рожеві піоновидні троянди, фрезії, біле пакування |
+| `ruby-berry.jpg` | Ruby Berry | червоні троянди, рожеві гортензії, ілекс, рожеве пакування |
+| `blue-cloud.jpg` | Blue Cloud | блакитні гортензії, білі кущові троянди, евкаліпт |
+| `pink-silk.jpg` | Pink Silk | рожеві гортензії й піоновидні троянди, пудрове пакування |
+| `freesia-blush.jpg` | Freesia Blush | піоновидні троянди, білі фрезії, персикове пакування |
 | `roses.jpg`, `hydrangeas.jpg` | плитки категорій на головній | копії фото Classic Red і Pink Hydrangea |
 | `love-letter.jpg` | Love Letter | червоні й рожеві троянди з гіпсофілою |
 | `hero.jpg` | банер головної | квіти у вазі (Pexels) |
