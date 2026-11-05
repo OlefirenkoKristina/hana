@@ -14,8 +14,8 @@ describe('catalog-query', () => {
     });
 
     it('шукає за назвою без урахування регістру', () => {
-      const result = filterProducts(PRODUCTS, { ...EMPTY_FILTERS, query: 'pink DREAM' });
-      expect(result.map((p) => p.id)).toEqual(['pink-dream']);
+      const result = filterProducts(PRODUCTS, { ...EMPTY_FILTERS, query: 'classic RED' });
+      expect(result.map((p) => p.id)).toEqual(['classic-red']);
     });
 
     it('шукає за складом букета', () => {
@@ -80,7 +80,7 @@ describe('catalog-query', () => {
     });
 
     it('за популярністю першим іде найпопулярніший', () => {
-      expect(sortProducts(PRODUCTS, 'popular')[0].id).toBe('pink-dream');
+      expect(sortProducts(PRODUCTS, 'popular')[0].id).toBe('classic-red');
     });
 
     it('не змінює вихідний масив', () => {

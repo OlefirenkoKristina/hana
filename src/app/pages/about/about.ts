@@ -225,7 +225,7 @@ export class About {
   private readonly products = inject(ProductService);
 
   protected readonly artA = this.products.getById('peony-pink')!.art;
-  protected readonly gallery = ['bridal-white', 'blush-garden', 'sunny-morning', 'golden-hour'].map(
+  protected readonly gallery = ['ivory-blush', 'blush-garden', 'sunny-morning', 'peony-white'].map(
     (id) => this.products.getById(id)!.art,
   );
 
