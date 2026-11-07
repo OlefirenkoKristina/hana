@@ -28,17 +28,18 @@
 }
 
 :host-context([data-theme='dark']) .page {
-  --pg-1: #151715;
-  --pg-2: #1a1c19;
-  --card-bg: rgba(40, 42, 38, 0.72);
+  --pg-1: #262a1f;
+  --pg-2: #20241b;
+  --card-bg: rgba(120, 108, 94, 0.26);
   --card-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
-  --field-bg: rgba(20, 22, 20, 0.7);
-  --field-line: rgba(255, 255, 255, 0.14);
+  --field-bg: rgba(255, 255, 255, 0.03);
+  --field-line: rgba(255, 255, 255, 0.26);
   --accent: #e8bcb6;
   --accent-dark: #dba7a1;
   --on-accent: #2c2021;
-  --icon-bg: #2a2c28;
-  --icon-fg: #e8bcb6;
+  --icon-bg: #d8a8a2;
+  --icon-fg: #3b2b2a;
+  --heart-fg: #e8bcb6;
   --decor-opacity: 1;
 }
 
@@ -93,7 +94,7 @@
   top: 0;
   right: 0;
   height: 100%;
-  width: min(11vw, 170px);
+  width: min(9vw, 152px);
   object-fit: cover;
   object-position: left top;
 }
@@ -101,13 +102,13 @@
 .decor--dark-bottom {
   bottom: 0;
   left: 0;
-  width: min(12vw, 190px);
+  width: min(26vw, 440px);
 }
 
 .decor--dark-left {
   top: 0;
   left: 0;
-  width: min(12vw, 185px);
+  width: min(10vw, 170px);
 }
 
 .decor {
@@ -159,7 +160,7 @@
     display: inline-block;
     margin-left: 6px;
     vertical-align: -4px;
-    color: var(--icon-fg);
+    color: var(--heart-fg, var(--icon-fg));
   }
 }
 
@@ -249,7 +250,7 @@
     display: inline-block;
     margin-left: 6px;
     vertical-align: -3px;
-    color: var(--icon-fg);
+    color: var(--heart-fg, var(--icon-fg));
   }
 }
 
@@ -394,4 +395,50 @@
   .form-card {
     padding: var(--space-5);
   }
+}
+
+/* Хлібні крихти — лише в темній темі, як на макеті */
+.crumbs {
+  display: none;
+}
+
+:host-context([data-theme='dark']) .crumbs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Матове прозоре скло: світлий відблиск зверху, рожеве сяйво від піона справа, сильне розмиття */
+:host-context([data-theme='dark']) .form-card {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    radial-gradient(ellipse 70% 38% at 88% 0%, rgba(244, 170, 185, 0.34), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 40%),
+    var(--card-bg);
+  -webkit-backdrop-filter: blur(22px) saturate(1.15);
+  backdrop-filter: blur(22px) saturate(1.15);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+:host-context([data-theme='dark']) .decor--dark-bottom {
+  width: min(30vw, 520px);
+}
+
+:host-context([data-theme='dark']) .decor--dark-right {
+  width: min(11vw, 190px);
+}
+
+/* span у списку не має перебивати колір іконки */
+.list .icon {
+  color: var(--icon-fg);
+}
+
+/* Великий піон у правому верхньому куті — лежить під скляною карткою, тож крізь неї просвічує */
+.decor--dark-peony {
+  top: 0;
+  right: 0;
+  width: min(31vw, 560px);
 }

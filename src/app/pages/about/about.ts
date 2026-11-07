@@ -16,6 +16,10 @@ import { Reveal } from '../../shared/reveal';
       <img class="deco deco--lines" src="flowers/catalog-leaves-hero.png" alt="" aria-hidden="true" />
       <img class="deco deco--petal petal-a" src="flowers/about-petal.png" alt="" aria-hidden="true" />
       <img class="deco deco--petal petal-b" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+      <img class="deco dk-deco dk-peony-tr" src="flowers/contacts-dark-peony.png" alt="" aria-hidden="true" />
+      <img class="deco dk-deco dk-leaves-tl" src="flowers/contacts-dark-left.png" alt="" aria-hidden="true" />
+      <img class="deco dk-deco dk-peony-bl" src="flowers/about-dark-bl.png" alt="" aria-hidden="true" />
+      <img class="deco dk-deco dk-peony-br" src="flowers/about-dark-br.png" alt="" aria-hidden="true" />
 
       <div class="about-inner">
         <header class="about-head">
@@ -49,6 +53,11 @@ import { Reveal } from '../../shared/reveal';
       <img class="deco deco--proc-peony" src="flowers/about-peony-top.png" alt="" aria-hidden="true" />
       <img class="deco deco--proc-lines" src="flowers/catalog-leaves-left.png" alt="" aria-hidden="true" />
       <img class="deco deco--petal proc-petal" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+      <img class="deco pk-deco pk-tr" src="flowers/contacts-dark-peony.png" alt="" aria-hidden="true" />
+      <img class="deco pk-deco pk-bl" src="flowers/about-dark-bl.png" alt="" aria-hidden="true" />
+      <img class="deco pk-deco pk-br" src="flowers/about-dark-br.png" alt="" aria-hidden="true" />
+      <img class="deco pk-deco pk-tl" src="flowers/contacts-dark-left.png" alt="" aria-hidden="true" />
+      <img class="deco pk-deco pk-lines" src="flowers/contacts-dark-left.png" alt="" aria-hidden="true" />
 
       <div class="process-inner">
         <header class="process-head">
@@ -61,6 +70,7 @@ import { Reveal } from '../../shared/reveal';
             @for (step of process; track step.title; let i = $index) {
               <li class="step" appReveal [revealDelay]="250 + i * 140">
                 <span class="num">0{{ i + 1 }}</span>
+                <app-icon class="step-ico" [name]="step.icon" [size]="34" [stroke]="1.1" />
                 <h3>{{ step.title }}</h3>
                 <p>{{ step.text }}</p>
               </li>
@@ -77,6 +87,10 @@ import { Reveal } from '../../shared/reveal';
       <img class="deco deco--val-peony" src="flowers/about-peony-top.png" alt="" aria-hidden="true" />
       <img class="deco deco--val-lines" src="flowers/catalog-leaves-hero.png" alt="" aria-hidden="true" />
       <img class="deco deco--petal val-petal" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+      <img class="deco vk-deco vk-tr" src="flowers/contacts-dark-peony.png" alt="" aria-hidden="true" />
+      <img class="deco vk-deco vk-tl" src="flowers/about-dark-bl.png" alt="" aria-hidden="true" />
+      <img class="deco vk-deco vk-br" src="flowers/about-dark-br.png" alt="" aria-hidden="true" />
+      <img class="deco vk-deco vk-lines-bl" src="flowers/contacts-dark-left.png" alt="" aria-hidden="true" />
 
       <div class="screen-inner">
         <header class="screen-head">
@@ -123,6 +137,29 @@ import { Reveal } from '../../shared/reveal';
     </section>
   `,
   styles: `
+    /* Темна тема: м'який перехід між секціями — краї розчиняються в загальний колір фону */
+    :host-context([data-theme='dark']) .about-top::after,
+    :host-context([data-theme='dark']) .process-wrap::after,
+    :host-context([data-theme='dark']) .screen::after,
+    :host-context([data-theme='dark']) .cta-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    :host-context([data-theme='dark']) .about-top::after {
+      background: linear-gradient(to top, #22261c 0, rgba(34, 38, 28, 0) 150px);
+    }
+    :host-context([data-theme='dark']) .process-wrap::after,
+    :host-context([data-theme='dark']) .screen::after {
+      background:
+        linear-gradient(to bottom, #22261c 0, rgba(34, 38, 28, 0) 150px),
+        linear-gradient(to top, #22261c 0, rgba(34, 38, 28, 0) 150px);
+    }
+    :host-context([data-theme='dark']) .cta-section::after {
+      background: linear-gradient(to bottom, #22261c 0, rgba(34, 38, 28, 0) 150px);
+    }
     .about-top {
       position: relative;
       display: flex;
@@ -135,7 +172,38 @@ import { Reveal } from '../../shared/reveal';
       background: linear-gradient(160deg, #fcf1ee 0%, #f8e5e1 60%, #fcf1ee 100%);
     }
     :host-context([data-theme='dark']) .about-top {
-      background: linear-gradient(160deg, #1c1e1b 0%, #20231f 100%);
+      /* темна тема: оливкове тло й яскраві піони, як на макеті */
+      background: #22261c;
+    }
+    .dk-deco {
+      display: none;
+    }
+    :host-context([data-theme='dark']) .about-top .deco:not(.dk-deco) {
+      display: none;
+    }
+    :host-context([data-theme='dark']) .about-top .dk-deco {
+      display: block;
+      opacity: 1;
+    }
+    .dk-peony-tr {
+      top: 0;
+      right: 0;
+      width: min(31vw, 540px);
+    }
+    .dk-leaves-tl {
+      top: 0;
+      left: 0;
+      width: min(9vw, 150px);
+    }
+    .dk-peony-bl {
+      bottom: 0;
+      left: 0;
+      width: min(24vw, 420px);
+    }
+    .dk-peony-br {
+      bottom: 0;
+      right: 0;
+      width: min(25vw, 430px);
     }
     .deco {
       position: absolute;
@@ -254,8 +322,22 @@ import { Reveal } from '../../shared/reveal';
       box-shadow: 0 20px 50px rgba(196, 138, 138, 0.16);
     }
     :host-context([data-theme='dark']) .about-card {
-      background: rgba(38, 41, 36, 0.72);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      /* матове прозоре скло, як на макеті */
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 40%),
+        rgba(120, 108, 94, 0.28);
+      -webkit-backdrop-filter: blur(22px) saturate(1.15);
+      backdrop-filter: blur(22px) saturate(1.15);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    :host-context([data-theme='dark']) .about-card .btn--ghost {
+      border-color: transparent;
+      background: #f2c9c4;
+      color: #3b2b2a;
+    }
+    :host-context([data-theme='dark']) .about-photo {
+      border: 1px solid rgba(255, 255, 255, 0.18);
     }
     .about-card h2 {
       font-size: clamp(1.7rem, 2.4vw, 2.2rem);
@@ -275,7 +357,53 @@ import { Reveal } from '../../shared/reveal';
       background: linear-gradient(200deg, #fcf1ee 0%, #f6dfdb 55%, #fbeeea 100%);
     }
     :host-context([data-theme='dark']) .process-wrap {
-      background: linear-gradient(200deg, #1c1e1b 0%, #20231f 100%);
+      background: #22261c;
+    }
+    .pk-deco,
+    .step-ico {
+      display: none;
+    }
+    :host-context([data-theme='dark']) .process-wrap .deco:not(.pk-deco) {
+      display: none;
+    }
+    :host-context([data-theme='dark']) .process-wrap .pk-deco {
+      display: block;
+      opacity: 1;
+    }
+    :host-context([data-theme='dark']) .step-ico {
+      display: block;
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-4);
+      color: #d9b3a4;
+      opacity: 0.85;
+    }
+    .pk-tr {
+      top: 0;
+      right: 0;
+      width: min(26vw, 440px);
+    }
+    .pk-bl {
+      top: 4%;
+      left: 0;
+      width: min(12vw, 210px);
+      opacity: 0.9;
+    }
+    .pk-br {
+      bottom: 0;
+      right: 0;
+      width: min(22vw, 380px);
+    }
+    .pk-tl {
+      top: 0;
+      left: 0;
+      width: min(9vw, 150px);
+    }
+    .pk-lines {
+      bottom: 0;
+      left: 0;
+      width: min(12vw, 200px);
+      transform: scaleY(-1);
     }
     .deco--proc-peony {
       top: 0;
@@ -341,8 +469,20 @@ import { Reveal } from '../../shared/reveal';
       box-shadow: 0 16px 40px rgba(196, 138, 138, 0.16);
     }
     :host-context([data-theme='dark']) .step {
-      background: rgba(38, 41, 36, 0.72);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 40%),
+        rgba(120, 108, 94, 0.28);
+      -webkit-backdrop-filter: blur(22px) saturate(1.15);
+      backdrop-filter: blur(22px) saturate(1.15);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    :host-context([data-theme='dark']) .num {
+      color: #f2c9c4;
+    }
+    :host-context([data-theme='dark']) .process-photo {
+      border: 1px solid rgba(255, 255, 255, 0.18);
     }
     .num {
       font-family: var(--font-display);
@@ -386,7 +526,39 @@ import { Reveal } from '../../shared/reveal';
       background: linear-gradient(160deg, #fbeeea 0%, #f6dfdb 55%, #fcf1ee 100%);
     }
     :host-context([data-theme='dark']) .screen {
-      background: linear-gradient(160deg, #1c1e1b 0%, #20231f 100%);
+      background: #22261c;
+    }
+    .vk-deco {
+      display: none;
+    }
+    :host-context([data-theme='dark']) .screen .deco:not(.vk-deco) {
+      display: none;
+    }
+    :host-context([data-theme='dark']) .screen .vk-deco {
+      display: block;
+      opacity: 1;
+    }
+    .vk-tr {
+      top: 0;
+      right: 0;
+      width: min(17vw, 290px);
+    }
+    .vk-tl {
+      top: 0;
+      left: 0;
+      width: min(13vw, 220px);
+      opacity: 0.95;
+    }
+    .vk-br {
+      bottom: 0;
+      right: 0;
+      width: min(13vw, 220px);
+    }
+    .vk-lines-bl {
+      bottom: 0;
+      left: 0;
+      width: min(12vw, 200px);
+      transform: scaleY(-1);
     }
     .deco--val-peony {
       top: 0;
@@ -437,8 +609,17 @@ import { Reveal } from '../../shared/reveal';
       box-shadow: 0 14px 36px rgba(196, 138, 138, 0.16);
     }
     :host-context([data-theme='dark']) .value {
-      background: rgba(38, 41, 36, 0.72);
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 40%),
+        rgba(120, 108, 94, 0.28);
+      -webkit-backdrop-filter: blur(22px) saturate(1.15);
+      backdrop-filter: blur(22px) saturate(1.15);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    :host-context([data-theme='dark']) .tile {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
     }
     .value h3 {
       margin: 0 0 var(--space-1);
@@ -490,7 +671,7 @@ import { Reveal } from '../../shared/reveal';
       background: linear-gradient(160deg, #fcf1ee 0%, #f6dfdb 55%, #fbeeea 100%);
     }
     :host-context([data-theme='dark']) .cta-section {
-      background: linear-gradient(160deg, #1c1e1b 0%, #20231f 100%);
+      background: #22261c;
     }
     .deco--cta-peony {
       bottom: 0;
@@ -622,10 +803,10 @@ export class About {
   );
 
   protected readonly process = [
-    { title: 'Вибір квітів', text: 'Щоранку флорист особисто відбирає квіти з нової поставки.' },
-    { title: 'Підготовка', text: 'Чистимо стебла, даємо квітам напитися води кілька годин.' },
-    { title: 'Збирання', text: 'Збираємо букет вручну спіральною технікою — так він тримає форму.' },
-    { title: 'Доставка', text: 'Пакуємо в акватару й доставляємо в термобоксі в будь-яку погоду.' },
+    { icon: 'leaf' as IconName, title: 'Вибір квітів', text: 'Щоранку флорист особисто відбирає квіти з нової поставки.' },
+    { icon: 'sparkle' as IconName, title: 'Підготовка', text: 'Чистимо стебла, даємо квітам напитися води кілька годин.' },
+    { icon: 'flower' as IconName, title: 'Збирання', text: 'Збираємо букет вручну спіральною технікою — так він тримає форму.' },
+    { icon: 'truck' as IconName, title: 'Доставка', text: 'Пакуємо в акватару й доставляємо в термобоксі в будь-яку погоду.' },
   ];
 
   protected readonly values: { icon: IconName; title: string; text: string }[] = [
