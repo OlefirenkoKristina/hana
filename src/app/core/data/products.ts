@@ -8,26 +8,6 @@ import { Product } from '../models/product.model';
  */
 export const PRODUCTS: Product[] = [
   {
-    id: 'white-tulips',
-    name: 'White Tulips',
-    category: 'tulips',
-    price: 650,
-    stems: 15,
-    colors: ['white'],
-    occasions: ['thanks', 'birthday'],
-    short: 'П’ятнадцять білих тюльпанів у крафтовому пакуванні',
-    description:
-      'Класика весни: білосніжні тюльпани з чистими лініями. Мінімалістичне пакування підкреслює природну красу квітів.',
-    composition: ['Тюльпан білий — 15 шт.', 'Крафтове пакування', 'Атласна стрічка'],
-    popularity: 87,
-    addedAt: '2026-02-11',
-    art: {
-      stems: stems(['tulip', PETAL.white, 13]),
-      wrap: '#C9A27A',
-      ribbon: '#FFFFFF',
-    },
-  },
-  {
     id: 'classic-red',
     name: 'Classic Red',
     category: 'roses',
@@ -95,26 +75,6 @@ export const PRODUCTS: Product[] = [
     },
   },
 
-  {
-    id: 'tulip-rainbow',
-    name: 'Tulip Rainbow',
-    category: 'tulips',
-    price: 990,
-    stems: 25,
-    colors: ['pink', 'yellow', 'red'],
-    occasions: ['birthday', 'thanks'],
-    short: '25 різнокольорових тюльпанів',
-    description:
-      'Яскравий мікс тюльпанів трьох кольорів. Найкращий спосіб привітати з днем народження навесні.',
-    composition: ['Тюльпан рожевий — 9 шт.', 'Тюльпан жовтий — 8 шт.', 'Тюльпан червоний — 8 шт.'],
-    popularity: 80,
-    addedAt: '2026-02-26',
-    art: {
-      stems: stems(['tulip', PETAL.pink, 6], ['tulip', PETAL.yellow, 6], ['tulip', PETAL.red, 6]),
-      wrap: '#FFFFFF',
-      ribbon: '#D99AA8',
-    },
-  },
   {
     id: 'orchid-pot',
     name: 'Phalaenopsis',

@@ -1,29 +1,26 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ProductService } from '../../core/services/product.service';
-import { BouquetArt } from '../../shared/bouquet-art/bouquet-art';
 import { Icon, IconName } from '../../shared/icon/icon';
 
 @Component({
   selector: 'app-about',
-  imports: [RouterLink, BouquetArt, Icon],
+  imports: [RouterLink, Icon],
   template: `
     <section class="page-hero">
       <div class="container">
         <nav class="breadcrumbs" aria-label="Хлібні крихти">
           <a routerLink="/">Головна</a><span aria-hidden="true">/</span><span>Про нас</span>
         </nav>
-        <span class="eyebrow">About HANA</span>
-        <h1>Квіти з турботою<br />про кожну деталь</h1>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container intro">
+    <section class="section intro-section">
+      <div class="intro">
         <div class="intro-art">
-          <app-bouquet-art [spec]="artA" label="Букет у студії HANA" />
+          <img src="flowers/about-studio.jpg" alt="Студія HANA" />
         </div>
-        <div>
+        <div class="intro-text">
           <span class="eyebrow">Історія</span>
           <h2>Від одного столу — до студії</h2>
           <p class="lead">
@@ -39,23 +36,24 @@ import { Icon, IconName } from '../../shared/icon/icon';
       </div>
     </section>
 
-    <section class="section process-wrap">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow">Процес</span>
-            <h2>Як народжується букет</h2>
-          </div>
-        </div>
+    <section class="process-wrap">
+      <div class="process-text">
+        <span class="eyebrow">Процес</span>
+        <h2>Як народжується букет</h2>
         <ol class="process">
           @for (step of process; track step.title; let i = $index) {
             <li>
               <span class="num">0{{ i + 1 }}</span>
-              <h3>{{ step.title }}</h3>
-              <p>{{ step.text }}</p>
+              <div>
+                <h3>{{ step.title }}</h3>
+                <p>{{ step.text }}</p>
+              </div>
             </li>
           }
         </ol>
+      </div>
+      <div class="process-photo">
+        <img src="flowers/about-process.jpg" alt="Флорист збирає букет у студії HANA" loading="lazy" />
       </div>
     </section>
 
@@ -81,8 +79,8 @@ import { Icon, IconName } from '../../shared/icon/icon';
 
     <section class="container">
       <div class="gallery" aria-label="Наші роботи">
-        @for (art of gallery; track $index) {
-          <div class="tile"><app-bouquet-art [spec]="art" /></div>
+        @for (p of gallery; track p.id) {
+          <div class="tile"><img [src]="p.image" [alt]="p.name" loading="lazy" /></div>
         }
       </div>
       <div class="cta">
@@ -96,48 +94,97 @@ import { Icon, IconName } from '../../shared/icon/icon';
     </section>
   `,
   styles: `
+    .page-hero {
+      padding-block: var(--space-3);
+    }
+    .page-hero .container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: var(--space-2) var(--space-6);
+    }
+    .page-hero .breadcrumbs {
+      margin-bottom: 0;
+    }
+    .page-hero h1 {
+      font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+    }
+    .intro-section {
+      padding: 0;
+    }
     .intro {
       display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: var(--space-8);
-      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+      min-height: calc(100svh - 124px);
+    }
+    .intro-text {
+      align-self: center;
+      padding: var(--space-8) var(--gutter) var(--space-8) var(--space-8);
+      max-width: 720px;
     }
     .intro h2 {
       margin-bottom: var(--space-4);
     }
     .intro-art {
-      aspect-ratio: 4 / 5;
-      padding: 12% 10% 6%;
-      border-radius: var(--radius-lg) 999px var(--radius-lg) var(--radius-lg);
+      overflow: hidden;
       background: var(--blush);
+    }
+    .intro-art img,
+    .tile img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .text {
       margin-top: var(--space-4);
       color: var(--muted);
     }
     .process-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100svh;
       background: var(--blush);
     }
+    .process-text {
+      align-self: center;
+      padding: var(--space-8) var(--space-8) var(--space-8) max(var(--gutter), calc((100vw - var(--container)) / 2));
+    }
+    .process-text h2 {
+      margin: var(--space-2) 0 var(--space-6);
+    }
+    .process-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
     .process {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: var(--space-5);
       margin: 0;
       padding: 0;
       list-style: none;
     }
     .process li {
-      padding-top: var(--space-5);
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      align-items: start;
+      gap: var(--space-4);
+      padding-top: var(--space-4);
       border-top: 1.5px solid var(--berry);
     }
     .num {
       font-family: var(--font-display);
       font-size: 2.4rem;
+      line-height: 1;
       font-weight: 700;
       color: var(--berry);
     }
     .process h3 {
-      margin: var(--space-2) 0;
+      margin: 0 0 var(--space-1);
     }
     .process p,
     .value p {
@@ -174,7 +221,7 @@ import { Icon, IconName } from '../../shared/icon/icon';
     }
     .tile {
       aspect-ratio: 3 / 4;
-      padding: 12% 8% 4%;
+      overflow: hidden;
       border-radius: var(--radius);
       background: var(--blush);
     }
@@ -201,11 +248,24 @@ import { Icon, IconName } from '../../shared/icon/icon';
         grid-template-columns: 1fr;
         gap: var(--space-6);
       }
-      .intro-art {
-        max-width: 380px;
+      .intro {
+        min-height: 0;
       }
-      .process {
-        grid-template-columns: repeat(2, 1fr);
+      .intro-art {
+        height: 55svh;
+      }
+      .intro-text {
+        padding: var(--space-6) var(--gutter);
+      }
+      .process-wrap {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+      .process-text {
+        padding: var(--space-7) var(--gutter);
+      }
+      .process-photo {
+        height: 55svh;
       }
       .values {
         grid-template-columns: 1fr;
@@ -214,19 +274,13 @@ import { Icon, IconName } from '../../shared/icon/icon';
         grid-template-columns: repeat(2, 1fr);
       }
     }
-    @media (max-width: 520px) {
-      .process {
-        grid-template-columns: 1fr;
-      }
-    }
   `,
 })
 export class About {
   private readonly products = inject(ProductService);
 
-  protected readonly artA = this.products.getById('peony-pink')!.art;
-  protected readonly gallery = ['ivory-blush', 'blush-garden', 'sunny-morning', 'peony-white'].map(
-    (id) => this.products.getById(id)!.art,
+  protected readonly gallery = ['freesia-blush', 'pink-kraft', 'snow-romance', 'hydrangea-blush'].map(
+    (id) => this.products.getById(id)!,
   );
 
   protected readonly process = [

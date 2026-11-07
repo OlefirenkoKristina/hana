@@ -1,17 +1,15 @@
 /* Вужча шапка каталогу: заголовок і пошук в одному рядку. */
 .page-hero {
-  padding-block: var(--space-5) var(--space-5);
+  padding-block: var(--space-4);
 
   h1 {
-    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    white-space: nowrap;
   }
 
   .breadcrumbs {
-    margin-bottom: var(--space-2);
-  }
-
-  .eyebrow {
-    margin-bottom: var(--space-1);
+    margin-bottom: 0;
+    white-space: nowrap;
   }
 }
 
