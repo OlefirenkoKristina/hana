@@ -166,7 +166,13 @@
         <ul class="mini">
           @for (item of cart.items(); track item.key) {
             <li>
-              <div class="mini-thumb"><app-bouquet-art [spec]="item.art" /></div>
+              <div class="mini-thumb">
+                @if (item.image; as src) {
+                  <img [src]="src" [alt]="item.name" />
+                } @else {
+                  <app-bouquet-art [spec]="item.art" />
+                }
+              </div>
               <span class="mini-name">
                 {{ item.name }}
                 <small>{{ item.size ? 'Розмір ' + item.size + ' · ' : '' }}{{ item.quantity }} шт.</small>

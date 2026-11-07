@@ -1,7 +1,8 @@
-import { computed, effect, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { CartItem, NewCartItem } from '../models/cart-item.model';
 import { DeliveryType } from '../models/order.model';
 import { readStorage, writeStorage } from '../storage';
+import { ProductService } from './product.service';
 
 const CART_KEY = 'hana.cart';
 const PROMO_KEY = 'hana.promo';
@@ -18,7 +19,10 @@ export const PROMO_CODES: Record<string, number> = {
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private readonly _items = signal<CartItem[]>(readStorage<CartItem[]>(CART_KEY, []));
+  private readonly products = inject(ProductService);
+  private readonly _items = signal<CartItem[]>(
+    readStorage<CartItem[]>(CART_KEY, []).map((i) => this.withPhoto(i)),
+  );
   private readonly _promo = signal<string | null>(readStorage<string | null>(PROMO_KEY, null));
 
   readonly items = this._items.asReadonly();
@@ -51,7 +55,16 @@ export class CartService {
     return this.subtotal() - this.discount() + this.deliveryCost(type);
   }
 
-  add(item: NewCartItem, quantity = 1): void {
+  /** Підставляє фото товару (з урахуванням розміру), щоб у кошику була мініатюра-фото, а не малюнок. */
+  private withPhoto<T extends { productId: string | null; size?: string; image?: string }>(item: T): T {
+    if (item.image || !item.productId) return item;
+    const p = this.products.getById(item.productId);
+    const image = (item.size && p?.sizeOverrides?.[item.size as 'S' | 'M' | 'L']?.image) || p?.image;
+    return image ? { ...item, image } : item;
+  }
+
+  add(rawItem: NewCartItem, quantity = 1): void {
+    const item = this.withPhoto(rawItem);
     this._items.update((items) => {
       const existing = items.find((i) => i.key === item.key);
       if (existing) {

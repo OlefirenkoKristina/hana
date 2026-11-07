@@ -1,19 +1,25 @@
-<section class="page-hero">
-  <div class="container">
-    <nav class="breadcrumbs" aria-label="Хлібні крихти">
-      <a routerLink="/">Головна</a><span aria-hidden="true">/</span><span>Кошик</span>
-    </nav>
-    <h1>Кошик</h1>
-    @if (!cart.isEmpty()) {
-      <p class="lead">Товарів: {{ cart.count() }}. Перевірте замовлення перед оформленням.</p>
-    }
-  </div>
-</section>
+<div class="cart-page">
+  <img class="decor lt-only decor--tr" src="flowers/cart-peony-tr.png" alt="" aria-hidden="true" />
+  <img class="decor lt-only decor--bl" src="flowers/cart-peony-bl.png" alt="" aria-hidden="true" />
+  <img class="decor lt-only decor--fav-l" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
+  <img class="decor lt-only decor--fav-r" src="flowers/fav-peony-r.png" alt="" aria-hidden="true" />
+  <!-- візерунок однаковий у світлій і темній темі -->
+  <img class="decor art-lines art-lines--tl" src="flowers/cart-dark-lines-tl.png" alt="" aria-hidden="true" />
+  <img class="decor art-lines art-lines--br" src="flowers/cart-dark-lines-r.png" alt="" aria-hidden="true" />
+  <img class="decor lt-only decor--petal petal-1" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+  <img class="decor lt-only decor--petal petal-2" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+  <img class="decor lt-only decor--petal petal-3" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+
+
+  <h1 class="cart-title container" [class.sr-only]="cart.isEmpty()">Кошик</h1>
+  @if (!cart.isEmpty()) {
+    <p class="cart-sub container">Товарів: {{ cart.count() }}. Перевірте замовлення перед оформленням.</p>
+  }
 
 <div class="container">
   @if (cart.isEmpty()) {
     <div class="empty-state">
-      <app-icon name="bag" [size]="48" [stroke]="1.2" />
+      <div class="bag"><app-icon name="bag" [size]="56" [stroke]="1.1" /></div>
       <h2>Кошик порожній</h2>
       <p>Додайте букет із каталогу або створіть власний у конструкторі.</p>
       <div class="actions">
@@ -22,14 +28,6 @@
       </div>
     </div>
 
-    <section class="suggest" aria-labelledby="suggest-title">
-      <h2 id="suggest-title">Популярне зараз</h2>
-      <div class="product-grid">
-        @for (p of suggestions(); track p.id) {
-          <app-product-card [product]="p" />
-        }
-      </div>
-    </section>
   } @else {
     <div class="layout">
       <section aria-label="Товари в кошику">
@@ -37,7 +35,11 @@
           @for (item of cart.items(); track item.key) {
             <li class="item">
               <div class="thumb">
-                <app-bouquet-art [spec]="item.art" [label]="item.name" />
+                @if (item.image; as src) {
+                  <img [src]="src" [alt]="item.name" />
+                } @else {
+                  <app-bouquet-art [spec]="item.art" [label]="item.name" />
+                }
               </div>
 
               <div class="meta">
@@ -134,4 +136,5 @@
       </aside>
     </div>
   }
+</div>
 </div>

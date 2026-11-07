@@ -40,7 +40,13 @@ import { UahPipe } from '../../shared/uah.pipe';
             <ul class="items">
               @for (item of order.items; track item.key) {
                 <li>
-                  <div class="thumb"><app-bouquet-art [spec]="item.art" /></div>
+                  <div class="thumb">
+                    @if (item.image; as src) {
+                      <img [src]="src" [alt]="item.name" />
+                    } @else {
+                      <app-bouquet-art [spec]="item.art" />
+                    }
+                  </div>
                   <span class="name">{{ item.name }} <small>× {{ item.quantity }}</small></span>
                   <strong>{{ item.price * item.quantity | uah }}</strong>
                 </li>
@@ -148,8 +154,18 @@ import { UahPipe } from '../../shared/uah.pipe';
       width: 48px;
       height: 56px;
       padding: 4px;
+      overflow: hidden;
       border-radius: 8px;
       background: var(--blush);
+    }
+    .thumb:has(img) {
+      padding: 0;
+    }
+    .thumb img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .name {
       flex: 1;

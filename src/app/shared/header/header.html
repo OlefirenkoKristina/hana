@@ -72,19 +72,27 @@
   @if (searchOpen()) {
     <form id="site-search" class="search" role="search" (ngSubmit)="submitSearch()">
       <div class="container search-inner">
-        <app-icon name="search" [size]="22" />
-        <label for="header-search" class="sr-only">Пошук букетів і квітів</label>
-        <input
-          #searchInput
-          id="header-search"
-          type="search"
-          name="q"
-          placeholder="Троянди, півонії, Pink Dream…"
-          autocomplete="off"
-          [ngModel]="query()"
-          (ngModelChange)="query.set($event)"
-        />
-        <button type="submit" class="btn btn--primary btn--sm">Знайти</button>
+        <div class="search-field">
+          <app-icon name="search" [size]="22" />
+          <label for="header-search" class="sr-only">Пошук букетів і квітів</label>
+          <input
+            #searchInput
+            id="header-search"
+            type="search"
+            name="q"
+            placeholder="Троянди, півонії, Classic Pink…"
+            autocomplete="off"
+            [ngModel]="query()"
+            (ngModelChange)="query.set($event)"
+          />
+          <button type="submit" class="btn btn--primary search-btn">Знайти <app-icon name="arrow" [size]="18" /></button>
+        </div>
+        <div class="search-hints" role="group" aria-label="Популярні запити">
+          <span>Популярне:</span>
+          @for (h of hints; track h) {
+            <button type="button" class="hint" (click)="quickSearch(h)">{{ h }}</button>
+          }
+        </div>
       </div>
     </form>
   }

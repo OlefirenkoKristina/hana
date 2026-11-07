@@ -35,7 +35,7 @@ export class Header {
   private lastY = 0;
 
   /** Сторінки з банером на весь верх: шапка накладається на банер (без власного місця). */
-  private static readonly OVERLAP_PAGES = ['/', '/catalog', '/about', '/contacts'];
+  private static readonly OVERLAP_PAGES = ['/', '/catalog', '/about', '/contacts', '/cart', '/favorites'];
   protected readonly overlaps = computed(() => Header.OVERLAP_PAGES.includes(this.url().split(/[?#]/)[0]));
 
   /** У каталозі та на «Про нас» шапка зливається з рожевим фоном сторінки, поки її не прокрутили. */
@@ -57,7 +57,6 @@ export class Header {
     { path: '/bouquet-builder', label: 'Конструктор букета', exact: false },
     { path: '/about', label: 'Про нас', exact: false },
     { path: '/contacts', label: 'Контакти', exact: false },
-    { path: '/list', label: 'Список', exact: false },
   ];
 
   constructor() {
@@ -96,6 +95,15 @@ export class Header {
     if (this.searchOpen()) {
       setTimeout(() => this.searchInput()?.nativeElement.focus());
     }
+  }
+
+  /** Швидкі запити під полем пошуку. */
+  protected readonly hints = ['Троянди', 'Півонії', 'Гортензії', 'Авторські букети'];
+
+  protected quickSearch(text: string): void {
+    this.query.set(text);
+    this.submitSearch();
+    this.searchOpen.set(false);
   }
 
   protected submitSearch(): void {

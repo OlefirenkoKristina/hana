@@ -204,7 +204,12 @@
   <aside class="preview" aria-label="Попередній перегляд букета">
     <div class="stage">
       @if (stemCount()) {
-        <app-bouquet-art [spec]="spec()" label="Попередній перегляд вашого букета" />
+        <app-realistic-bouquet
+          [flowers]="flowerInputs()"
+          [wrap]="wrap().color"
+          [ribbon]="ribbon().color"
+          label="Попередній перегляд вашого букета"
+        />
       } @else {
         <div class="placeholder">
           <app-icon name="flower" [size]="56" [stroke]="1" />

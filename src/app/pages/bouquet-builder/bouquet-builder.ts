@@ -11,7 +11,7 @@ import {
 import { BouquetArtSpec } from '../../core/models/art.model';
 import { CartService } from '../../core/services/cart.service';
 import { ToastService } from '../../core/services/toast.service';
-import { BouquetArt } from '../../shared/bouquet-art/bouquet-art';
+import { RealisticBouquet } from '../../shared/realistic-bouquet/realistic-bouquet';
 import { Icon } from '../../shared/icon/icon';
 import { UahPipe } from '../../shared/uah.pipe';
 
@@ -26,7 +26,7 @@ interface Preset {
 
 @Component({
   selector: 'app-bouquet-builder',
-  imports: [RouterLink, BouquetArt, Icon, UahPipe],
+  imports: [RouterLink, RealisticBouquet, Icon, UahPipe],
   templateUrl: './bouquet-builder.html',
   styleUrl: './bouquet-builder.scss',
 })
@@ -84,7 +84,12 @@ export class BouquetBuilder {
   );
   protected readonly chosenExtras = computed(() => BUILDER_EXTRAS.filter((e) => this.extras().includes(e.id)));
 
-  /** Опис для живого прев'ю: кожне обране стебло стає квіткою на ілюстрації. */
+  /** Склад для реалістичного прев'ю: id квітки та кількість. */
+  protected readonly flowerInputs = computed(() =>
+    this.chosenFlowers().map((f) => ({ id: f.id, count: f.count })),
+  );
+
+  /** Опис малюнка букета для кошика: кожне обране стебло стає квіткою на ілюстрації. */
   protected readonly spec = computed<BouquetArtSpec>(() => ({
     stems: this.chosenFlowers().flatMap((f) =>
       Array.from({ length: f.count }, () => ({ kind: f.kind, color: f.color })),

@@ -11,6 +11,8 @@ export interface CartItem {
   quantity: number;
   size?: SizeCode;
   art: BouquetArtSpec;
+  /** Справжнє фото букета (якщо в товару є), для мініатюри в кошику. */
+  image?: string;
   /** Рядки опису для власного букета з конструктора. */
   details?: string[];
 }
