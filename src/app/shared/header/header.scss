@@ -37,11 +37,16 @@
 }
 
 /* Каталог: шапка прозора над рожевим фоном, логотип трохи більший */
+/* Банер на весь верх: шапка накладається на нього і не займає власного місця */
+.header.overlaps {
+  margin-bottom: calc(-1 * var(--header-h) - 1px);
+}
+
 .header.on-catalog {
   border-bottom-color: transparent;
 
   &::before {
-    background: linear-gradient(90deg, #fcf1ee, #f7e5e1);
+    background: transparent;
     backdrop-filter: none;
   }
 
@@ -51,7 +56,7 @@
 }
 
 :host-context([data-theme='dark']) .header.on-catalog::before {
-  background: var(--header-bg);
+  background: transparent;
 }
 
 .header {

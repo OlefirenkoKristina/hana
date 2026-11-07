@@ -9,169 +9,363 @@ import { Reveal } from '../../shared/reveal';
   selector: 'app-about',
   imports: [RouterLink, Icon, Reveal, Parallax],
   template: `
-    <section class="section intro-section">
-      <div class="intro">
-        <div class="intro-art" appReveal="photo-left" appParallax>
-          <img src="flowers/about-studio.jpg" alt="Студія HANA" />
-        </div>
-        <div class="intro-text">
-          <span class="eyebrow" appReveal [revealDelay]="300">Історія</span>
-          <h2 appReveal [revealDelay]="420">Від одного столу — до студії</h2>
-          <p class="lead" appReveal [revealDelay]="560">
-            HANA народилася у 2019 році, коли наша засновниця Ханна почала збирати букети для друзів у маленькій
-            майстерні на Подолі. Слово «hana» японською означає «квітка» — і саме простоту та чесність японської
-            естетики ми взяли за основу.
-          </p>
-          <p class="text" appReveal [revealDelay]="700">
-            Сьогодні в команді вісім флористів і два кур'єри. Ми працюємо з українськими теплицями та перевіреними
-            постачальниками, тому квіти потрапляють до вас свіжими й довго стоять.
-          </p>
-        </div>
-      </div>
-    </section>
+    <section class="about-top">
+      <img class="deco deco--peony" src="flowers/about-peony-top.png" alt="" aria-hidden="true" />
+      <img class="deco deco--peony-mid" src="flowers/about-peony-mid.png" alt="" aria-hidden="true" />
+      <img class="deco deco--peony-left" src="flowers/about-peony-left.png" alt="" aria-hidden="true" />
+      <img class="deco deco--lines" src="flowers/catalog-leaves-hero.png" alt="" aria-hidden="true" />
+      <img class="deco deco--petal petal-a" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+      <img class="deco deco--petal petal-b" src="flowers/about-petal.png" alt="" aria-hidden="true" />
 
-    <section class="process-wrap">
-      <div class="process-text">
-        <span class="eyebrow" appReveal [revealDelay]="250">Процес</span>
-        <h2 appReveal [revealDelay]="370">Як народжується букет</h2>
-        <ol class="process">
-          @for (step of process; track step.title; let i = $index) {
-            <li appReveal [revealDelay]="500 + i * 150">
-              <span class="num">0{{ i + 1 }}</span>
-              <div>
-                <h3>{{ step.title }}</h3>
-                <p>{{ step.text }}</p>
-              </div>
-            </li>
-          }
-        </ol>
-      </div>
-      <div class="process-photo" appReveal="photo-right" appParallax>
-        <img src="flowers/about-process.jpg" alt="Флорист збирає букет у студії HANA" loading="lazy" />
-      </div>
-    </section>
+      <div class="about-inner">
+        <header class="about-head">
+          <h1 appReveal>Про нас</h1>
+          <p class="tagline" appReveal [revealDelay]="150">Квіти, що надихають <app-icon name="heart" [size]="22" /></p>
+        </header>
 
-    <div class="screen">
-    <section class="values-section">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow" appReveal>Цінності</span>
-            <h2 appReveal [revealDelay]="120">У що ми віримо</h2>
+        <div class="about-row">
+          <div class="about-photo" appReveal="photo-left" [revealDelay]="200" appParallax>
+            <img src="flowers/about-studio.jpg" alt="Студія HANA" />
+          </div>
+          <div class="about-card" appReveal [revealDelay]="450">
+            <h2>HANA — більше, ніж квіти</h2>
+            <p>
+              Ми створюємо букети, які говорять замість слів. У HANA ми віримо, що квіти — це емоції, краса і турбота.
+              Ми надихаємо робити світ ніжнішим, дарувати радість і зберігати важливі моменти у квітах.
+            </p>
+            <p>
+              Кожен букет у HANA — це поєднання естетики, якості та любові до деталей. Ми дбаємо про те, щоб ваші
+              особливі моменти були ще яскравішими.
+            </p>
+            <button type="button" class="btn btn--ghost" (click)="scrollTo('process')">
+              Дізнатися більше <app-icon name="arrow" [size]="18" />
+            </button>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="process-wrap" id="process">
+      <img class="deco deco--proc-peony" src="flowers/about-peony-top.png" alt="" aria-hidden="true" />
+      <img class="deco deco--proc-lines" src="flowers/catalog-leaves-left.png" alt="" aria-hidden="true" />
+      <img class="deco deco--petal proc-petal" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+
+      <div class="process-inner">
+        <header class="process-head">
+          <h2 appReveal>Як народжується букет</h2>
+          <p class="tagline" appReveal [revealDelay]="150">Чотири кроки від поставки до вашого порогу <app-icon name="flower" [size]="22" /></p>
+        </header>
+
+        <div class="process-row">
+          <ol class="process">
+            @for (step of process; track step.title; let i = $index) {
+              <li class="step" appReveal [revealDelay]="250 + i * 140">
+                <span class="num">0{{ i + 1 }}</span>
+                <h3>{{ step.title }}</h3>
+                <p>{{ step.text }}</p>
+              </li>
+            }
+          </ol>
+          <div class="process-photo" appReveal="photo-right" [revealDelay]="200" appParallax>
+            <img src="flowers/about-process.jpg" alt="Флорист збирає букет у студії HANA" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen">
+      <img class="deco deco--val-peony" src="flowers/about-peony-top.png" alt="" aria-hidden="true" />
+      <img class="deco deco--val-lines" src="flowers/catalog-leaves-hero.png" alt="" aria-hidden="true" />
+      <img class="deco deco--petal val-petal" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+
+      <div class="screen-inner">
+        <header class="screen-head">
+          <h2 appReveal>У що ми віримо</h2>
+          <p class="tagline" appReveal [revealDelay]="150">Три принципи, з яких складається кожен букет <app-icon name="heart" [size]="22" /></p>
+        </header>
+
         <div class="values">
           @for (v of values; track v.title; let i = $index) {
-            <div class="value" appReveal [revealDelay]="i * 150">
+            <div class="value" appReveal [revealDelay]="250 + i * 140">
               <span class="icon"><app-icon [name]="v.icon" [size]="26" /></span>
-              <h3>{{ v.title }}</h3>
-              <p>{{ v.text }}</p>
+              <div>
+                <h3>{{ v.title }}</h3>
+                <p>{{ v.text }}</p>
+              </div>
             </div>
           }
         </div>
+
+        <div class="gallery" aria-label="Наші роботи">
+          @for (p of gallery; track p.id; let i = $index) {
+            <div class="tile" appReveal="zoom" [revealDelay]="600 + i * 140" appParallax><img [src]="p.image" [alt]="p.name" loading="lazy" /></div>
+          }
+        </div>
       </div>
     </section>
 
-    <section class="container gallery-wrap">
-      <div class="gallery" aria-label="Наші роботи">
-        @for (p of gallery; track p.id; let i = $index) {
-          <div class="tile" appReveal="zoom" [revealDelay]="i * 140" appParallax><img [src]="p.image" [alt]="p.name" loading="lazy" /></div>
-        }
-      </div>
-    </section>
-    </div>
+    <section class="cta-section">
+      <img class="deco deco--cta-peony" src="flowers/about-peony-top.png" alt="" aria-hidden="true" />
+      <img class="deco deco--cta-peony-r" src="flowers/about-peony-top.png" alt="" aria-hidden="true" />
+      <img class="deco deco--petal cta-petal-a" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+      <img class="deco deco--petal cta-petal-b" src="flowers/about-petal.png" alt="" aria-hidden="true" />
 
-    <section class="container">
-      <div class="cta" appReveal>
-        <h2>Знайдіть свій букет</h2>
-        <p class="lead">Понад п'ятнадцять готових композицій і конструктор для власних ідей.</p>
-        <div class="cta-actions">
-          <a routerLink="/catalog" class="btn btn--primary">До каталогу</a>
+      <div class="cta">
+        <h2 appReveal>Знайдіть свій букет</h2>
+        <p class="tagline" appReveal [revealDelay]="150">
+          Понад п'ятнадцять готових композицій і конструктор для власних ідей <app-icon name="heart" [size]="22" />
+        </p>
+        <div class="cta-actions" appReveal [revealDelay]="300">
+          <a routerLink="/catalog" class="btn btn--primary">До каталогу <app-icon name="arrow" [size]="18" /></a>
           <a routerLink="/bouquet-builder" class="btn btn--ghost">Створити букет</a>
         </div>
       </div>
     </section>
   `,
   styles: `
-    .intro-section {
-      padding: 0;
-    }
-    .intro {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: stretch;
-      min-height: calc(100svh - 77px);
-    }
-    .intro-text {
-      align-self: center;
-      padding: var(--space-8) var(--gutter) var(--space-8) var(--space-8);
-      max-width: 720px;
-    }
-    .intro h2 {
-      margin-bottom: var(--space-4);
-    }
-    .intro-art {
+    .about-top {
+      position: relative;
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
-      background: var(--blush);
+      height: 100svh;
+      min-height: 680px;
+      padding-top: var(--header-h);
+      padding-bottom: var(--space-5);
+      background: linear-gradient(160deg, #fcf1ee 0%, #f8e5e1 60%, #fcf1ee 100%);
     }
-    .intro-art img,
+    :host-context([data-theme='dark']) .about-top {
+      background: linear-gradient(160deg, #1c1e1b 0%, #20231f 100%);
+    }
+    .deco {
+      position: absolute;
+      z-index: 0;
+      pointer-events: none;
+    }
+    :host-context([data-theme='dark']) .deco {
+      opacity: 0.18;
+    }
+    .deco--peony {
+      top: 0;
+      right: 0;
+      width: min(34vw, 560px);
+    }
+    .deco--peony-mid {
+      top: 10px;
+      left: 27%;
+      width: min(30vw, 540px);
+      transform: scaleX(-1);
+    }
+    .deco--peony-left {
+      top: 330px;
+      left: 0;
+      width: 96px;
+    }
+    .deco--lines {
+      top: 40px;
+      left: 0;
+      height: 190px;
+    }
+    .deco--petal {
+      width: 86px;
+    }
+    .petal-a {
+      top: 150px;
+      left: 52%;
+      transform: rotate(-18deg);
+    }
+    .petal-b {
+      bottom: 60px;
+      right: 18%;
+      transform: rotate(24deg);
+    }
+    .about-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      flex-direction: column;
+      width: min(94%, 1640px);
+      margin-inline: auto;
+    }
+    .about-head {
+      padding: var(--space-6) var(--space-6) 0;
+    }
+    .about-head h1 {
+      font-size: clamp(2.6rem, 4.4vw, 3.6rem);
+      font-weight: 500;
+      line-height: 1.05;
+    }
+    .tagline {
+      margin-top: var(--space-2);
+      font-size: 1.3rem;
+    }
+    .tagline app-icon {
+      display: inline-block;
+      margin-left: 6px;
+      vertical-align: -5px;
+    }
+    .about-row {
+      display: grid;
+      grid-template-columns: 1.08fr 1fr;
+      gap: 12px;
+      flex: 1;
+      grid-template-rows: minmax(0, 1fr);
+      min-height: 0;
+      margin-top: var(--space-4);
+    }
+    .about-photo {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      background: var(--blush);
+      box-shadow: 0 20px 50px rgba(196, 138, 138, 0.22);
+    }
+    .about-photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
     .tile img {
       display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    .text {
-      margin-top: var(--space-4);
-      color: var(--muted);
+    /* трохи зрізаємо верх кадру, логотип на вивісці лишається цілим */
+    .about-photo img {
+      object-position: 50% 28%;
     }
-    .process-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 100svh;
-      background: var(--blush);
-    }
-    .process-text {
-      align-self: center;
-      padding: var(--space-8) var(--space-8) var(--space-8) max(var(--gutter), calc((100vw - var(--container)) / 2));
-    }
-    .process-text h2 {
-      margin: var(--space-2) 0 var(--space-6);
-    }
-    .process-photo {
-      overflow: hidden;
-    }
-    .process-photo img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .process {
+    .about-card {
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: var(--space-3);
+      min-height: 0;
+      overflow: auto;
+      padding: clamp(24px, 3vw, 48px);
+      border-radius: 28px;
+      background: rgba(255, 251, 249, 0.72);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 20px 50px rgba(196, 138, 138, 0.16);
+    }
+    :host-context([data-theme='dark']) .about-card {
+      background: rgba(38, 41, 36, 0.72);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+    .about-card h2 {
+      font-size: clamp(1.7rem, 2.4vw, 2.2rem);
+      font-weight: 500;
+    }
+    .about-card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .process-wrap {
+      position: relative;
+      display: flex;
+      overflow: hidden;
+      height: calc(100svh - 77px);
+      min-height: 560px;
+      scroll-margin-top: 77px;
+      background: linear-gradient(200deg, #fcf1ee 0%, #f6dfdb 55%, #fbeeea 100%);
+    }
+    :host-context([data-theme='dark']) .process-wrap {
+      background: linear-gradient(200deg, #1c1e1b 0%, #20231f 100%);
+    }
+    .deco--proc-peony {
+      top: 0;
+      left: 0;
+      width: min(30vw, 500px);
+      transform: scaleX(-1);
+    }
+    .deco--proc-lines {
+      right: 0;
+      bottom: 40px;
+      width: 150px;
+      transform: scaleX(-1);
+    }
+    .proc-petal {
+      right: 34%;
+      top: 60px;
+      transform: rotate(32deg);
+    }
+    .process-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      min-height: 0;
+      flex-direction: column;
+      width: min(94%, 1640px);
+      margin-inline: auto;
+      padding-block: var(--space-5);
+    }
+    .process-head {
+      text-align: center;
+    }
+    .process-head h2 {
+      font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+      font-weight: 500;
+    }
+    .process-row {
+      display: grid;
+      flex: 1;
+      grid-template-columns: 1fr 0.9fr;
+      grid-template-rows: minmax(0, 1fr);
       gap: var(--space-5);
+      min-height: 0;
+      margin-top: var(--space-4);
+    }
+    .process {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 1fr;
+      gap: var(--space-4);
       margin: 0;
       padding: 0;
       list-style: none;
     }
-    .process li {
-      display: grid;
-      grid-template-columns: 72px 1fr;
-      align-items: start;
-      gap: var(--space-4);
-      padding-top: var(--space-4);
-      border-top: 1.5px solid var(--berry);
+    .step {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--space-1);
+      padding: var(--space-4) var(--space-5);
+      border-radius: 24px;
+      background: rgba(255, 251, 249, 0.72);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 16px 40px rgba(196, 138, 138, 0.16);
+    }
+    :host-context([data-theme='dark']) .step {
+      background: rgba(38, 41, 36, 0.72);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
     }
     .num {
       font-family: var(--font-display);
-      font-size: 2.4rem;
+      font-size: 3rem;
       line-height: 1;
-      font-weight: 700;
-      color: var(--berry);
+      font-weight: 600;
+      color: color-mix(in srgb, var(--berry) 55%, transparent);
     }
-    .process h3 {
-      margin: 0 0 var(--space-1);
+    .step h3 {
+      font-size: 1.45rem;
+    }
+    .process-photo {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      box-shadow: 0 20px 50px rgba(196, 138, 138, 0.22);
+    }
+    .process-photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .process p,
     .value p {
@@ -179,26 +373,53 @@ import { Reveal } from '../../shared/reveal';
       font-size: 0.95rem;
     }
     .value p {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       line-height: 1.5;
     }
     .screen {
+      position: relative;
       display: flex;
-      flex-direction: column;
-      gap: var(--space-5);
-      min-height: 100svh;
-      padding-block: var(--space-6);
+      overflow: hidden;
+      height: calc(100svh - 77px);
+      min-height: 560px;
+      scroll-margin-top: 77px;
+      background: linear-gradient(160deg, #fbeeea 0%, #f6dfdb 55%, #fcf1ee 100%);
     }
-    .gallery-wrap {
+    :host-context([data-theme='dark']) .screen {
+      background: linear-gradient(160deg, #1c1e1b 0%, #20231f 100%);
+    }
+    .deco--val-peony {
+      top: 0;
+      right: 0;
+      width: min(26vw, 430px);
+    }
+    .deco--val-lines {
+      top: 30px;
+      left: 0;
+      height: 170px;
+    }
+    .val-petal {
+      left: 41%;
+      top: 70px;
+      transform: rotate(-26deg);
+    }
+    .screen-inner {
+      position: relative;
+      z-index: 1;
       display: flex;
-      flex: 1;
       min-height: 0;
+      flex-direction: column;
+      gap: var(--space-4);
+      width: min(94%, 1640px);
+      margin-inline: auto;
+      padding-block: var(--space-5);
     }
-    .values-section .section-head {
-      margin-bottom: var(--space-5);
+    .screen-head {
+      text-align: center;
     }
-    .values-section h2 {
-      font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+    .screen-head h2 {
+      font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+      font-weight: 500;
     }
     .values {
       display: grid;
@@ -206,23 +427,32 @@ import { Reveal } from '../../shared/reveal';
       gap: var(--space-4);
     }
     .value {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
       padding: var(--space-4) var(--space-5);
-      border-radius: var(--radius);
-      background: var(--surface);
-      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 251, 249, 0.72);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 14px 36px rgba(196, 138, 138, 0.16);
+    }
+    :host-context([data-theme='dark']) .value {
+      background: rgba(38, 41, 36, 0.72);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
     }
     .value h3 {
-      margin: var(--space-3) 0 var(--space-1);
-      font-size: 1.15rem;
+      margin: 0 0 var(--space-1);
+      font-size: 1.3rem;
     }
     .icon {
       display: inline-grid;
+      flex-shrink: 0;
       place-items: center;
-      width: 42px;
-      height: 42px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
-      background: var(--blush);
-      color: var(--berry);
+      background: #f0d4d2;
+      color: #b57f88;
     }
     .gallery {
       display: grid;
@@ -230,25 +460,72 @@ import { Reveal } from '../../shared/reveal';
       grid-template-columns: repeat(4, 1fr);
       grid-template-rows: minmax(0, 1fr);
       gap: var(--space-4);
-      padding-bottom: var(--space-4);
+      min-height: 0;
     }
     .tile {
+      position: relative;
       min-height: 0;
       overflow: hidden;
-      border-radius: var(--radius);
+      border-radius: 24px;
       background: var(--blush);
+      box-shadow: 0 18px 44px rgba(196, 138, 138, 0.24);
     }
-    .tile:nth-child(even) {
-      background: var(--tile-alt);
-      transform: translateY(var(--space-4));
+    .tile img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .cta-section {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 62svh;
+      /* футер має власний відступ зверху — з'їдаємо його, щоб не було світлої смуги */
+      margin-bottom: calc(var(--space-7) * -1);
+      padding: var(--space-8) var(--gutter) calc(var(--space-8) + var(--space-7));
+      background: linear-gradient(160deg, #fcf1ee 0%, #f6dfdb 55%, #fbeeea 100%);
+    }
+    :host-context([data-theme='dark']) .cta-section {
+      background: linear-gradient(160deg, #1c1e1b 0%, #20231f 100%);
+    }
+    .deco--cta-peony {
+      bottom: 0;
+      left: 0;
+      width: min(26vw, 440px);
+      transform: scale(-1, -1);
+    }
+    .deco--cta-peony-r {
+      top: 0;
+      right: 0;
+      width: min(26vw, 440px);
+    }
+    .cta-petal-a {
+      top: 30%;
+      left: 24%;
+      transform: rotate(-22deg);
+    }
+    .cta-petal-b {
+      bottom: 26%;
+      right: 24%;
+      transform: rotate(30deg);
     }
     .cta {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: var(--space-4);
-      margin-top: var(--space-9);
+      max-width: 760px;
       text-align: center;
+    }
+    .cta h2 {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 500;
     }
     .cta-actions {
       display: flex;
@@ -257,33 +534,51 @@ import { Reveal } from '../../shared/reveal';
       gap: var(--space-3);
     }
     @media (max-width: 900px) {
-      .intro {
-        grid-template-columns: 1fr;
-        gap: var(--space-6);
-      }
-      .intro {
+      .about-top,
+      .process-wrap {
+        height: auto;
         min-height: 0;
       }
-      .intro-art {
-        height: 55svh;
+      .about-row {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+        flex: none;
       }
-      .intro-text {
-        padding: var(--space-6) var(--gutter);
+      .about-photo {
+        height: 50svh;
+      }
+      .about-card {
+        padding: var(--space-6);
+      }
+      .about-head {
+        padding-inline: 0;
+      }
+      .deco--peony-mid,
+      .deco--peony-left,
+      .deco--lines,
+      .deco--petal {
+        display: none;
       }
       .process-wrap {
-        grid-template-columns: 1fr;
         min-height: 0;
       }
-      .process-text {
-        padding: var(--space-7) var(--gutter);
+      .process-row {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
       }
       .process-photo {
-        height: 55svh;
+        height: 50svh;
+      }
+      .deco--proc-peony,
+      .deco--proc-lines,
+      .proc-petal {
+        display: none;
       }
       .values {
         grid-template-columns: 1fr;
       }
       .screen {
+        height: auto;
         min-height: 0;
       }
       .gallery {
@@ -293,11 +588,34 @@ import { Reveal } from '../../shared/reveal';
       .tile {
         aspect-ratio: 3 / 4;
       }
+      .deco--val-peony,
+      .deco--val-lines,
+      .val-petal,
+      .deco--cta-peony,
+      .deco--cta-peony-r,
+      .cta-petal-a,
+      .cta-petal-b {
+        display: none;
+      }
+      .cta-section {
+        min-height: 0;
+        padding-block: var(--space-7) calc(var(--space-7) + var(--space-7));
+      }
+    }
+    @media (max-width: 560px) {
+      .process {
+        grid-template-columns: 1fr;
+      }
     }
   `,
 })
 export class About {
   private readonly products = inject(ProductService);
+
+  /** Плавна прокрутка до розділу за його id. */
+  protected scrollTo(id: string): void {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
   protected readonly gallery = ['freesia-blush', 'pink-kraft', 'snow-romance', 'hydrangea-blush'].map(
     (id) => this.products.getById(id)!,

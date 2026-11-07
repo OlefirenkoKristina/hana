@@ -19,8 +19,8 @@
 
   position: relative;
   overflow: hidden;
-  min-height: calc(100svh - 77px);
-  padding-block: var(--space-5);
+  min-height: 100svh;
+  padding-block: calc(var(--header-h) + var(--space-5)) var(--space-5);
   /* футер має власний відступ зверху — з’їдаємо його, щоб між фоном і футером не лишалось світлої смуги */
   margin-bottom: calc(var(--space-7) * -1);
   padding-bottom: calc(var(--space-5) + var(--space-7));
@@ -52,8 +52,41 @@
 
 :host-context([data-theme='dark']) .decor--top,
 :host-context([data-theme='dark']) .decor--bottom,
-:host-context([data-theme='dark']) .decor--leaves {
+:host-context([data-theme='dark']) .decor--leaves,
+:host-context([data-theme='dark']) .decor--mid,
+:host-context([data-theme='dark']) .decor--petal {
   display: none;
+}
+
+.decor--mid {
+  top: 0;
+  left: 0;
+  width: min(25vw, 470px);
+  transform: scaleX(-1);
+}
+
+.decor--petal {
+  width: 72px;
+}
+
+.petal-c {
+  top: 27%;
+  left: 52%;
+  transform: rotate(-24deg);
+}
+
+.petal-d {
+  bottom: 8%;
+  left: 44%;
+  width: 90px;
+  transform: rotate(28deg);
+}
+
+.decor--leaves {
+  top: 0;
+  left: 44%;
+  width: min(40vw, 560px);
+  opacity: calc(var(--decor-opacity) * 0.55);
 }
 
 .decor--dark-right {
@@ -324,7 +357,19 @@
   color: var(--icon-fg);
 }
 
+@media (max-width: 1279px) {
+  .decor--mid,
+  .decor--petal {
+    display: none;
+  }
+}
+
 @media (max-width: 960px) {
+  .decor--mid,
+  .decor--petal {
+    display: none;
+  }
+
   .layout {
     grid-template-columns: 1fr;
     gap: var(--space-6);

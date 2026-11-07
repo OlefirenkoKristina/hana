@@ -1,31 +1,36 @@
 <!-- Головний банер -->
 <section class="hero">
-  <img class="hero-photo" src="flowers/hero.jpg" alt="" width="2000" height="1333" fetchpriority="high" />
-  <div class="container hero-content">
+  <div class="hero-content">
+    <img class="sprig rise" src="flowers/home-sprig.png" alt="" aria-hidden="true" />
     <h1 class="rise">HANA</h1>
+    <p class="shop rise" style="animation-delay: 100ms"><span>Flower shop</span></p>
     <p class="lead rise" style="animation-delay: 160ms">
-      Авторські букети, які ми збираємо вручну щоранку. Обирайте готову композицію або створіть власну —
-      доставимо за дві години.
+      Авторські букети, які ми збираємо вручну щоранку. Обирайте готову композицію або створіть власну.
     </p>
     <div class="hero-actions rise" style="animation-delay: 240ms">
       <a routerLink="/catalog" class="btn btn--primary">Переглянути каталог <app-icon name="arrow" [size]="18" /></a>
       <a routerLink="/bouquet-builder" class="btn btn--ghost">Створити букет</a>
     </div>
-    <dl class="stats rise" style="animation-delay: 320ms">
-      <div><dt>Букетів доставлено</dt><dd>12 000+</dd></div>
-      <div><dt>Середня оцінка</dt><dd>4.9</dd></div>
-      <div><dt>Доставка</dt><dd>2 год</dd></div>
-    </dl>
   </div>
+
+  <dl class="stats rise" style="animation-delay: 320ms">
+    <div><app-icon name="truck" [size]="36" [stroke]="1.1" /><span><dd>12 000+</dd><dt>Букетів доставлено</dt></span></div>
+    <div><app-icon name="star" [size]="36" [stroke]="1.1" /><span><dd>4.9</dd><dt>Середня оцінка</dt></span></div>
+    <div><app-icon name="pin" [size]="36" [stroke]="1.1" /><span><dd>2 год</dd><dt>Доставка</dt></span></div>
+  </dl>
 </section>
+
+<div class="pink-zone">
+  <div class="side side--left" aria-hidden="true"></div>
+  <div class="side side--right" aria-hidden="true"></div>
 
 <!-- Категорії -->
 <section class="section categories-section" aria-labelledby="cat-title">
   <div class="container">
     <div class="section-head">
       <div>
-        <span class="eyebrow">Категорії</span>
         <h2 id="cat-title">Що подарувати сьогодні?</h2>
+        <p class="tagline">Оберіть настрій — а ми підберемо квіти <app-icon name="heart" [size]="20" /></p>
       </div>
       <a routerLink="/catalog" class="link">Усі квіти <app-icon name="arrow" [size]="18" /></a>
     </div>
@@ -33,7 +38,11 @@
   <div class="categories">
     @for (c of categories; track c.id) {
       <a class="category" routerLink="/catalog" [queryParams]="{ category: c.id }">
-        <img [src]="'flowers/' + c.id + '.jpg'" alt="" width="900" height="1300" loading="lazy" />
+        @if (c.image; as src) {
+          <img [src]="src" alt="" width="900" height="1300" loading="lazy" />
+        } @else if (c.art) {
+          <span class="category-art" aria-hidden="true"><app-bouquet-art [spec]="c.art" /></span>
+        }
         <span class="category-info">
           <span class="category-name">{{ c.label }}</span>
           <span class="category-count">{{ c.count }} {{ c.count === 1 ? 'товар' : c.count < 5 ? 'товари' : 'товарів' }}</span>
@@ -43,46 +52,36 @@
   </div>
 </section>
 
-<!-- Популярні товари -->
-<section class="section popular" aria-labelledby="pop-title">
-  <div class="container">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">Bestsellers</span>
-        <h2 id="pop-title">Популярні букети</h2>
-      </div>
-      <a routerLink="/catalog" class="link">Перейти до каталогу <app-icon name="arrow" [size]="18" /></a>
-    </div>
-    <div class="product-grid">
-      @for (p of popular; track p.id) {
-        <app-product-card [product]="p" />
-      }
-    </div>
-  </div>
-</section>
-
 <!-- Конструктор -->
-<section class="section" aria-labelledby="builder-title">
-  <div class="container">
-    <div class="builder">
-      <div class="builder-text">
-        <span class="eyebrow">Конструктор</span>
-        <h2 id="builder-title">Створи власний букет</h2>
-        <p>
-          Обери квіти, кількість, пакування та стрічку — і побач результат одразу. Вартість рахується
-          автоматично, а флорист збере букет саме за вашим рецептом.
-        </p>
-        <ol class="builder-steps">
-          <li><span>1</span>Квіти</li>
-          <li><span>2</span>Пакування</li>
-          <li><span>3</span>Деталі</li>
-          <li><span>4</span>Готово</li>
-        </ol>
-        <a routerLink="/bouquet-builder" class="btn btn--light">Створити букет <app-icon name="arrow" [size]="18" /></a>
-      </div>
-      <div class="builder-art" aria-hidden="true">
-        <app-bouquet-art [spec]="builderArt" />
-      </div>
+<section class="builder-screen" aria-labelledby="builder-title">
+  <img class="bs-decor bs-decor--peony-tl" src="flowers/builder-peony-tl.png" alt="" aria-hidden="true" />
+  <img class="bs-decor bs-decor--peony-br" src="flowers/builder-peony-br.png" alt="" aria-hidden="true" />
+  <img class="bs-decor bs-decor--lines-l" src="flowers/builder-lines-l.png" alt="" aria-hidden="true" />
+  <img class="bs-decor bs-decor--lines-r" src="flowers/builder-lines-r.png" alt="" aria-hidden="true" />
+  <img class="bs-decor bs-petal p1" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+  <img class="bs-decor bs-petal p2" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+  <img class="bs-decor bs-petal p3" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+  <img class="bs-decor bs-petal p4" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+
+  <div class="bs-card">
+    <div class="bs-text">
+      <span class="bs-eyebrow">Конструктор</span>
+      <h2 id="builder-title">Створи власний букет</h2>
+      <p class="bs-lead">
+        Обери квіти, кількість, пакування та стрічку — і побач результат одразу. Вартість рахується
+        автоматично, а флорист збере букет саме за вашим рецептом.
+      </p>
+      <ol class="bs-steps">
+        <li><span>1</span>Квіти</li>
+        <li><span>2</span>Пакування</li>
+        <li><span>3</span>Деталі</li>
+        <li><span>4</span>Готово</li>
+      </ol>
+      <a routerLink="/bouquet-builder" class="btn btn--primary bs-btn">Створити букет <app-icon name="arrow" [size]="18" /></a>
+    </div>
+
+    <div class="bs-bouquet" aria-hidden="true">
+      <img src="flowers/builder-bouquet.png" alt="" loading="lazy" />
     </div>
   </div>
 </section>
@@ -120,3 +119,4 @@
     }
   </div>
 </section>
+</div>

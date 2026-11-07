@@ -50,25 +50,38 @@
   height: 200px;
 }
 
-.decor--left {
-  top: 640px;
-  left: 0;
+/* Бічне листя тягнеться вздовж усієї сторінки (плитка: картинка + її дзеркало, шов непомітний) */
+.side {
+  position: absolute;
+  z-index: 2;
+  top: calc(200px + var(--header-h));
+  bottom: 0;
   width: 150px;
+  pointer-events: none;
+  opacity: var(--leaf-opacity);
+  background-repeat: repeat-y;
+  background-size: 150px auto;
 }
 
-.decor--right {
-  top: 310px;
+.side--left {
+  left: 0;
+  background-image: url('/flowers/catalog-tile-left.png');
+}
+
+.side--right {
   right: 0;
-  width: 150px;
+  background-image: url('/flowers/catalog-tile-right.png');
+  background-position: right 0;
 }
 
 /* ---------- Банер ---------- */
 .hero {
   position: relative;
   z-index: 1;
-  min-height: 200px;
+  min-height: calc(200px + var(--header-h));
+  padding-top: var(--header-h);
   background:
-    url('/flowers/catalog-banner.png') right center / auto 100% no-repeat,
+    url('/flowers/home-hero-bg.jpg') center 42% / cover no-repeat,
     linear-gradient(90deg, var(--hero-1) 0%, var(--hero-2) 55%, var(--hero-1) 100%);
 }
 
@@ -78,7 +91,7 @@
 }
 
 :host-context([data-theme='dark']) .hero {
-  min-height: clamp(200px, 16vw, 320px);
+  min-height: calc(clamp(200px, 16vw, 320px) + var(--header-h));
   background:
     url('/flowers/catalog-banner-dark.png') right center / auto 100% no-repeat,
     linear-gradient(90deg, var(--hero-1), var(--hero-2));
@@ -95,6 +108,7 @@
 
 :host-context([data-theme='dark']) .crumbs,
 :host-context([data-theme='dark']) .decor--hero,
+:host-context([data-theme='dark']) .side,
 :host-context([data-theme='dark']) .decor--left,
 :host-context([data-theme='dark']) .decor--right {
   display: none;
@@ -469,7 +483,8 @@
 }
 
 @media (max-width: 1279px) {
-  .decor {
+  .decor,
+  .side {
     display: none;
   }
 }

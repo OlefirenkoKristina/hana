@@ -34,15 +34,21 @@ export class Header {
   protected readonly hidden = signal(false);
   private lastY = 0;
 
-  /** У каталозі шапка зливається з рожевим фоном сторінки, поки її не прокрутили. */
+  /** Сторінки з банером на весь верх: шапка накладається на банер (без власного місця). */
+  private static readonly OVERLAP_PAGES = ['/', '/catalog', '/about', '/contacts'];
+  protected readonly overlaps = computed(() => Header.OVERLAP_PAGES.includes(this.url().split(/[?#]/)[0]));
+
+  /** У каталозі та на «Про нас» шапка зливається з рожевим фоном сторінки, поки її не прокрутили. */
   protected readonly onCatalog = computed(
-    () => this.url().split(/[?#]/)[0] === '/catalog' && !this.scrolled() && !this.menuOpen() && !this.searchOpen(),
+    () => this.overlaps() && !this.scrolled() && !this.menuOpen() && !this.searchOpen(),
   );
 
   /** На головній шапка прозора над фото, поки сторінку не прокрутили. */
   protected readonly overlay = computed(
-    () => this.url().split(/[?#]/)[0] === '/' && !this.scrolled() && !this.menuOpen() && !this.searchOpen(),
+    () => this.overlayPages.includes(this.url().split(/[?#]/)[0]) && !this.scrolled() && !this.menuOpen() && !this.searchOpen(),
   );
+  /** Сторінки, де шапка біла над темним фото (зараз таких немає: головна — рожева). */
+  private readonly overlayPages: string[] = [];
 
   private readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
