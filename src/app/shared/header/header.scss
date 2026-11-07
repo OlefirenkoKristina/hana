@@ -36,6 +36,24 @@
   }
 }
 
+/* Каталог: шапка прозора над рожевим фоном, логотип трохи більший */
+.header.on-catalog {
+  border-bottom-color: transparent;
+
+  &::before {
+    background: linear-gradient(90deg, #fcf1ee, #f7e5e1);
+    backdrop-filter: none;
+  }
+
+  .logo-img {
+    height: 60px;
+  }
+}
+
+:host-context([data-theme='dark']) .header.on-catalog::before {
+  background: var(--header-bg);
+}
+
 .header {
   transition:
     border-color 0.3s,

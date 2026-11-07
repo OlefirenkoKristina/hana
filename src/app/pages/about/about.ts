@@ -2,33 +2,27 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ProductService } from '../../core/services/product.service';
 import { Icon, IconName } from '../../shared/icon/icon';
+import { Parallax } from '../../shared/parallax';
+import { Reveal } from '../../shared/reveal';
 
 @Component({
   selector: 'app-about',
-  imports: [RouterLink, Icon],
+  imports: [RouterLink, Icon, Reveal, Parallax],
   template: `
-    <section class="page-hero">
-      <div class="container">
-        <nav class="breadcrumbs" aria-label="Хлібні крихти">
-          <a routerLink="/">Головна</a><span aria-hidden="true">/</span><span>Про нас</span>
-        </nav>
-      </div>
-    </section>
-
     <section class="section intro-section">
       <div class="intro">
-        <div class="intro-art">
+        <div class="intro-art" appReveal="photo-left" appParallax>
           <img src="flowers/about-studio.jpg" alt="Студія HANA" />
         </div>
         <div class="intro-text">
-          <span class="eyebrow">Історія</span>
-          <h2>Від одного столу — до студії</h2>
-          <p class="lead">
+          <span class="eyebrow" appReveal [revealDelay]="300">Історія</span>
+          <h2 appReveal [revealDelay]="420">Від одного столу — до студії</h2>
+          <p class="lead" appReveal [revealDelay]="560">
             HANA народилася у 2019 році, коли наша засновниця Ханна почала збирати букети для друзів у маленькій
             майстерні на Подолі. Слово «hana» японською означає «квітка» — і саме простоту та чесність японської
             естетики ми взяли за основу.
           </p>
-          <p class="text">
+          <p class="text" appReveal [revealDelay]="700">
             Сьогодні в команді вісім флористів і два кур'єри. Ми працюємо з українськими теплицями та перевіреними
             постачальниками, тому квіти потрапляють до вас свіжими й довго стоять.
           </p>
@@ -38,11 +32,11 @@ import { Icon, IconName } from '../../shared/icon/icon';
 
     <section class="process-wrap">
       <div class="process-text">
-        <span class="eyebrow">Процес</span>
-        <h2>Як народжується букет</h2>
+        <span class="eyebrow" appReveal [revealDelay]="250">Процес</span>
+        <h2 appReveal [revealDelay]="370">Як народжується букет</h2>
         <ol class="process">
           @for (step of process; track step.title; let i = $index) {
-            <li>
+            <li appReveal [revealDelay]="500 + i * 150">
               <span class="num">0{{ i + 1 }}</span>
               <div>
                 <h3>{{ step.title }}</h3>
@@ -52,22 +46,23 @@ import { Icon, IconName } from '../../shared/icon/icon';
           }
         </ol>
       </div>
-      <div class="process-photo">
+      <div class="process-photo" appReveal="photo-right" appParallax>
         <img src="flowers/about-process.jpg" alt="Флорист збирає букет у студії HANA" loading="lazy" />
       </div>
     </section>
 
-    <section class="section">
+    <div class="screen">
+    <section class="values-section">
       <div class="container">
         <div class="section-head">
           <div>
-            <span class="eyebrow">Цінності</span>
-            <h2>У що ми віримо</h2>
+            <span class="eyebrow" appReveal>Цінності</span>
+            <h2 appReveal [revealDelay]="120">У що ми віримо</h2>
           </div>
         </div>
         <div class="values">
-          @for (v of values; track v.title) {
-            <div class="value">
+          @for (v of values; track v.title; let i = $index) {
+            <div class="value" appReveal [revealDelay]="i * 150">
               <span class="icon"><app-icon [name]="v.icon" [size]="26" /></span>
               <h3>{{ v.title }}</h3>
               <p>{{ v.text }}</p>
@@ -77,13 +72,17 @@ import { Icon, IconName } from '../../shared/icon/icon';
       </div>
     </section>
 
-    <section class="container">
+    <section class="container gallery-wrap">
       <div class="gallery" aria-label="Наші роботи">
-        @for (p of gallery; track p.id) {
-          <div class="tile"><img [src]="p.image" [alt]="p.name" loading="lazy" /></div>
+        @for (p of gallery; track p.id; let i = $index) {
+          <div class="tile" appReveal="zoom" [revealDelay]="i * 140" appParallax><img [src]="p.image" [alt]="p.name" loading="lazy" /></div>
         }
       </div>
-      <div class="cta">
+    </section>
+    </div>
+
+    <section class="container">
+      <div class="cta" appReveal>
         <h2>Знайдіть свій букет</h2>
         <p class="lead">Понад п'ятнадцять готових композицій і конструктор для власних ідей.</p>
         <div class="cta-actions">
@@ -94,21 +93,6 @@ import { Icon, IconName } from '../../shared/icon/icon';
     </section>
   `,
   styles: `
-    .page-hero {
-      padding-block: var(--space-3);
-    }
-    .page-hero .container {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: var(--space-2) var(--space-6);
-    }
-    .page-hero .breadcrumbs {
-      margin-bottom: 0;
-    }
-    .page-hero h1 {
-      font-size: clamp(1.3rem, 2.4vw, 1.7rem);
-    }
     .intro-section {
       padding: 0;
     }
@@ -116,7 +100,7 @@ import { Icon, IconName } from '../../shared/icon/icon';
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: stretch;
-      min-height: calc(100svh - 124px);
+      min-height: calc(100svh - 77px);
     }
     .intro-text {
       align-self: center;
@@ -153,6 +137,9 @@ import { Icon, IconName } from '../../shared/icon/icon';
     }
     .process-text h2 {
       margin: var(--space-2) 0 var(--space-6);
+    }
+    .process-photo {
+      overflow: hidden;
     }
     .process-photo img {
       display: block;
@@ -191,43 +178,69 @@ import { Icon, IconName } from '../../shared/icon/icon';
       color: var(--muted);
       font-size: 0.95rem;
     }
+    .value p {
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .screen {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+      min-height: 100svh;
+      padding-block: var(--space-6);
+    }
+    .gallery-wrap {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+    }
+    .values-section .section-head {
+      margin-bottom: var(--space-5);
+    }
+    .values-section h2 {
+      font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+    }
     .values {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-5);
+      gap: var(--space-4);
     }
     .value {
-      padding: var(--space-6);
+      padding: var(--space-4) var(--space-5);
       border-radius: var(--radius);
       background: var(--surface);
       border: 1px solid var(--line);
     }
     .value h3 {
-      margin: var(--space-4) 0 var(--space-2);
+      margin: var(--space-3) 0 var(--space-1);
+      font-size: 1.15rem;
     }
     .icon {
       display: inline-grid;
       place-items: center;
-      width: 54px;
-      height: 54px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: var(--blush);
       color: var(--berry);
     }
     .gallery {
       display: grid;
+      flex: 1;
       grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: minmax(0, 1fr);
       gap: var(--space-4);
+      padding-bottom: var(--space-4);
     }
     .tile {
-      aspect-ratio: 3 / 4;
+      min-height: 0;
       overflow: hidden;
       border-radius: var(--radius);
       background: var(--blush);
     }
     .tile:nth-child(even) {
       background: var(--tile-alt);
-      transform: translateY(var(--space-6));
+      transform: translateY(var(--space-4));
     }
     .cta {
       display: flex;
@@ -270,8 +283,15 @@ import { Icon, IconName } from '../../shared/icon/icon';
       .values {
         grid-template-columns: 1fr;
       }
+      .screen {
+        min-height: 0;
+      }
       .gallery {
         grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: none;
+      }
+      .tile {
+        aspect-ratio: 3 / 4;
       }
     }
   `,

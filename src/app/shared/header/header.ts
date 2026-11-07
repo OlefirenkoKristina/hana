@@ -34,6 +34,11 @@ export class Header {
   protected readonly hidden = signal(false);
   private lastY = 0;
 
+  /** У каталозі шапка зливається з рожевим фоном сторінки, поки її не прокрутили. */
+  protected readonly onCatalog = computed(
+    () => this.url().split(/[?#]/)[0] === '/catalog' && !this.scrolled() && !this.menuOpen() && !this.searchOpen(),
+  );
+
   /** На головній шапка прозора над фото, поки сторінку не прокрутили. */
   protected readonly overlay = computed(
     () => this.url().split(/[?#]/)[0] === '/' && !this.scrolled() && !this.menuOpen() && !this.searchOpen(),

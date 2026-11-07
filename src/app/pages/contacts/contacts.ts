@@ -1,12 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { AbstractControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { uaPhoneValidator } from '../../core/validators';
 import { Icon } from '../../shared/icon/icon';
 
 @Component({
   selector: 'app-contacts',
-  imports: [ReactiveFormsModule, RouterLink, Icon],
+  imports: [ReactiveFormsModule, Icon],
   templateUrl: './contacts.html',
   styleUrl: './contacts.scss',
 })

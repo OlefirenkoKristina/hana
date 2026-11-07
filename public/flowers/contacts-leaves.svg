@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" fill="none" stroke="#c9a79f" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+  <g opacity=".9">
+    <path d="M60 330C40 230 90 120 210 70c20 90-10 190-150 260Z"/>
+    <path d="M60 330C110 230 160 150 210 70"/>
+    <path d="M300 300C260 200 300 90 420 30c40 80 20 190-120 270Z"/>
+    <path d="M300 300C340 210 380 120 420 30"/>
+    <path d="M470 380C450 300 480 210 580 160c20 70 0 150-110 220Z"/>
+    <path d="M470 380C510 300 545 230 580 160"/>
+    <path d="M150 400C170 340 220 300 290 290c-5 60-60 110-140 110Z"/>
+  </g>
+</svg>

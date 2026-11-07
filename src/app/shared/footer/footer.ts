@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Icon } from '../icon/icon';
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink, Icon],
+  imports: [RouterLink],
   template: `
     <footer class="footer">
       <div class="container grid">
@@ -13,14 +12,6 @@ import { Icon } from '../icon/icon';
             <img src="logo-light.png" alt="HANA — flower shop" width="569" height="386" />
           </a>
           <p>Квіти для ваших маленьких моментів. Збираємо букети вручну щодня з 2019 року.</p>
-          <div class="social">
-            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
-              <app-icon name="instagram" />
-            </a>
-            <a href="https://t.me" target="_blank" rel="noopener" aria-label="Telegram">
-              <app-icon name="telegram" />
-            </a>
-          </div>
         </div>
 
         <nav aria-label="Магазин">
@@ -43,7 +34,6 @@ import { Icon } from '../icon/icon';
           <h3>Контакти</h3>
           <a href="tel:+380671234567">+38 (067) 123-45-67</a>
           <a href="mailto:hello@hana.flowers">hello&#64;hana.flowers</a>
-          <p>Київ, вул. Ярославів Вал, 14</p>
           <p>Щодня 08:00 – 21:00</p>
         </div>
       </div>
@@ -56,15 +46,20 @@ import { Icon } from '../icon/icon';
   `,
   styles: `
     .footer {
-      margin-top: var(--space-9);
-      padding-top: var(--space-8);
-      background: var(--footer-bg);
+      margin-top: var(--space-7);
+      padding-top: var(--space-6);
+      background: linear-gradient(135deg, #5c6c5a 0%, #4d5b4b 45%, #3b4739 100%);
       color: #ece8de;
+      font-size: 0.9rem;
+    }
+    /* Темна тема: глибокий темний зелений #1D211D */
+    :host-context([data-theme='dark']) .footer {
+      background: linear-gradient(135deg, #222722 0%, #1d211d 50%, #181c18 100%);
     }
     .grid {
       display: grid;
       grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
-      gap: var(--space-7);
+      gap: var(--space-5);
     }
     .logo {
       display: inline-block;
@@ -72,17 +67,18 @@ import { Icon } from '../icon/icon';
     .logo img {
       display: block;
       width: auto;
-      height: 110px;
+      height: 64px;
     }
     .brand p {
-      margin-top: var(--space-3);
+      margin-top: var(--space-2);
       color: #b9adaa;
       max-width: 34ch;
+      font-size: 0.85rem;
     }
     h3 {
-      margin-bottom: var(--space-4);
+      margin-bottom: var(--space-2);
       font-family: var(--font-body);
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--rose);
@@ -105,34 +101,15 @@ import { Icon } from '../icon/icon';
     .contacts p {
       color: #b9adaa;
     }
-    .social {
-      display: flex;
-      gap: var(--space-2);
-      margin-top: var(--space-5);
-    }
-    .social a {
-      display: grid;
-      place-items: center;
-      width: 44px;
-      height: 44px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      transition: all 0.2s;
-    }
-    .social a:hover {
-      background: var(--rose);
-      border-color: var(--rose);
-      color: #2e2e2e;
-    }
     .bottom {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: var(--space-3);
-      margin-top: var(--space-8);
-      padding-block: var(--space-5);
+      margin-top: var(--space-5);
+      padding-block: var(--space-3);
       border-top: 1px solid rgba(255, 255, 255, 0.12);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #a3999b;
     }
     @media (max-width: 900px) {

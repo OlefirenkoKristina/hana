@@ -26,13 +26,10 @@
 
   <div class="body">
     <a [routerLink]="['/product', product().id]" class="name">{{ product().name }}</a>
-    <p class="short">{{ product().short }}</p>
-    <div class="foot">
-      <span class="price">{{ product().price | uah }}</span>
-      <button type="button" class="add" (click)="addToCart()" [attr.aria-label]="'Додати ' + product().name + ' в кошик'">
-        <app-icon name="bag" [size]="18" />
-        <span>В кошик</span>
-      </button>
-    </div>
+    <p class="price">{{ product().price | uah }}</p>
+    <button type="button" class="add" (click)="addToCart()" [attr.aria-label]="'Додати ' + product().name + ' в кошик'">
+      <app-icon name="bag" [size]="18" />
+      <span>Додати в кошик</span>
+    </button>
   </div>
 </article>

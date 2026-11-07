@@ -10,15 +10,7 @@ import { ProductCard } from '../../shared/product-card/product-card';
   selector: 'app-favorites',
   imports: [RouterLink, ProductCard, Icon],
   template: `
-    <section class="page-hero">
-      <div class="container">
-        <nav class="breadcrumbs" aria-label="Хлібні крихти">
-          <a routerLink="/">Головна</a><span aria-hidden="true">/</span><span>Обране</span>
-        </nav>
-        <h1>Обране</h1>
-        <p class="lead">Букети, які вам сподобалися. Список зберігається в цьому браузері.</p>
-      </div>
-    </section>
+    <h1 class="sr-only">Обране</h1>
 
     <div class="container section">
       @if (items().length) {

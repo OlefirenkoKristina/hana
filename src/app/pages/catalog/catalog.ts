@@ -78,7 +78,8 @@ export class Catalog {
   protected readonly selectedOccasions = signal<Occasion[]>([]);
   protected readonly selectedStems = signal<StemRange[]>([]);
   protected readonly sort = signal<SortOption>('popular');
-  protected readonly filtersOpen = signal(false);
+  /** Який випадаючий фільтр відкритий (null — жоден). */
+  protected readonly openMenu = signal<'color' | 'price' | 'stems' | null>(null);
 
   protected readonly filters = computed<CatalogFilters>(() => ({
     query: this.query(),
@@ -106,6 +107,20 @@ export class Catalog {
     const c = this.activeCategory();
     return c ? CATEGORY_LABELS[c] : 'Каталог квітів';
   });
+
+  /** «31 товар», «2 товари», «5 товарів». */
+  protected readonly foundLabel = computed(() => {
+    const n = this.results().length;
+    const mod10 = n % 10;
+    const mod100 = n % 100;
+    const word =
+      mod10 === 1 && mod100 !== 11 ? 'товар' : mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14) ? 'товари' : 'товарів';
+    return `${n} ${word}`;
+  });
+
+  protected toggleMenu(menu: 'color' | 'price' | 'stems'): void {
+    this.openMenu.update((current) => (current === menu ? null : menu));
+  }
 
   protected setQuery(value: string): void {
     this.query.set(value);
