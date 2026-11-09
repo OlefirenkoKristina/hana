@@ -1,22 +1,22 @@
 <!-- Головний банер -->
 <section class="hero">
   <div class="hero-content">
-    <img class="sprig rise" src="flowers/home-sprig.png" alt="" aria-hidden="true" />
-    <h1 class="rise">HANA</h1>
-    <p class="shop rise" style="animation-delay: 100ms"><span>Flower shop</span></p>
-    <p class="lead rise" style="animation-delay: 160ms">
+    <img class="sprig" src="flowers/home-sprig.png" alt="" aria-hidden="true" appReveal />
+    <h1 appReveal [revealDelay]="150">HANA</h1>
+    <p class="shop" appReveal [revealDelay]="300"><span>Flower shop</span></p>
+    <p class="lead" appReveal [revealDelay]="450">
       Авторські букети, які ми збираємо вручну щоранку. Обирайте готову композицію або створіть власну.
     </p>
-    <div class="hero-actions rise" style="animation-delay: 240ms">
+    <div class="hero-actions" appReveal [revealDelay]="600">
       <a routerLink="/catalog" class="btn btn--primary">Переглянути каталог <app-icon name="arrow" [size]="18" /></a>
       <a routerLink="/bouquet-builder" class="btn btn--ghost">Створити букет</a>
     </div>
   </div>
 
-  <dl class="stats rise" style="animation-delay: 320ms">
-    <div><app-icon name="truck" [size]="36" [stroke]="1.1" /><span><dd>12 000+</dd><dt>Букетів доставлено</dt></span></div>
-    <div><app-icon name="star" [size]="36" [stroke]="1.1" /><span><dd>4.9</dd><dt>Середня оцінка</dt></span></div>
-    <div><app-icon name="pin" [size]="36" [stroke]="1.1" /><span><dd>2 год</dd><dt>Доставка</dt></span></div>
+  <dl class="stats">
+    <div appReveal [revealDelay]="800"><app-icon name="truck" [size]="36" [stroke]="1.1" /><span><dd>12 000+</dd><dt>Букетів доставлено</dt></span></div>
+    <div appReveal [revealDelay]="950"><app-icon name="star" [size]="36" [stroke]="1.1" /><span><dd>4.9</dd><dt>Середня оцінка</dt></span></div>
+    <div appReveal [revealDelay]="1100"><app-icon name="pin" [size]="36" [stroke]="1.1" /><span><dd>2 год</dd><dt>Доставка</dt></span></div>
   </dl>
 </section>
 
@@ -27,7 +27,7 @@
 <!-- Категорії -->
 <section class="section categories-section" aria-labelledby="cat-title">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head" appReveal>
       <div>
         <h2 id="cat-title">Що подарувати сьогодні?</h2>
         <p class="tagline">Оберіть настрій — а ми підберемо квіти <app-icon name="heart" [size]="20" /></p>
@@ -35,7 +35,7 @@
       <a routerLink="/catalog" class="link">Усі квіти <app-icon name="arrow" [size]="18" /></a>
     </div>
   </div>
-  <div class="categories">
+  <div class="categories" appReveal [revealDelay]="200">
     @for (c of categories; track c.id) {
       <a class="category" routerLink="/catalog" [queryParams]="{ category: c.id }">
         @if (c.image; as src) {
@@ -63,8 +63,8 @@
   <img class="bs-decor bs-petal p3" src="flowers/about-petal.png" alt="" aria-hidden="true" />
   <img class="bs-decor bs-petal p4" src="flowers/about-petal.png" alt="" aria-hidden="true" />
 
-  <div class="bs-card">
-    <div class="bs-text">
+  <div class="bs-card" appReveal="zoom">
+    <div class="bs-text" appReveal [revealDelay]="300">
       <span class="bs-eyebrow">Конструктор</span>
       <h2 id="builder-title">Створи власний букет</h2>
       <p class="bs-lead">
@@ -89,12 +89,12 @@
 <!-- Історія бренду -->
 <section class="section story" aria-labelledby="story-title">
   <div class="container story-grid">
-    <div class="story-quote">
+    <div class="story-quote" appReveal="left">
       <span class="mark" aria-hidden="true">“</span>
       <p>Ми віримо, що квіти — це найпростіший спосіб сказати те, для чого бракує слів.</p>
       <span class="author">Ханна, засновниця HANA</span>
     </div>
-    <div>
+    <div appReveal="right" [revealDelay]="200">
       <span class="eyebrow">Наша історія</span>
       <h2 id="story-title">Маленька студія з великою любов'ю до квітів</h2>
       <p class="lead">
@@ -110,8 +110,8 @@
 <!-- Переваги -->
 <section class="section advantages" aria-label="Наші переваги">
   <div class="container adv-grid">
-    @for (a of advantages; track a.title) {
-      <div class="adv">
+    @for (a of advantages; track a.title; let i = $index) {
+      <div class="adv" appReveal [revealDelay]="i * 130">
         <span class="adv-icon"><app-icon [name]="a.icon" [size]="26" /></span>
         <h3>{{ a.title }}</h3>
         <p>{{ a.text }}</p>

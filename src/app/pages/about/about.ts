@@ -56,7 +56,6 @@ import { Reveal } from '../../shared/reveal';
       <img class="deco pk-deco pk-tr" src="flowers/contacts-dark-peony.png" alt="" aria-hidden="true" />
       <img class="deco pk-deco pk-bl" src="flowers/about-dark-bl.png" alt="" aria-hidden="true" />
       <img class="deco pk-deco pk-br" src="flowers/about-dark-br.png" alt="" aria-hidden="true" />
-      <img class="deco pk-deco pk-tl" src="flowers/contacts-dark-left.png" alt="" aria-hidden="true" />
       <img class="deco pk-deco pk-lines" src="flowers/contacts-dark-left.png" alt="" aria-hidden="true" />
 
       <div class="process-inner">
@@ -123,6 +122,9 @@ import { Reveal } from '../../shared/reveal';
       <img class="deco deco--cta-peony-r" src="flowers/about-peony-top.png" alt="" aria-hidden="true" />
       <img class="deco deco--petal cta-petal-a" src="flowers/about-petal.png" alt="" aria-hidden="true" />
       <img class="deco deco--petal cta-petal-b" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+      <img class="deco ck-deco ck-tr" src="flowers/contacts-dark-peony.png" alt="" aria-hidden="true" />
+      <img class="deco ck-deco ck-bl" src="flowers/about-dark-bl.png" alt="" aria-hidden="true" />
+      <img class="deco ck-deco ck-br" src="flowers/about-dark-br.png" alt="" aria-hidden="true" />
 
       <div class="cta">
         <h2 appReveal>Знайдіть свій букет</h2>
@@ -137,6 +139,29 @@ import { Reveal } from '../../shared/reveal';
     </section>
   `,
   styles: `
+    /* Світла тема: усі секції одного кольору, краї плавно розчиняються — переходів не видно */
+    .about-top::after,
+    .process-wrap::after,
+    .screen::after,
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .about-top::after {
+      background: linear-gradient(to top, #f9e9e5 0, rgba(249, 233, 229, 0) 240px);
+    }
+    .process-wrap::after,
+    .screen::after {
+      background:
+        linear-gradient(to bottom, #f9e9e5 0, rgba(249, 233, 229, 0) 240px),
+        linear-gradient(to top, #f9e9e5 0, rgba(249, 233, 229, 0) 240px);
+    }
+    .cta-section::after {
+      background: linear-gradient(to bottom, #f9e9e5 0, rgba(249, 233, 229, 0) 240px);
+    }
     /* Темна тема: м'який перехід між секціями — краї розчиняються в загальний колір фону */
     :host-context([data-theme='dark']) .about-top::after,
     :host-context([data-theme='dark']) .process-wrap::after,
@@ -149,16 +174,16 @@ import { Reveal } from '../../shared/reveal';
       pointer-events: none;
     }
     :host-context([data-theme='dark']) .about-top::after {
-      background: linear-gradient(to top, #22261c 0, rgba(34, 38, 28, 0) 150px);
+      background: linear-gradient(to top, #22261c 0, rgba(34, 38, 28, 0) 240px);
     }
     :host-context([data-theme='dark']) .process-wrap::after,
     :host-context([data-theme='dark']) .screen::after {
       background:
-        linear-gradient(to bottom, #22261c 0, rgba(34, 38, 28, 0) 150px),
-        linear-gradient(to top, #22261c 0, rgba(34, 38, 28, 0) 150px);
+        linear-gradient(to bottom, #22261c 0, rgba(34, 38, 28, 0) 240px),
+        linear-gradient(to top, #22261c 0, rgba(34, 38, 28, 0) 240px);
     }
     :host-context([data-theme='dark']) .cta-section::after {
-      background: linear-gradient(to bottom, #22261c 0, rgba(34, 38, 28, 0) 150px);
+      background: linear-gradient(to bottom, #22261c 0, rgba(34, 38, 28, 0) 240px);
     }
     .about-top {
       position: relative;
@@ -169,7 +194,7 @@ import { Reveal } from '../../shared/reveal';
       min-height: 680px;
       padding-top: var(--header-h);
       padding-bottom: var(--space-5);
-      background: linear-gradient(160deg, #fcf1ee 0%, #f8e5e1 60%, #fcf1ee 100%);
+      background: #f9e9e5;
     }
     :host-context([data-theme='dark']) .about-top {
       /* темна тема: оливкове тло й яскраві піони, як на макеті */
@@ -354,7 +379,7 @@ import { Reveal } from '../../shared/reveal';
       height: calc(100svh - 77px);
       min-height: 560px;
       scroll-margin-top: 77px;
-      background: linear-gradient(200deg, #fcf1ee 0%, #f6dfdb 55%, #fbeeea 100%);
+      background: #f9e9e5;
     }
     :host-context([data-theme='dark']) .process-wrap {
       background: #22261c;
@@ -384,20 +409,14 @@ import { Reveal } from '../../shared/reveal';
       width: min(26vw, 440px);
     }
     .pk-bl {
-      top: 4%;
+      top: -3%;
       left: 0;
-      width: min(12vw, 210px);
-      opacity: 0.9;
+      width: min(15vw, 260px);
     }
     .pk-br {
       bottom: 0;
       right: 0;
       width: min(22vw, 380px);
-    }
-    .pk-tl {
-      top: 0;
-      left: 0;
-      width: min(9vw, 150px);
     }
     .pk-lines {
       bottom: 0;
@@ -523,7 +542,7 @@ import { Reveal } from '../../shared/reveal';
       height: calc(100svh - 77px);
       min-height: 560px;
       scroll-margin-top: 77px;
-      background: linear-gradient(160deg, #fbeeea 0%, #f6dfdb 55%, #fcf1ee 100%);
+      background: #f9e9e5;
     }
     :host-context([data-theme='dark']) .screen {
       background: #22261c;
@@ -668,10 +687,36 @@ import { Reveal } from '../../shared/reveal';
       /* футер має власний відступ зверху — з'їдаємо його, щоб не було світлої смуги */
       margin-bottom: calc(var(--space-7) * -1);
       padding: var(--space-8) var(--gutter) calc(var(--space-8) + var(--space-7));
-      background: linear-gradient(160deg, #fcf1ee 0%, #f6dfdb 55%, #fbeeea 100%);
+      background: #f9e9e5;
     }
     :host-context([data-theme='dark']) .cta-section {
       background: #22261c;
+    }
+    .ck-deco {
+      display: none;
+    }
+    :host-context([data-theme='dark']) .cta-section .deco:not(.ck-deco) {
+      display: none;
+    }
+    :host-context([data-theme='dark']) .cta-section .ck-deco {
+      display: block;
+      opacity: 1;
+    }
+    .ck-tr {
+      top: 0;
+      right: 0;
+      width: min(26vw, 440px);
+    }
+    .ck-bl {
+      bottom: 0;
+      left: 0;
+      width: min(21vw, 360px);
+      transform: scaleY(1);
+    }
+    .ck-br {
+      bottom: 0;
+      right: 0;
+      width: min(18vw, 310px);
     }
     .deco--cta-peony {
       bottom: 0;

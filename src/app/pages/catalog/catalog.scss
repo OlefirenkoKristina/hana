@@ -4,8 +4,8 @@
 }
 
 .catalog-page {
-  --pg-1: #fcf1ee;
-  --pg-2: #f6e2de;
+  --pg-1: #fceee9;
+  --pg-2: #fbebe7;
   --hero-1: #f2d9d5;
   --hero-2: #fbeeea;
   --pill-bg: rgba(255, 251, 249, 0.85);
@@ -24,8 +24,8 @@
 }
 
 :host-context([data-theme='dark']) .catalog-page {
-  --pg-1: #151715;
-  --pg-2: #1b1d1a;
+  --pg-1: #252d1a;
+  --pg-2: #232b19;
   --hero-1: #1a1c19;
   --hero-2: #141614;
   --pill-bg: rgba(255, 255, 255, 0.03);
@@ -53,36 +53,46 @@
 /* Бічне листя тягнеться вздовж усієї сторінки (плитка: картинка + її дзеркало, шов непомітний) */
 .side {
   position: absolute;
-  z-index: 2;
-  top: calc(200px + var(--header-h));
+  z-index: 1;
+  top: 0;
   bottom: 0;
-  width: 150px;
+  width: 10.3vw;
   pointer-events: none;
-  opacity: var(--leaf-opacity);
   background-repeat: repeat-y;
-  background-size: 150px auto;
+  background-size: 100% auto;
+}
+
+.decor--corner {
+  top: 0;
+  right: 0;
+  width: 31.2vw;
+  z-index: 1;
+}
+
+.petal {
+  z-index: 1;
 }
 
 .side--left {
   left: 0;
-  background-image: url('/flowers/catalog-tile-left.png');
+  background-image: url('/flowers/catalog-ref-left.png');
 }
 
 .side--right {
   right: 0;
-  background-image: url('/flowers/catalog-tile-right.png');
-  background-position: right 0;
+  top: 25.6vw;
+  width: 10.3vw;
+  background-image: url('/flowers/catalog-ref-left.png');
+  transform: scaleX(-1);
 }
 
 /* ---------- Банер ---------- */
 .hero {
   position: relative;
   z-index: 1;
-  min-height: calc(200px + var(--header-h));
+  min-height: calc(130px + var(--header-h));
   padding-top: var(--header-h);
-  background:
-    url('/flowers/home-hero-bg.jpg') center 42% / cover no-repeat,
-    linear-gradient(90deg, var(--hero-1) 0%, var(--hero-2) 55%, var(--hero-1) 100%);
+  background: transparent;
 }
 
 .kicker,
@@ -90,67 +100,57 @@
   display: none;
 }
 
-:host-context([data-theme='dark']) .hero {
-  min-height: calc(clamp(200px, 16vw, 320px) + var(--header-h));
-  background:
-    url('/flowers/catalog-banner-dark.png') right center / auto 100% no-repeat,
-    linear-gradient(90deg, var(--hero-1), var(--hero-2));
+/* Темна тема: власні піони з макета; світлі прибираємо */
+.dk {
+  display: none;
 }
 
-:host-context([data-theme='dark']) .hero-inner {
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: var(--space-4);
-  min-height: clamp(200px, 16vw, 320px);
-  padding-block: var(--space-5);
+:host-context([data-theme='dark']) .dk {
+  display: block;
 }
 
+:host-context([data-theme='dark']) .lt,
+:host-context([data-theme='dark']) .petal,
 :host-context([data-theme='dark']) .crumbs,
 :host-context([data-theme='dark']) .decor--hero,
-:host-context([data-theme='dark']) .side,
 :host-context([data-theme='dark']) .decor--left,
 :host-context([data-theme='dark']) .decor--right {
   display: none;
 }
 
-:host-context([data-theme='dark']) .kicker {
-  display: block;
-  margin-bottom: var(--space-2);
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-
-  app-icon {
-    display: inline-block;
-    vertical-align: -2px;
-    margin-left: 4px;
-  }
+.decor--corner-dark {
+  width: 34.2vw;
 }
 
-:host-context([data-theme='dark']) .decor--hero-dark {
-  display: block;
-  position: absolute;
-  z-index: 2;
-  top: 0;
+.side--dark-left-top {
   left: 0;
-  height: 100%;
-  pointer-events: none;
+  bottom: auto;
+  height: 4.6vw;
+  background-image: url('/flowers/catalog-dark-left-top.png');
+  background-repeat: no-repeat;
 }
 
-:host-context([data-theme='dark']) .hero h1 {
-  font-size: clamp(2.8rem, 4.6vw, 3.8rem);
-  font-weight: 500;
+.side--dark-left {
+  left: 0;
+  top: 4.55vw;
+  background-image: url('/flowers/catalog-dark-left.png');
+}
+
+.side--dark-right {
+  right: 0;
+  top: 16.3vw;
+  width: 10.3vw;
+  background-image: url('/flowers/catalog-dark-left.png');
+  background-position: 0 -6.1vw;
+  transform: scaleX(-1);
 }
 
 :host-context([data-theme='dark']) .search {
-  flex: none;
-  width: 100%;
-  max-width: 460px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(70, 64, 52, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   box-shadow: none;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
 }
 
 .hero-inner {
@@ -159,7 +159,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-7);
-  min-height: 200px;
+  min-height: 130px;
 }
 
 .hero-text {
@@ -243,13 +243,15 @@
 .topbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: var(--space-4);
   padding-top: var(--space-5);
 }
 
 .categories {
   display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   gap: var(--space-2);
   overflow-x: auto;
   scrollbar-width: none;

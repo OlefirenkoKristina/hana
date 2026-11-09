@@ -12,32 +12,32 @@
 
 <div class="container layout">
   <div class="info">
-    <nav class="crumbs" aria-label="Хлібні крихти">
+    <nav class="crumbs" aria-label="Хлібні крихти" appReveal>
       <a routerLink="/">Головна</a><span aria-hidden="true">/</span><span>Контакти</span>
     </nav>
-    <h1>Контакти</h1>
-    <p class="intro">Зв'яжіться з нами — і ми допоможемо з оформленням замовлення <app-icon name="heart" [size]="20" /></p>
+    <h1 appReveal [revealDelay]="100">Контакти</h1>
+    <p class="intro" appReveal [revealDelay]="200">Зв'яжіться з нами — і ми допоможемо з оформленням замовлення <app-icon name="heart" [size]="20" /></p>
 
     <ul class="list">
-      <li>
+      <li appReveal [revealDelay]="300">
         <span class="icon"><app-icon name="pin" /></span>
         <div><strong>Адреса</strong><span>Київ, вул. Ярославів Вал, 14</span></div>
       </li>
-      <li>
+      <li appReveal [revealDelay]="410">
         <span class="icon"><app-icon name="phone" /></span>
         <div><strong>Телефон</strong><a href="tel:+380671234567">+38 (067) 123-45-67</a></div>
       </li>
-      <li>
+      <li appReveal [revealDelay]="520">
         <span class="icon"><app-icon name="mail" /></span>
         <div><strong>Email</strong><a href="mailto:hello@hana.flowers">hello&#64;hana.flowers</a></div>
       </li>
-      <li>
+      <li appReveal [revealDelay]="630">
         <span class="icon"><app-icon name="clock" /></span>
         <div><strong>Графік роботи</strong><span>Щодня 08:00 – 21:00</span></div>
       </li>
     </ul>
 
-    <div class="map">
+    <div class="map" appReveal [revealDelay]="750">
       <iframe
         title="Карта: студія HANA, вул. Ярославів Вал, 14, Київ"
         src="https://www.openstreetmap.org/export/embed.html?bbox=30.5045%2C50.4475%2C30.5195%2C50.4545&layer=mapnik&marker=50.4510%2C30.5120"
@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <div class="form-card card">
+  <div class="form-card card" appReveal="right" [revealDelay]="250">
     @if (sentTo(); as name) {
       <div class="sent" role="status">
         <span class="ok"><app-icon name="check" [size]="32" [stroke]="2" /></span>

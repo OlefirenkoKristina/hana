@@ -31,16 +31,16 @@ describe('catalog-query', () => {
     });
 
     it('фільтрує за діапазоном цін включно з межами', () => {
-      const result = filterProducts(PRODUCTS, { ...EMPTY_FILTERS, minPrice: 890, maxPrice: 1200 });
+      const result = filterProducts(PRODUCTS, { ...EMPTY_FILTERS, minPrice: 1800, maxPrice: 2200 });
       expect(result.length).toBeGreaterThan(0);
-      expect(result.every((p) => p.price >= 890 && p.price <= 1200)).toBe(true);
-      expect(result.some((p) => p.price === 890)).toBe(true);
+      expect(result.every((p) => p.price >= 1800 && p.price <= 2200)).toBe(true);
+      expect(result.some((p) => p.price === 1800)).toBe(true);
     });
 
     it('кольори в межах групи працюють як «АБО»', () => {
-      const result = filterProducts(PRODUCTS, { ...EMPTY_FILTERS, colors: ['yellow', 'purple'] });
-      expect(result.every((p) => p.colors.includes('yellow') || p.colors.includes('purple'))).toBe(true);
-      expect(result.some((p) => p.colors.includes('yellow'))).toBe(true);
+      const result = filterProducts(PRODUCTS, { ...EMPTY_FILTERS, colors: ['red', 'purple'] });
+      expect(result.every((p) => p.colors.includes('red') || p.colors.includes('purple'))).toBe(true);
+      expect(result.some((p) => p.colors.includes('red'))).toBe(true);
       expect(result.some((p) => p.colors.includes('purple'))).toBe(true);
     });
 

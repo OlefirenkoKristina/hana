@@ -4,10 +4,11 @@ import { Category, CATEGORY_LABELS } from '../../core/models/product.model';
 import { ProductService } from '../../core/services/product.service';
 import { BouquetArt } from '../../shared/bouquet-art/bouquet-art';
 import { Icon, IconName } from '../../shared/icon/icon';
+import { Reveal } from '../../shared/reveal';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, BouquetArt, Icon],
+  imports: [RouterLink, BouquetArt, Icon, Reveal],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

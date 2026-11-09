@@ -1,5 +1,118 @@
+:host {
+  display: block;
+}
+
+/* Сторінка букета в рожевому стилі: піони по кутах, прозора шапка, скляні елементи */
+.pd-page {
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--header-h);
+  /* футер має власний відступ зверху — з'їдаємо його, щоб не було світлої смуги */
+  margin-bottom: calc(var(--space-7) * -1);
+  padding-bottom: calc(var(--space-8) + var(--space-7));
+  background: linear-gradient(160deg, #fcf1ee 0%, #f8e6e2 55%, #fbeeea 100%);
+  isolation: isolate;
+
+  > .container,
+  > .related {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+:host-context([data-theme='dark']) .pd-page {
+  background: #22261c;
+}
+
+.decor {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+:host-context([data-theme='dark']) .decor {
+  display: none;
+}
+
+.decor--tr {
+  top: 0;
+  right: 0;
+  width: min(30vw, 520px);
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 66%, transparent 97%);
+  mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 66%, transparent 97%);
+}
+
+.decor--bl {
+  bottom: 0;
+  left: 0;
+  width: min(25vw, 430px);
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0% 100%, #000 66%, transparent 97%);
+  mask-image: radial-gradient(ellipse 100% 100% at 0% 100%, #000 66%, transparent 97%);
+}
+
+.decor--br {
+  bottom: 0;
+  right: 0;
+  width: min(26vw, 440px);
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 62%, transparent 97%);
+  mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 62%, transparent 97%);
+}
+
+.decor--ml {
+  top: 42vh;
+  left: 0;
+  width: min(15vw, 260px);
+  opacity: 0.9;
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0% 50%, #000 60%, transparent 96%);
+  mask-image: radial-gradient(ellipse 100% 100% at 0% 50%, #000 60%, transparent 96%);
+}
+
+.decor--lines {
+  top: var(--header-h);
+  left: 0;
+  width: min(9vw, 150px);
+}
+
+.decor--petal {
+  width: 62px;
+}
+
+.petal-1 {
+  top: 24%;
+  left: 3%;
+  transform: rotate(-20deg);
+}
+
+.petal-2 {
+  top: 36%;
+  right: 6%;
+  width: 74px;
+  transform: rotate(24deg);
+}
+
+.petal-3 {
+  top: 78vh;
+  left: 36%;
+  width: 70px;
+  transform: rotate(-28deg);
+}
+
+@media (max-width: 900px) {
+  .decor--ml,
+  .decor--lines,
+  .petal-3 {
+    display: none;
+  }
+
+  .decor--tr,
+  .decor--bl,
+  .decor--br {
+    opacity: 0.7;
+  }
+}
+
 .crumbs {
-  padding-top: var(--space-6);
+  padding-top: var(--space-5);
   flex-wrap: wrap;
 }
 
@@ -22,10 +135,11 @@
 .stage {
   position: relative;
   aspect-ratio: 1 / 1;
-  width: min(100%, 440px);
-  margin-inline: auto;
+  width: min(100%, 520px);
+  margin-inline: 0 auto;
   padding: 8% 12% 4%;
-  border-radius: var(--radius-lg);
+  border-radius: 36px;
+  box-shadow: 0 24px 60px rgba(196, 138, 138, 0.22);
   background: var(--blush);
 
   /* Рамка має ті самі пропорції, що й фото (3:4), тому нічого не обрізається. */
@@ -97,9 +211,9 @@
   flex-direction: column;
   gap: 2px;
   padding: var(--space-3) var(--space-4);
-  border: 1.5px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
+  border: 1px solid #ecd5d0;
+  border-radius: 20px;
+  background: rgba(255, 251, 249, 0.82);
   cursor: pointer;
   transition: border-color 0.2s, box-shadow 0.2s;
 
@@ -112,8 +226,9 @@
   }
 
   &.is-active {
-    border-color: var(--berry);
-    background: var(--blush);
+    border-color: #b99d99;
+    background: rgba(240, 205, 200, 0.7);
+    box-shadow: 0 8px 22px rgba(196, 138, 138, 0.2);
   }
 }
 
@@ -150,7 +265,8 @@
 .fav {
   width: 52px;
   height: 52px;
-  border: 1.5px solid var(--line);
+  border: 1px solid #ecd5d0;
+  background: rgba(255, 251, 249, 0.82);
 
   &.is-active {
     color: var(--berry);
@@ -213,7 +329,63 @@
 }
 
 .related {
+  position: relative;
   padding-bottom: 0;
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .rel-l {
+    top: -150px;
+    left: 0;
+    width: min(16vw, 280px);
+    -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0% 50%, #000 60%, transparent 96%);
+    mask-image: radial-gradient(ellipse 100% 100% at 0% 50%, #000 60%, transparent 96%);
+  }
+
+  .rel-r {
+    top: -110px;
+    right: 0;
+    width: min(23vw, 400px);
+    -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 66%, transparent 97%);
+    mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 66%, transparent 97%);
+  }
+
+  .rel-p1 {
+    top: 40px;
+    left: 46%;
+    transform: rotate(-18deg);
+  }
+
+  .rel-p2 {
+    top: 70%;
+    right: 3%;
+    width: 70px;
+    transform: rotate(26deg);
+  }
+
+  @media (max-width: 900px) {
+    .rel-l,
+    .rel-r,
+    .rel-p1,
+    .rel-p2 {
+      display: none;
+    }
+  }
+
+
+  .section-head h2 {
+    font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+    font-weight: 500;
+  }
+}
+
+:host-context([data-theme='dark']) .size,
+:host-context([data-theme='dark']) .fav {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 @media (max-width: 900px) {

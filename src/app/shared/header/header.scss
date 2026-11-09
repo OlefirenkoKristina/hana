@@ -170,9 +170,12 @@
 }
 
 :host-context([data-theme='dark']) .search {
-  border-top-color: rgba(255, 255, 255, 0.08);
-  background: linear-gradient(180deg, #20231f 0%, #1a1c19 100%);
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5);
+  /* той самий колір, що й у футера */
+  border-top-color: rgba(216, 178, 150, 0.38);
+  background:
+    radial-gradient(ellipse 60% 120% at 30% 20%, rgba(255, 255, 255, 0.025), transparent 70%),
+    linear-gradient(135deg, #272b20 0%, #20241b 100%);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
 }
 
 .search-inner {
@@ -342,4 +345,31 @@
 /* Ховаємо шапку при прокрутці вниз */
 .header.is-hidden {
   transform: translateY(-100%);
+}
+
+/* Темна тема: відкритий пошук — шапка й панель стають єдиним фото-блоком із піонами, як на макеті */
+:host-context([data-theme='dark']) .header.search-open {
+  &::before {
+    background: linear-gradient(180deg, #272b20, #20241b);
+    backdrop-filter: none;
+  }
+
+  .search {
+    min-height: 250px;
+    padding-top: var(--space-7);
+    border-top: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .search-field {
+    border: 1px solid rgba(216, 178, 150, 0.5);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: none;
+  }
+
+  .hint {
+    border-color: rgba(216, 178, 150, 0.4);
+    background: rgba(255, 255, 255, 0.04);
+  }
 }

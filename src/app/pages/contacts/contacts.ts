@@ -3,10 +3,11 @@ import { AbstractControl, NonNullableFormBuilder, ReactiveFormsModule, Validator
 import { RouterLink } from '@angular/router';
 import { uaPhoneValidator } from '../../core/validators';
 import { Icon } from '../../shared/icon/icon';
+import { Reveal } from '../../shared/reveal';
 
 @Component({
   selector: 'app-contacts',
-  imports: [ReactiveFormsModule, RouterLink, Icon],
+  imports: [ReactiveFormsModule, RouterLink, Icon, Reveal],
   templateUrl: './contacts.html',
   styleUrl: './contacts.scss',
 })

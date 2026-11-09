@@ -36,7 +36,10 @@ export class Header {
 
   /** Сторінки з банером на весь верх: шапка накладається на банер (без власного місця). */
   private static readonly OVERLAP_PAGES = ['/', '/catalog', '/about', '/contacts', '/cart', '/favorites'];
-  protected readonly overlaps = computed(() => Header.OVERLAP_PAGES.includes(this.url().split(/[?#]/)[0]));
+  protected readonly overlaps = computed(() => {
+    const path = this.url().split(/[?#]/)[0];
+    return Header.OVERLAP_PAGES.includes(path) || path.startsWith('/product/');
+  });
 
   /** У каталозі та на «Про нас» шапка зливається з рожевим фоном сторінки, поки її не прокрутили. */
   protected readonly onCatalog = computed(

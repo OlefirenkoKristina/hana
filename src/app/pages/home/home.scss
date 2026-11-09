@@ -345,12 +345,13 @@
   overflow: hidden;
   min-height: 100svh;
   padding: calc(var(--header-h) + var(--space-5)) var(--gutter) var(--space-7);
-  background: linear-gradient(160deg, #fcf1ee 0%, #f8e6e2 55%, #fbeeea 100%);
+  /* фон не задаємо — секція зливається з рожевою зоною, переходу не видно */
+  background: transparent;
   isolation: isolate;
 }
 
 :host-context([data-theme='dark']) .builder-screen {
-  background: linear-gradient(160deg, #1c1e1b 0%, #20231f 100%);
+  background: transparent;
 }
 
 .bs-decor {
@@ -367,12 +368,17 @@
   top: 0;
   left: 0;
   width: min(14vw, 240px);
+  /* верх розчиняється, щоб не було різкого краю між секціями */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 110px);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 110px);
 }
 
 .bs-decor--peony-br {
   right: 0;
   bottom: 0;
   width: min(13vw, 220px);
+  -webkit-mask-image: linear-gradient(to top, transparent 0, #000 110px);
+  mask-image: linear-gradient(to top, transparent 0, #000 110px);
 }
 
 .bs-decor--lines-l {
@@ -658,7 +664,7 @@
   }
 
   .category {
-    flex: 1 1 30%;
+    flex: 1 1 45%;
     min-height: 280px;
   }
 

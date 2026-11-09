@@ -6,6 +6,8 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   template: `
     <footer class="footer">
+      <img class="leaf leaf--l" src="flowers/contacts-dark-left.png" alt="" aria-hidden="true" />
+      <img class="leaf leaf--r" src="flowers/contacts-dark-left.png" alt="" aria-hidden="true" />
       <div class="container grid">
         <div class="brand">
           <a routerLink="/" class="logo" aria-label="HANA — на головну">
@@ -53,8 +55,42 @@ import { RouterLink } from '@angular/router';
       font-size: 0.9rem;
     }
     /* Темна тема: глибокий темний зелений #1D211D */
+    .leaf {
+      display: none;
+    }
     :host-context([data-theme='dark']) .footer {
-      background: linear-gradient(135deg, #222722 0%, #1d211d 50%, #181c18 100%);
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(216, 178, 150, 0.38);
+      background:
+        radial-gradient(ellipse 60% 120% at 30% 20%, rgba(255, 255, 255, 0.025), transparent 70%),
+        linear-gradient(135deg, #272b20 0%, #20241b 100%);
+      color: #efe6dc;
+    }
+    :host-context([data-theme='dark']) .footer h3 {
+      color: #e3a98c;
+    }
+    :host-context([data-theme='dark']) .footer .container {
+      position: relative;
+      z-index: 1;
+    }
+    :host-context([data-theme='dark']) .leaf {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      width: min(8vw, 130px);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    :host-context([data-theme='dark']) .leaf--l {
+      left: 0;
+      transform: scaleY(-1);
+    }
+    :host-context([data-theme='dark']) .leaf--r {
+      right: 0;
+      top: 0;
+      bottom: auto;
+      transform: scaleX(-1);
     }
     .grid {
       display: grid;

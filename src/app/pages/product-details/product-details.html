@@ -1,4 +1,14 @@
 @if (product(); as p) {
+<div class="pd-page">
+  <img class="decor decor--tr" src="flowers/cart-peony-tr.png" alt="" aria-hidden="true" />
+  <img class="decor decor--bl" src="flowers/cart-peony-bl.png" alt="" aria-hidden="true" />
+  <img class="decor decor--br" src="flowers/fav-peony-r.png" alt="" aria-hidden="true" />
+  <img class="decor decor--ml" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
+  <img class="decor decor--lines" src="flowers/cart-lines-l.png" alt="" aria-hidden="true" />
+  <img class="decor decor--petal petal-1" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+  <img class="decor decor--petal petal-2" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+  <img class="decor decor--petal petal-3" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+
   <div class="container">
     <nav class="breadcrumbs crumbs" aria-label="Хлібні крихти">
       <a routerLink="/">Головна</a><span aria-hidden="true">/</span>
@@ -111,6 +121,10 @@
   </div>
 
   <section class="section related" aria-labelledby="related-title">
+    <img class="decor rel-l" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
+    <img class="decor rel-r" src="flowers/cart-peony-tr.png" alt="" aria-hidden="true" />
+    <img class="decor decor--petal rel-p1" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+    <img class="decor decor--petal rel-p2" src="flowers/about-petal.png" alt="" aria-hidden="true" />
     <div class="container">
       <div class="section-head">
         <h2 id="related-title">Схожі букети</h2>
@@ -123,6 +137,7 @@
       </div>
     </div>
   </section>
+</div>
 } @else {
   <div class="container empty-state">
     <h1>Букет не знайдено</h1>

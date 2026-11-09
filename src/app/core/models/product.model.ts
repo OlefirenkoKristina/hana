@@ -1,8 +1,8 @@
 import { BouquetArtSpec } from './art.model';
 
-export type Category = 'bouquets' | 'roses' | 'peonies' | 'hydrangeas' | 'seasonal' | 'potted';
+export type Category = 'bouquets' | 'roses' | 'peonies' | 'hydrangeas';
 /** Категорії, де розмір не обирається: товар продається в одному, стандартному розмірі. */
-export const NO_SIZE_CATEGORIES: readonly Category[] = ['potted', 'bouquets'];
+export const NO_SIZE_CATEGORIES: readonly Category[] = ['bouquets'];
 export type FlowerColor = 'pink' | 'white' | 'red' | 'yellow' | 'purple' | 'peach';
 export type Occasion = 'birthday' | 'date' | 'wedding' | 'thanks';
 export type StemRange = 'upTo10' | 'from10to25' | 'over25';
@@ -45,8 +45,6 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   roses: 'Троянди',
   peonies: 'Півонії',
   hydrangeas: 'Гортензії',
-  seasonal: 'Сезонні квіти',
-  potted: 'Квіти в горщиках',
 };
 
 export const COLOR_LABELS: Record<FlowerColor, string> = {
