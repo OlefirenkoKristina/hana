@@ -20,8 +20,40 @@
   }
 }
 
+/* ===== Темна тема: палітра HANA через змінні ===== */
 :host-context([data-theme='dark']) .pd-page {
-  background: #22261c;
+  --pd-bg: #1d241b;
+  --pd-section: #252d22;
+  --pd-card: #30382c;
+  --pd-text: #f4ebdd;
+  --pd-muted: #bdb5a8;
+  --pd-pink: #e9b7b2;
+  --pd-line: #777663;
+  --pd-olive: #65735b;
+
+  --ink: var(--pd-text);
+  --muted: var(--pd-muted);
+  --line: rgba(119, 118, 99, 0.55);
+  --surface: var(--pd-card);
+  --blush: var(--pd-card);
+  --berry: var(--pd-pink);
+  --berry-dark: #f2cbc6;
+  --on-berry: #2b201e;
+  --sage: var(--pd-olive);
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+
+  background: linear-gradient(180deg, var(--pd-bg) 0%, #202820 55%, var(--pd-section) 100%);
+  color: var(--pd-text);
+}
+
+.pd-top {
+  position: relative;
+  overflow: hidden;
+
+  > .container {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .decor {
@@ -382,10 +414,86 @@
   }
 }
 
-:host-context([data-theme='dark']) .size,
+:host-context([data-theme='dark']) .size {
+  background: rgba(48, 56, 44, 0.55);
+  border-color: var(--pd-line);
+  color: var(--pd-text);
+
+  &:hover {
+    border-color: var(--pd-pink);
+  }
+
+  &.is-active {
+    background: var(--pd-pink);
+    border-color: var(--pd-pink);
+    color: #2b201e;
+    box-shadow: 0 10px 26px rgba(233, 183, 178, 0.18);
+
+    .size-label {
+      color: #5a4744;
+    }
+  }
+}
+
 :host-context([data-theme='dark']) .fav {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: transparent;
+  border-color: var(--pd-line);
+  color: var(--pd-text);
+
+  &:hover,
+  &.is-active {
+    border-color: var(--pd-pink);
+    color: var(--pd-pink);
+  }
+}
+
+:host-context([data-theme='dark']) .stage {
+  border: 1px solid rgba(119, 118, 99, 0.75);
+  background: var(--pd-card);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.5);
+}
+
+:host-context([data-theme='dark']) .crumbs a {
+  color: var(--pd-muted);
+}
+
+:host-context([data-theme='dark']) .related {
+  background: linear-gradient(180deg, transparent 0%, rgba(37, 45, 34, 0.75) 40%);
+}
+
+/* Квіти з макета (піони по кутах, листя, пелюстки) */
+.dk-art {
+  display: none;
+  position: absolute;
+  z-index: 0;
+  height: auto;
+  pointer-events: none;
+}
+
+:host-context([data-theme='dark']) .dk-art {
+  display: block;
+}
+
+.dk-a-left-top { top: 0; left: 0; width: 11.06vw; }
+.dk-a-left-bot { bottom: 0; left: 0; width: 11.06vw; }
+.dk-a-corner { top: 0; right: 0; width: 25.5vw; }
+.dk-a-right { bottom: 0; right: 0; width: 7.6vw; }
+.dk-fill { top: 0; bottom: 0; background-repeat: repeat-y; background-size: 100% auto; }
+.dk-fill-l { left: 0; width: 10.05vw; background-image: url('/flowers/pd-dark-fill-l.png'); }
+.dk-fill-r { right: 0; width: 9.7vw; background-image: url('/flowers/pd-dark-fill-r.png'); background-position: right 0; }
+.dk-b-left { bottom: 0; left: 0; width: 10.05vw; }
+.dk-b-right { bottom: 0; right: 0; width: 9.7vw; }
+
+@media (max-width: 900px) {
+  .dk-art {
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 700px) {
+  :host-context([data-theme='dark']) .dk-art {
+    display: none;
+  }
 }
 
 @media (max-width: 900px) {
