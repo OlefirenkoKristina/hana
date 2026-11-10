@@ -22,8 +22,8 @@
 
 /* ===== Темна тема: палітра HANA через змінні ===== */
 :host-context([data-theme='dark']) .pd-page {
-  --pd-bg: #1d241b;
-  --pd-section: #252d22;
+  --pd-bg: #252d1a;
+  --pd-section: #252d1a;
   --pd-card: #30382c;
   --pd-text: #f4ebdd;
   --pd-muted: #bdb5a8;
@@ -42,13 +42,17 @@
   --sage: var(--pd-olive);
   --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
 
-  background: linear-gradient(180deg, var(--pd-bg) 0%, #202820 55%, var(--pd-section) 100%);
+  background: var(--pd-bg);
   color: var(--pd-text);
 }
 
 .pd-top {
   position: relative;
+  --pd-wide: 1300px;
   overflow: hidden;
+  /* декор у темній темі починається від самого верху сторінки, під прозорою шапкою */
+  margin-top: calc(var(--header-h) * -1);
+  padding-top: var(--header-h);
 
   > .container {
     position: relative;
@@ -144,16 +148,16 @@
 }
 
 .crumbs {
-  padding-top: var(--space-5);
+  padding-top: calc(var(--space-5) + 36px);
   flex-wrap: wrap;
 }
 
 .product {
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: var(--space-8);
+  grid-template-columns: minmax(0, 545px) minmax(0, 1fr);
+  gap: var(--space-8) clamp(48px, 8.8vw, 147px);
   align-items: start;
-  padding-top: var(--space-3);
+  padding-top: 0;
 }
 
 .gallery {
@@ -167,7 +171,7 @@
 .stage {
   position: relative;
   aspect-ratio: 1 / 1;
-  width: min(100%, 520px);
+  width: min(100%, 545px);
   margin-inline: 0 auto;
   padding: 8% 12% 4%;
   border-radius: 36px;
@@ -176,7 +180,7 @@
 
   /* Рамка має ті самі пропорції, що й фото (3:4), тому нічого не обрізається. */
   &.stage--photo {
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 5 / 6;
     padding: 0;
     overflow: hidden;
   }
@@ -199,6 +203,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  padding-top: 14px;
 
   h1 {
     font-size: clamp(2.6rem, 5vw, 4rem);
@@ -206,6 +211,7 @@
 }
 
 .price {
+  margin-top: 10px;
   font-size: 1.6rem;
   font-weight: 700;
 }
@@ -222,7 +228,7 @@
 }
 
 .sizes {
-  margin: var(--space-2) 0 0;
+  margin: var(--space-4) 0 0;
   padding: 0;
   border: 0;
 
@@ -285,7 +291,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin-block: var(--space-3);
+  margin-block: 0 var(--space-3);
   flex-wrap: wrap;
 
   .add {
@@ -458,7 +464,7 @@
 }
 
 :host-context([data-theme='dark']) .related {
-  background: linear-gradient(180deg, transparent 0%, rgba(37, 45, 34, 0.75) 40%);
+  background: none;
 }
 
 /* Квіти з макета (піони по кутах, листя, пелюстки) */
@@ -475,14 +481,63 @@
 }
 
 .dk-a-left-top { top: 0; left: 0; width: 11.06vw; }
-.dk-a-left-bot { bottom: 0; left: 0; width: 11.06vw; }
 .dk-a-corner { top: 0; right: 0; width: 25.5vw; }
-.dk-a-right { bottom: 0; right: 0; width: 7.6vw; }
-.dk-fill { top: 0; bottom: 0; background-repeat: repeat-y; background-size: 100% auto; }
-.dk-fill-l { left: 0; width: 10.05vw; background-image: url('/flowers/pd-dark-fill-l.png'); }
-.dk-fill-r { right: 0; width: 9.7vw; background-image: url('/flowers/pd-dark-fill-r.png'); background-position: right 0; }
-.dk-b-left { bottom: 0; left: 0; width: 10.05vw; }
-.dk-b-right { bottom: 0; right: 0; width: 9.7vw; }
+/* піони вздовж усієї сторінки нижче першого екрана: у колонці лишаються тільки цілі квіти
+   (зайві переносяться в сусідню колонку, яку ховає overflow), решта рівно розподіляється по висоті */
+.dk-flow {
+  top: 100svh;
+  bottom: 0;
+  height: auto;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-content: flex-start;
+  padding-block: 3vw 2vw;
+  overflow: hidden;
+
+  img {
+    display: block;
+    flex: none;
+    height: auto;
+  }
+}
+
+:host-context([data-theme="dark"]) .dk-flow {
+  display: flex;
+}
+
+.dk-flow img {
+  margin-block: 2vw;
+}
+
+/* цілі кластери з макета: притиснуті до краю екрана, решта країв розчиняється в фон */
+.pd-cl,
+.pd-petal {
+  --fade: linear-gradient(to right, #000 70%, transparent 100%);
+  --fade-v: linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+  -webkit-mask-image: var(--fade), var(--fade-v);
+  mask-image: var(--fade), var(--fade-v);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.pd-petal {
+  --fade: radial-gradient(closest-side, #000 55%, transparent 100%);
+  --fade-v: linear-gradient(#000, #000);
+  width: 5.5vw;
+}
+
+.pd-cl { width: 14vw; }
+
+.dk-flow-l { left: 0; width: 14vw; align-items: flex-start; }
+.dk-flow-r { right: 0; width: 14vw; align-items: flex-end; }
+.dk-flow-r img { transform: scaleX(-1); }
+.dk-flow-l .pd-petal { margin-left: 4vw; }
+.dk-flow-r .pd-petal { margin-right: 4vw; }
+
+/* нижні піони — по низу першого екрана, як на макеті */
+.dk-bl { top: calc(100svh - 21vw); left: 0; width: 14vw; }
+.dk-br { top: calc(100svh - 21vw); right: 0; width: 14vw; transform: scaleX(-1); }
 
 @media (max-width: 900px) {
   .dk-art {
@@ -516,4 +571,8 @@
   .size {
     padding: var(--space-3);
   }
+}
+
+:host-context([data-theme="dark"]) .pd-top > .container {
+  max-width: var(--pd-wide);
 }

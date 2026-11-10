@@ -62,9 +62,7 @@ import { RouterLink } from '@angular/router';
       position: relative;
       overflow: hidden;
       border-top: 1px solid rgba(216, 178, 150, 0.38);
-      background:
-        radial-gradient(ellipse 60% 120% at 30% 20%, rgba(255, 255, 255, 0.025), transparent 70%),
-        linear-gradient(135deg, #272b20 0%, #20241b 100%);
+      background: #252d1a;
       color: #efe6dc;
     }
     :host-context([data-theme='dark']) .footer h3 {

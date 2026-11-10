@@ -54,7 +54,7 @@ import { ProductCard } from '../../shared/product-card/product-card';
     }
     :host-context([data-theme='dark']) .fav-page {
       /* темна тема: готове фото з яскравими піонами */
-      background: #1a1d19 url('/flowers/fav-dark-bg.jpg') center bottom / cover no-repeat;
+      background: #252d1a url('/flowers/fav-dark-bg.jpg') center bottom / cover no-repeat;
     }
     :host-context([data-theme='dark']) .decor {
       display: none;

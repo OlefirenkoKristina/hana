@@ -174,16 +174,16 @@ import { Reveal } from '../../shared/reveal';
       pointer-events: none;
     }
     :host-context([data-theme='dark']) .about-top::after {
-      background: linear-gradient(to top, #22261c 0, rgba(34, 38, 28, 0) 240px);
+      background: linear-gradient(to top, #252d1a 0, rgba(37, 45, 26, 0) 240px);
     }
     :host-context([data-theme='dark']) .process-wrap::after,
     :host-context([data-theme='dark']) .screen::after {
       background:
-        linear-gradient(to bottom, #22261c 0, rgba(34, 38, 28, 0) 240px),
-        linear-gradient(to top, #22261c 0, rgba(34, 38, 28, 0) 240px);
+        linear-gradient(to bottom, #252d1a 0, rgba(37, 45, 26, 0) 240px),
+        linear-gradient(to top, #252d1a 0, rgba(37, 45, 26, 0) 240px);
     }
     :host-context([data-theme='dark']) .cta-section::after {
-      background: linear-gradient(to bottom, #22261c 0, rgba(34, 38, 28, 0) 240px);
+      background: linear-gradient(to bottom, #252d1a 0, rgba(37, 45, 26, 0) 240px);
     }
     .about-top {
       position: relative;
@@ -198,7 +198,7 @@ import { Reveal } from '../../shared/reveal';
     }
     :host-context([data-theme='dark']) .about-top {
       /* темна тема: оливкове тло й яскраві піони, як на макеті */
-      background: #22261c;
+      background: #252d1a;
     }
     .dk-deco {
       display: none;
@@ -382,7 +382,7 @@ import { Reveal } from '../../shared/reveal';
       background: #f9e9e5;
     }
     :host-context([data-theme='dark']) .process-wrap {
-      background: #22261c;
+      background: #252d1a;
     }
     .pk-deco,
     .step-ico {
@@ -545,7 +545,7 @@ import { Reveal } from '../../shared/reveal';
       background: #f9e9e5;
     }
     :host-context([data-theme='dark']) .screen {
-      background: #22261c;
+      background: #252d1a;
     }
     .vk-deco {
       display: none;
@@ -690,7 +690,7 @@ import { Reveal } from '../../shared/reveal';
       background: #f9e9e5;
     }
     :host-context([data-theme='dark']) .cta-section {
-      background: #22261c;
+      background: #252d1a;
     }
     .ck-deco {
       display: none;
