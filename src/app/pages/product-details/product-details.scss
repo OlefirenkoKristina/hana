@@ -74,24 +74,24 @@
   top: 0;
   right: 0;
   width: min(30vw, 520px);
-  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 66%, transparent 97%);
-  mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 66%, transparent 97%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 88%, transparent 100%);
+  mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 88%, transparent 100%);
 }
 
 .decor--bl {
   bottom: 0;
   left: 0;
   width: min(25vw, 430px);
-  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0% 100%, #000 66%, transparent 97%);
-  mask-image: radial-gradient(ellipse 100% 100% at 0% 100%, #000 66%, transparent 97%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0% 100%, #000 88%, transparent 100%);
+  mask-image: radial-gradient(ellipse 100% 100% at 0% 100%, #000 88%, transparent 100%);
 }
 
 .decor--br {
   bottom: 0;
   right: 0;
   width: min(26vw, 440px);
-  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 62%, transparent 97%);
-  mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 62%, transparent 97%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 86%, transparent 100%);
+  mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 86%, transparent 100%);
 }
 
 .decor--ml {
@@ -387,8 +387,8 @@
     top: -110px;
     right: 0;
     width: min(23vw, 400px);
-    -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 66%, transparent 97%);
-    mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 66%, transparent 97%);
+    -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 88%, transparent 100%);
+    mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 88%, transparent 100%);
   }
 
   .rel-p1 {
@@ -488,7 +488,6 @@
   top: 100svh;
   bottom: 0;
   height: auto;
-  display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
   align-content: flex-start;
@@ -511,8 +510,7 @@
 }
 
 /* цілі кластери з макета: притиснуті до краю екрана, решта країв розчиняється в фон */
-.pd-cl,
-.pd-petal {
+.pd-cl {
   --fade: linear-gradient(to right, #000 70%, transparent 100%);
   --fade-v: linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
   -webkit-mask-image: var(--fade), var(--fade-v);
@@ -521,19 +519,136 @@
   mask-composite: intersect;
 }
 
-.pd-petal {
-  --fade: radial-gradient(closest-side, #000 55%, transparent 100%);
-  --fade-v: linear-gradient(#000, #000);
-  width: 5.5vw;
-}
-
 .pd-cl { width: 14vw; }
 
 .dk-flow-l { left: 0; width: 14vw; align-items: flex-start; }
 .dk-flow-r { right: 0; width: 14vw; align-items: flex-end; }
 .dk-flow-r img { transform: scaleX(-1); }
-.dk-flow-l .pd-petal { margin-left: 4vw; }
-.dk-flow-r .pd-petal { margin-right: 4vw; }
+
+/* ===== Світла тема: перший екран точно за макетом (усе масштабується від ширини вікна) ===== */
+.lt-art {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  height: auto;
+  pointer-events: none;
+}
+
+:host-context([data-theme='dark']) .lt-art {
+  display: none;
+}
+
+.lt-mock-l { left: 0; top: 0; width: 20.633vw; }
+.lt-mock-r { left: 69.378vw; top: 0; width: 30.622vw; }
+/* цілі піони внизу: починаються там, де в макеті квітка виходить за край екрана */
+.lt-wp { width: 17vw; }
+.lt-wp-l { left: 0; top: 43.4vw; }
+.lt-wp-r { right: 0; top: 45vw; transform: scaleX(-1); }
+
+/* власні кутові піони, листя й пелюстки світлої теми замінює картинка з макета */
+.decor--tr,
+.decor--ml,
+.decor--lines,
+.decor--petal.petal-1,
+.decor--petal.petal-2,
+.decor--petal.petal-3 {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  .pd-top > .container {
+    width: 80.3vw;
+    max-width: none;
+    margin-left: 10.77vw;
+    margin-right: 0;
+    padding-inline: 0;
+  }
+
+  .product {
+    grid-template-columns: 34.7vw minmax(0, 1fr);
+    column-gap: 7.66vw;
+  }
+
+  .stage.stage--photo {
+    width: 100%;
+    aspect-ratio: 9 / 10;
+  }
+
+  /* світла тема: вертикальні відступи блоку інформації, як на макеті */
+  .crumbs {
+    padding-top: calc(var(--space-5) + 65px);
+  }
+
+  .info {
+    padding-top: 10px;
+    gap: 26px;
+  }
+
+  .price {
+    margin-top: 18px;
+  }
+
+  .sizes {
+    margin-top: 22px;
+  }
+
+  .size {
+    padding-block: 20px;
+  }
+
+  .buy {
+    margin-top: 6px;
+  }
+
+  /* темна тема лишається зі своїм макетом */
+  :host-context([data-theme='dark']) .crumbs {
+    padding-top: calc(var(--space-5) + 36px);
+  }
+
+  :host-context([data-theme='dark']) .info {
+    padding-top: 14px;
+    gap: var(--space-4);
+  }
+
+  :host-context([data-theme='dark']) .price {
+    margin-top: 10px;
+  }
+
+  :host-context([data-theme='dark']) .sizes {
+    margin-top: var(--space-4);
+  }
+
+  :host-context([data-theme='dark']) .size {
+    padding-block: var(--space-3);
+  }
+
+  :host-context([data-theme='dark']) .buy {
+    margin-top: 0;
+  }
+
+  :host-context([data-theme='dark']) .pd-top > .container {
+    width: auto;
+    max-width: var(--pd-wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  :host-context([data-theme='dark']) .product {
+    grid-template-columns: minmax(0, 545px) minmax(0, 1fr);
+    column-gap: clamp(48px, 8.8vw, 147px);
+  }
+
+  :host-context([data-theme='dark']) .stage.stage--photo {
+    width: min(100%, 545px);
+    aspect-ratio: 5 / 6;
+  }
+}
+
+@media (max-width: 1099px) {
+  .lt-art {
+    display: none;
+  }
+}
 
 /* нижні піони — по низу першого екрана, як на макеті */
 .dk-bl { top: calc(100svh - 21vw); left: 0; width: 14vw; }
