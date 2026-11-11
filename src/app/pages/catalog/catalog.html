@@ -17,13 +17,13 @@
 
   <section class="hero">
     <div class="container hero-inner">
-      <div class="hero-text">
+      <div class="hero-text" appReveal="left">
         <p class="kicker">Квіти, що говорять за вас <app-icon name="heart" [size]="14" /></p>
         <h1>{{ title() }}</h1>
         <p class="tagline">Створюйте емоції разом з Hana <app-icon name="heart" [size]="20" /></p>
       </div>
 
-      <div class="search">
+      <div class="search" appReveal="right" [revealDelay]="200">
         <app-icon name="search" [size]="22" />
         <label for="catalog-search" class="sr-only">Пошук у каталозі</label>
         <input
@@ -44,7 +44,7 @@
   </section>
 
   <div class="container">
-    <div class="topbar">
+    <div class="topbar" appReveal [revealDelay]="100">
       <div class="categories" role="group" aria-label="Категорії">
         <button type="button" class="chip" [class.is-active]="!activeCategory()" (click)="setCategory(null)">Усі</button>
         @for (c of categories; track c) {
@@ -63,7 +63,7 @@
 
     </div>
 
-    <div class="filterbar">
+    <div class="filterbar" appReveal [revealDelay]="200">
       <span class="filters-label">Фільтри:</span>
 
       <div class="menu">
@@ -190,13 +190,13 @@
     <section class="results" aria-label="Товари">
       @if (visible().length) {
         <div class="product-grid">
-          @for (p of visible(); track p.id) {
-            <app-product-card [product]="p" />
+          @for (p of visible(); track p.id; let i = $index) {
+            <div appReveal [revealDelay]="(i % 4) * 130"><app-product-card [product]="p" /></div>
           }
         </div>
 
         @if (visible().length < results().length) {
-          <div class="more">
+          <div class="more" appReveal>
             <p>Показано {{ visible().length }} з {{ results().length }}</p>
             <button type="button" class="btn btn--ghost" (click)="showMore()">Показати ще</button>
           </div>

@@ -370,6 +370,13 @@
   position: relative;
   padding-bottom: 0;
 
+  .rel-wp {
+    top: -360px;
+    left: 0;
+    width: min(17vw, 326px);
+    opacity: 0.95;
+  }
+
   .container {
     position: relative;
     z-index: 1;
@@ -405,6 +412,7 @@
   }
 
   @media (max-width: 900px) {
+    .rel-wp,
     .rel-l,
     .rel-r,
     .rel-p1,
@@ -542,7 +550,6 @@
 .lt-mock-r { left: 69.378vw; top: 0; width: 30.622vw; }
 /* цілі піони внизу: починаються там, де в макеті квітка виходить за край екрана */
 .lt-wp { width: 17vw; }
-.lt-wp-l { left: 0; top: 43.4vw; }
 .lt-wp-r { right: 0; top: 45vw; transform: scaleX(-1); }
 
 /* власні кутові піони, листя й пелюстки світлої теми замінює картинка з макета */

@@ -30,7 +30,6 @@
 
   <img class="lt-art lt-mock lt-mock-l" src="flowers/pd-lt-mock-l.png" alt="" aria-hidden="true" />
   <img class="lt-art lt-mock lt-mock-r" src="flowers/pd-lt-mock-r.png" alt="" aria-hidden="true" />
-  <img class="lt-art lt-wp lt-wp-l" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
   <img class="lt-art lt-wp lt-wp-r" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
   <img class="lt-art lt-petal" style="left:59.510vw;top:6.280vw;width:5.682vw" src="flowers/pd-lt-mock-p1.png" alt="" aria-hidden="true" />
   <img class="lt-art lt-petal" style="left:66.089vw;top:0.299vw;width:5.084vw" src="flowers/pd-lt-mock-p2.png" alt="" aria-hidden="true" />
@@ -44,7 +43,7 @@
     <img class="dk-art dk-a-corner" src="flowers/pd-dark-a-corner.png" alt="" aria-hidden="true" />
     <img class="dk-art dk-br pd-cl" src="flowers/pd-cl-a.jpg" alt="" aria-hidden="true" />
   <div class="container">
-    <nav class="breadcrumbs crumbs" aria-label="Хлібні крихти">
+    <nav class="breadcrumbs crumbs" appReveal aria-label="Хлібні крихти">
       <a routerLink="/">Головна</a><span aria-hidden="true">/</span>
       <a routerLink="/catalog">Каталог</a><span aria-hidden="true">/</span>
       <a routerLink="/catalog" [queryParams]="{ category: p.category }">{{ categoryLabels[p.category] }}</a>
@@ -54,7 +53,7 @@
     <div class="product">
       <!-- Галерея -->
       <div class="gallery">
-        <div class="stage" [class.stage--photo]="photo()">
+        <div class="stage" [class.stage--photo]="photo()" appReveal="photo-left">
           @if (p.badge; as badge) {
             <span class="badge tag" [class.badge--hit]="badge === 'hit'">{{ badge === 'hit' ? 'Хіт' : 'Новинка' }}</span>
           }
@@ -68,18 +67,18 @@
 
       <!-- Інформація -->
       <div class="info">
-        <span class="eyebrow">{{ categoryLabels[p.category] }}</span>
-        <h1>{{ p.name }}</h1>
-        <p class="price">
+        <span class="eyebrow" appReveal [revealDelay]="100">{{ categoryLabels[p.category] }}</span>
+        <h1 appReveal [revealDelay]="220">{{ p.name }}</h1>
+        <p class="price" appReveal [revealDelay]="340">
           {{ unitPrice() | uah }}
           @if (selectedSize(); as s) {
             <span class="price-note">· розмір {{ s.code }}, {{ s.stems }} шт.</span>
           }
         </p>
-        <p class="description">{{ p.description }}</p>
+        <p class="description" appReveal [revealDelay]="460">{{ p.description }}</p>
 
         @if (sizes().length) {
-          <fieldset class="sizes">
+          <fieldset class="sizes" appReveal [revealDelay]="580">
             <legend>Розмір букета</legend>
             <div class="size-list">
               @for (s of sizes(); track s.code) {
@@ -94,7 +93,7 @@
           </fieldset>
         }
 
-        <div class="buy">
+        <div class="buy" appReveal [revealDelay]="700">
           <app-quantity-stepper
             [value]="quantity()"
             [max]="maxQuantity"
@@ -118,7 +117,7 @@
           </button>
         </div>
 
-        <details class="panel" open>
+        <details appReveal [revealDelay]="820" class="panel" open>
           <summary>Склад букета</summary>
           <ul class="composition">
             @for (line of p.composition; track line) {
@@ -133,7 +132,7 @@
           </p>
         </details>
 
-        <details class="panel">
+        <details appReveal [revealDelay]="950" class="panel">
           <summary>Доставка та оплата</summary>
           <ul class="delivery">
             <li><app-icon name="truck" [size]="18" /> Доставка по Києву — 150 грн, безкоштовно від 3 000 грн</li>
@@ -143,7 +142,7 @@
           </ul>
         </details>
 
-        <details class="panel">
+        <details appReveal [revealDelay]="1080" class="panel">
           <summary>Догляд за квітами</summary>
           <p>
             Підріжте стебла під кутом на 1–2 см, поставте букет у чисту прохолодну воду та міняйте її щодня.
@@ -157,18 +156,18 @@
 
   <section class="section related" aria-labelledby="related-title">
 
-    <img class="decor rel-l" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
+    <img class="decor rel-wp" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
     <img class="decor rel-r" src="flowers/cart-peony-tr.png" alt="" aria-hidden="true" />
     <img class="decor decor--petal rel-p1" src="flowers/about-petal.png" alt="" aria-hidden="true" />
     <img class="decor decor--petal rel-p2" src="flowers/about-petal.png" alt="" aria-hidden="true" />
     <div class="container">
-      <div class="section-head">
+      <div class="section-head" appReveal>
         <h2 id="related-title">Схожі букети</h2>
         <a routerLink="/catalog" class="link">Весь каталог <app-icon name="arrow" [size]="18" /></a>
       </div>
       <div class="product-grid">
-        @for (r of related(); track r.id) {
-          <app-product-card [product]="r" />
+        @for (r of related(); track r.id; let i = $index) {
+          <div appReveal [revealDelay]="(i % 4) * 130"><app-product-card [product]="r" /></div>
         }
       </div>
     </div>
