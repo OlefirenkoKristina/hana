@@ -1,0 +1,59 @@
+<div class="cats" role="group" aria-label="Категорії квітів">
+  @for (c of categories; track c.id) {
+    <button
+      type="button"
+      class="chip"
+      [class.is-active]="category() === c.id"
+      [attr.aria-pressed]="category() === c.id"
+      (click)="category.set(c.id)"
+    >
+      {{ c.label }}
+    </button>
+  }
+</div>
+
+<div class="colors" role="group" aria-label="Фільтр за кольором">
+  <span class="colors-label">Колір:</span>
+  @for (c of colors; track c.id) {
+    <button
+      type="button"
+      class="color"
+      [class.is-active]="color() === c.id"
+      [style.background]="c.hex"
+      [attr.aria-label]="c.label"
+      [attr.aria-pressed]="color() === c.id"
+      [title]="c.label"
+      (click)="toggleColor(c.id)"
+    ></button>
+  }
+</div>
+
+@if (visible().length) {
+  <ul class="flowers">
+    @for (f of visible(); track f.id) {
+      <li class="flower" [class.is-chosen]="countOf(f.id) > 0">
+        <div class="flower-art">
+          <img [src]="'flowers/builder/' + f.id + '.jpg'" [alt]="f.name" width="160" height="160" loading="lazy" />
+        </div>
+        <div class="flower-info">
+          <strong>{{ f.name }}</strong>
+          <span>{{ f.price | uah }} / шт.</span>
+        </div>
+        <div class="counter">
+          <button type="button" (click)="changed.emit({ id: f.id, delta: -1 })" [disabled]="!countOf(f.id)" [attr.aria-label]="'Менше: ' + f.name">
+            <app-icon name="minus" [size]="16" />
+          </button>
+          <output aria-live="polite">{{ countOf(f.id) }}</output>
+          <button type="button" (click)="changed.emit({ id: f.id, delta: 1 })" [attr.aria-label]="'Більше: ' + f.name">
+            <app-icon name="plus" [size]="16" />
+          </button>
+        </div>
+      </li>
+    }
+  </ul>
+} @else {
+  <p class="empty">
+    Нічого не знайдено.
+    <button type="button" class="link" (click)="reset()">Скинути фільтри</button>
+  </p>
+}

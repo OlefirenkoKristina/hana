@@ -51,28 +51,7 @@
             }
           </div>
 
-          <ul class="flowers">
-            @for (f of flowersList; track f.id) {
-              <li class="flower" [class.is-chosen]="countOf(f.id) > 0">
-                <div class="flower-art">
-                  <img [src]="'flowers/builder/' + f.id + '.jpg'" [alt]="f.name" width="160" height="160" loading="lazy" />
-                </div>
-                <div class="flower-info">
-                  <strong>{{ f.name }}</strong>
-                  <span>{{ f.price | uah }} / шт.</span>
-                </div>
-                <div class="counter">
-                  <button type="button" (click)="change(f.id, -1)" [disabled]="!countOf(f.id)" [attr.aria-label]="'Менше: ' + f.name">
-                    <app-icon name="minus" [size]="16" />
-                  </button>
-                  <output aria-live="polite">{{ countOf(f.id) }}</output>
-                  <button type="button" (click)="change(f.id, 1)" [attr.aria-label]="'Більше: ' + f.name">
-                    <app-icon name="plus" [size]="16" />
-                  </button>
-                </div>
-              </li>
-            }
-          </ul>
+          <app-flower-selector [counts]="counts()" (changed)="change($event.id, $event.delta)" />
         </section>
       }
 
@@ -218,33 +197,22 @@
       }
     </div>
 
-    <div class="price card">
-      <div class="price-row">
-        <span>Квітів</span>
-        <strong>{{ stemCount() }} шт.</strong>
-      </div>
-      <div class="price-row">
-        <span>Квіти</span>
-        <span>{{ price().flowers | uah }}</span>
-      </div>
-      <div class="price-row">
-        <span>Пакування і стрічка</span>
-        <span>{{ stemCount() ? (price().wrap + price().ribbon | uah) : '—' }}</span>
-      </div>
-      @if (price().extras) {
-        <div class="price-row">
-          <span>Доповнення</span>
-          <span>{{ price().extras | uah }}</span>
-        </div>
-      }
-      <div class="price-row">
-        <span>Робота флориста</span>
-        <span>{{ stemCount() ? (price().assembly | uah) : '—' }}</span>
-      </div>
-      <div class="price-row total" aria-live="polite">
-        <span>Разом</span>
-        <strong>{{ price().total | uah }}</strong>
-      </div>
-    </div>
+    <app-price-summary [price]="price()" [stemCount]="stemCount()" />
   </aside>
+</div>
+
+<div class="mobile-bar">
+  <div class="mobile-bar-info" aria-live="polite">
+    <span>{{ stemCount() }} шт.</span>
+    <strong>{{ price().total | uah }}</strong>
+  </div>
+  @if (step() < 4) {
+    <button type="button" class="btn btn--primary" (click)="goTo(step() + 1)" [disabled]="!canFinish()">
+      Продовжити <app-icon name="arrow" [size]="18" />
+    </button>
+  } @else {
+    <button type="button" class="btn btn--primary" (click)="addToCart()" [disabled]="!canFinish()">
+      <app-icon name="bag" [size]="18" /> У кошик
+    </button>
+  }
 </div>

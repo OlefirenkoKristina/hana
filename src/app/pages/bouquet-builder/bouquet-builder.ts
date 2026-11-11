@@ -11,6 +11,8 @@ import {
 import { BouquetArtSpec } from '../../core/models/art.model';
 import { CartService } from '../../core/services/cart.service';
 import { ToastService } from '../../core/services/toast.service';
+import { FlowerSelector } from './components/flower-selector/flower-selector';
+import { PriceSummary } from './components/price-summary/price-summary';
 import { RealisticBouquet } from '../../shared/realistic-bouquet/realistic-bouquet';
 import { Icon } from '../../shared/icon/icon';
 import { UahPipe } from '../../shared/uah.pipe';
@@ -26,7 +28,7 @@ interface Preset {
 
 @Component({
   selector: 'app-bouquet-builder',
-  imports: [RouterLink, RealisticBouquet, Icon, UahPipe],
+  imports: [RouterLink, RealisticBouquet, Icon, UahPipe, FlowerSelector, PriceSummary],
   templateUrl: './bouquet-builder.html',
   styleUrl: './bouquet-builder.scss',
 })
