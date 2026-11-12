@@ -580,14 +580,15 @@
     column-gap: 7.66vw;
   }
 
+  /* фото цілком вміщується в перший екран: висота = вікно мінус шапка й хлібні крихти */
   .stage.stage--photo {
-    width: 100%;
+    width: min(100%, calc((100svh - var(--header-h) - 80px) * 0.9));
     aspect-ratio: 9 / 10;
   }
 
   /* світла тема: вертикальні відступи блоку інформації, як на макеті */
   .crumbs {
-    padding-top: calc(var(--space-5) + 65px);
+    padding-top: var(--space-3);
   }
 
   .info {
