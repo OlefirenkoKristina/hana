@@ -17,6 +17,19 @@
         document.documentElement.dataset.theme = t;
       } catch (e) {}
     </script>
+    <style>
+      /* Фонові картинки: відносні шляхи від <base href>, щоб сайт працював і з кореня, і з підпапки GitHub Pages (/hana/) */
+      :root {
+        --img-cart-dark-bg: url('flowers/cart-dark-bg.jpg');
+        --img-fav-dark-bg: url('flowers/fav-dark-bg.jpg');
+        --img-catalog-ref-left: url('flowers/catalog-ref-left.png');
+        --img-catalog-dark-left-top: url('flowers/catalog-dark-left-top.png');
+        --img-catalog-dark-left: url('flowers/catalog-dark-left.png');
+        --img-home-hero-bg: url('flowers/home-hero-bg.jpg');
+        --img-catalog-tile-left: url('flowers/catalog-tile-left.png');
+        --img-catalog-tile-right: url('flowers/catalog-tile-right.png');
+      }
+    </style>
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

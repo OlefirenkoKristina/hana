@@ -8,7 +8,7 @@
   min-height: 100svh;
   overflow: hidden;
   isolation: isolate;
-  background: #f7e8e4 url('/flowers/home-hero-bg.jpg') center bottom / cover no-repeat;
+  background: #f7e8e4 var(--img-home-hero-bg) center bottom / cover no-repeat;
 }
 
 :host-context([data-theme='dark']) .hero {
@@ -21,7 +21,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: url('/flowers/home-hero-bg.jpg') center bottom / cover no-repeat;
+  background: var(--img-home-hero-bg) center bottom / cover no-repeat;
   opacity: 0.22;
 }
 
@@ -206,12 +206,12 @@
 
 .side--left {
   left: 0;
-  background-image: url('/flowers/catalog-tile-left.png');
+  background-image: var(--img-catalog-tile-left);
 }
 
 .side--right {
   right: 0;
-  background-image: url('/flowers/catalog-tile-right.png');
+  background-image: var(--img-catalog-tile-right);
   background-position: right 0;
 }
 

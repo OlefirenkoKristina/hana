@@ -15,7 +15,7 @@
 
 :host-context([data-theme='dark']) .cart-page {
   /* темна тема: готове фото з яскравими піонами */
-  background: #252d1a url('/flowers/cart-dark-bg.jpg') center bottom / cover no-repeat;
+  background: #252d1a var(--img-cart-dark-bg) center bottom / cover no-repeat;
 }
 
 /* у темній темі весь вручну складений декор ховаємо: його замінює фото */
@@ -500,7 +500,7 @@ a.name:hover {
 }
 
 :host-context([data-theme='dark']) .cart-page.is-empty {
-  background: #252d1a url('/flowers/fav-dark-bg.jpg') center bottom / cover no-repeat;
+  background: #252d1a var(--img-fav-dark-bg) center bottom / cover no-repeat;
 }
 
 @media (max-width: 900px) {

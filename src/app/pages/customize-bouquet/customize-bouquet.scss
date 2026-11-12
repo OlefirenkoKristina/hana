@@ -14,7 +14,7 @@
 }
 
 :host-context([data-theme='dark']) .page {
-  background: #252d1a url('/flowers/fav-dark-bg.jpg') center bottom / cover no-repeat;
+  background: #252d1a var(--img-fav-dark-bg) center bottom / cover no-repeat;
 }
 
 :host-context([data-theme='dark']) .decor {

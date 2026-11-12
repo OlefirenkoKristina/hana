@@ -75,14 +75,14 @@
 
 .side--left {
   left: 0;
-  background-image: url('/flowers/catalog-ref-left.png');
+  background-image: var(--img-catalog-ref-left);
 }
 
 .side--right {
   right: 0;
   top: 25.6vw;
   width: 10.3vw;
-  background-image: url('/flowers/catalog-ref-left.png');
+  background-image: var(--img-catalog-ref-left);
   transform: scaleX(-1);
 }
 
@@ -126,21 +126,21 @@
   left: 0;
   bottom: auto;
   height: 4.6vw;
-  background-image: url('/flowers/catalog-dark-left-top.png');
+  background-image: var(--img-catalog-dark-left-top);
   background-repeat: no-repeat;
 }
 
 .side--dark-left {
   left: 0;
   top: 4.55vw;
-  background-image: url('/flowers/catalog-dark-left.png');
+  background-image: var(--img-catalog-dark-left);
 }
 
 .side--dark-right {
   right: 0;
   top: 16.3vw;
   width: 10.3vw;
-  background-image: url('/flowers/catalog-dark-left.png');
+  background-image: var(--img-catalog-dark-left);
   background-position: 0 -6.1vw;
   transform: scaleX(-1);
 }

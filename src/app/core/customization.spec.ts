@@ -6,6 +6,7 @@ import {
   describeChoice,
   variantPhoto,
 } from './customization';
+import { PACKAGING_OPTIONS, RIBBON_OPTIONS } from './data/customization-options';
 import { PRODUCTS } from './data/products';
 
 describe('персоналізація готових букетів', () => {
@@ -55,16 +56,30 @@ describe('персоналізація готових букетів', () => {
     expect(variantPhoto(red, 'S', 'powder', 'red')).toEqual({ src: 'flowers/classic-red-s-powder-red.webp', exact: true });
     expect(variantPhoto(red, 'S', null, 'pink')?.src).toContain('none-pink');
     expect(variantPhoto(red, 'S', null, 'blue')?.exact).toBe(true);
+    expect(variantPhoto(red, 'S', 'white-matte', 'pink')).toEqual({ src: 'flowers/classic-red-s-white-matte-pink.webp', exact: true });
+    expect(variantPhoto(red, 'S', 'white-matte', 'blue')).toEqual({ src: 'flowers/classic-red-s-white-matte-blue.webp', exact: true });
+  });
+
+  it('є фото для кожної комбінації пакування й стрічки (розмір S)', () => {
+    const red = PRODUCTS.find((p) => p.id === 'classic-red')!;
+    for (const pack of PACKAGING_OPTIONS.map((o) => o.id).concat([null as unknown as string])) {
+      for (const ribbon of RIBBON_OPTIONS.map((o) => o.id)) {
+        expect(variantPhoto(red, 'S', pack, ribbon)?.exact, `${pack}|${ribbon}`).toBe(true);
+      }
+    }
   });
 
   it('якщо точної комбінації немає — найближче фото з позначкою «умовне»', () => {
     const red = PRODUCTS.find((p) => p.id === 'classic-red')!;
-    // пудрове з рожевою стрічкою не фотографували: беремо пудрове з іншою стрічкою
-    expect(variantPhoto(red, 'S', 'powder', 'pink')).toEqual({ src: 'flowers/classic-red-s-powder-red.webp', exact: false });
+    // невідоме пакування: беремо фото з тією самою стрічкою, але позначаємо як умовне
+    expect(variantPhoto(red, 'S', 'unknown', 'pink')?.exact).toBe(false);
+    expect(variantPhoto(red, 'S', 'unknown', 'pink')?.src).toContain('-pink');
     // такого пакування на фото немає зовсім: беремо фото з тією ж стрічкою
     expect(variantPhoto(red, 'S', 'unknown', 'pink')?.exact).toBe(false);
-    // розмір без фото-варіантів
-    expect(variantPhoto(red, 'M', 'powder', 'red')).toBeNull();
+    // розмір без власних фото-варіантів: беремо фото іншого розміру, але позначаємо як умовне
+    expect(variantPhoto(red, 'M', 'powder', 'red')).toEqual({ src: 'flowers/classic-red-s-powder-red.webp', exact: false });
+    // товар без фото-варіантів взагалі
+    expect(variantPhoto(PRODUCTS.find((p) => !p.photoVariants)!, 'M', 'powder', 'red')).toBeNull();
   });
 
   it('різні налаштування одного букета мають різні ключі в кошику', () => {

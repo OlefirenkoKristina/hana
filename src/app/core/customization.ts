@@ -88,7 +88,8 @@ export interface VariantPhoto {
 
 /**
  * Фото букета для обраних пакування й стрічки. Спершу точний збіг, далі — те саме пакування
- * з іншою стрічкою, далі — та сама стрічка. Якщо для розміру немає жодного варіанта — null.
+ * з іншою стрічкою, далі — та сама стрічка. Якщо для обраного розміру фото-варіантів немає, беремо варіанти
+ * іншого розміру (exact = false), щоб зміна пакування й стрічки завжди була видна. Без жодних варіантів — null.
  */
 export function variantPhoto(
   product: Product,
@@ -96,12 +97,14 @@ export function variantPhoto(
   packagingId: string | null,
   ribbonId: string | null,
 ): VariantPhoto | null {
-  const variants = product.photoVariants?.[size ?? 'M'];
+  const own = product.photoVariants?.[size ?? 'M'];
+  const variants = own ?? Object.values(product.photoVariants ?? {})[0];
   if (!variants) return null;
+  const sizeMatches = !!own;
   const pack = packagingId ?? 'none';
   const ribbon = ribbonId ?? 'none';
   const exact = variants[`${pack}|${ribbon}`];
-  if (exact) return { src: exact, exact: true };
+  if (exact) return { src: exact, exact: sizeMatches };
   const entries = Object.entries(variants);
   const samePack = entries.find(([k]) => k.startsWith(`${pack}|`));
   if (samePack) return { src: samePack[1], exact: false };
