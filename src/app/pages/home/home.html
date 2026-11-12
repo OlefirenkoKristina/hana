@@ -5,11 +5,10 @@
     <h1 appReveal [revealDelay]="150">HANA</h1>
     <p class="shop" appReveal [revealDelay]="300"><span>Flower shop</span></p>
     <p class="lead" appReveal [revealDelay]="450">
-      Авторські букети, які ми збираємо вручну щоранку. Обирайте готову композицію або створіть власну.
+      Авторські букети, які ми збираємо вручну щоранку. Обирайте готову композицію та персоналізуйте її.
     </p>
     <div class="hero-actions" appReveal [revealDelay]="600">
       <a routerLink="/catalog" class="btn btn--primary">Переглянути каталог <app-icon name="arrow" [size]="18" /></a>
-      <a routerLink="/bouquet-builder" class="btn btn--ghost">Створити букет</a>
     </div>
   </div>
 
@@ -52,7 +51,7 @@
   </div>
 </section>
 
-<!-- Конструктор -->
+<!-- Персоналізація -->
 <section class="builder-screen" aria-labelledby="builder-title">
   <img class="bs-decor bs-decor--peony-tl" src="flowers/builder-peony-tl.png" alt="" aria-hidden="true" />
   <img class="bs-decor bs-decor--peony-br" src="flowers/builder-peony-br.png" alt="" aria-hidden="true" />
@@ -65,19 +64,19 @@
 
   <div class="bs-card" appReveal="zoom">
     <div class="bs-text" appReveal [revealDelay]="300">
-      <span class="bs-eyebrow">Конструктор</span>
-      <h2 id="builder-title">Створи власний букет</h2>
+      <span class="bs-eyebrow">Персоналізація</span>
+      <h2 id="builder-title">Зробіть букет особливим</h2>
       <p class="bs-lead">
-        Обери квіти, кількість, пакування та стрічку — і побач результат одразу. Вартість рахується
-        автоматично, а флорист збере букет саме за вашим рецептом.
+        Оберіть готовий букет і налаштуйте пакування, стрічку та листівку. Вартість
+        рахується автоматично, а флорист збере букет вручну.
       </p>
       <ol class="bs-steps">
-        <li><span>1</span>Квіти</li>
+        <li><span>1</span>Букет</li>
         <li><span>2</span>Пакування</li>
-        <li><span>3</span>Деталі</li>
-        <li><span>4</span>Готово</li>
+        <li><span>3</span>Стрічка</li>
+        <li><span>4</span>Листівка</li>
       </ol>
-      <a routerLink="/bouquet-builder" class="btn btn--primary bs-btn">Створити букет <app-icon name="arrow" [size]="18" /></a>
+      <a routerLink="/customize" class="btn btn--primary bs-btn">Змінити букет <app-icon name="arrow" [size]="18" /></a>
     </div>
 
     <div class="bs-bouquet" aria-hidden="true">

@@ -31,5 +31,8 @@
       <app-icon name="bag" [size]="18" />
       <span>Додати в кошик</span>
     </button>
+    @if (customizable()) {
+      <a class="custom" routerLink="/customize" [queryParams]="{ product: product().id }">Персоналізувати</a>
+    }
   </div>
 </article>

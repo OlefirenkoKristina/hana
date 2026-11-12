@@ -35,7 +35,7 @@ export class Header {
   private lastY = 0;
 
   /** Сторінки з банером на весь верх: шапка накладається на банер (без власного місця). */
-  private static readonly OVERLAP_PAGES = ['/', '/catalog', '/about', '/contacts', '/cart', '/favorites'];
+  private static readonly OVERLAP_PAGES = ['/', '/catalog', '/about', '/contacts', '/cart', '/favorites', '/customize'];
   protected readonly overlaps = computed(() => {
     const path = this.url().split(/[?#]/)[0];
     return Header.OVERLAP_PAGES.includes(path) || path.startsWith('/product/');
@@ -57,7 +57,7 @@ export class Header {
 
   protected readonly links = [
     { path: '/catalog', label: 'Каталог', exact: false },
-    { path: '/bouquet-builder', label: 'Конструктор букета', exact: false },
+    { path: '/customize', label: 'Змінити букет', exact: false },
     { path: '/about', label: 'Про нас', exact: false },
     { path: '/contacts', label: 'Контакти', exact: false },
   ];

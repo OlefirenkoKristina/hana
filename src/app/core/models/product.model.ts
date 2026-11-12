@@ -7,6 +7,22 @@ export type FlowerColor = 'pink' | 'white' | 'red' | 'yellow' | 'purple' | 'peac
 export type Occasion = 'birthday' | 'date' | 'wedding' | 'thanks';
 export type StemRange = 'upTo10' | 'from10to25' | 'over25';
 export type SizeCode = 'S' | 'M' | 'L';
+/** Тип готового букета: від нього залежать доступні налаштування персоналізації. */
+export type BouquetType = 'author' | 'mono' | 'mixed';
+
+/** Що саме можна змінити в готовому букеті. Склад квітів змінювати не можна ніколи. */
+export interface CustomizationConfig {
+  enabled: boolean;
+  allowSize: boolean;
+  allowPackaging: boolean;
+  allowNoPackaging: boolean;
+  allowRibbon: boolean;
+  allowGreetingCard: boolean;
+  /** Дозволені варіанти пакування (id із каталогу опцій). */
+  packagingIds: string[];
+  /** Дозволені варіанти стрічок (id із каталогу опцій). */
+  ribbonIds: string[];
+}
 
 export interface Product {
   id: string;
@@ -25,6 +41,10 @@ export interface Product {
   /** ISO-дата появи в каталозі — для сортування «Спочатку новинки». */
   addedAt: string;
   art: BouquetArtSpec;
+  /** Тип букета. Якщо не задано — визначається за категорією та складом. */
+  type?: BouquetType;
+  /** Перевизначення налаштувань персоналізації для цього букета. */
+  customization?: Partial<CustomizationConfig>;
   /** Шлях до фотографії. Якщо не задано — показується SVG-ілюстрація. */
   image?: string;
   /** Власні розміри з реальними фото. Для розмірів, яких тут немає, лишається розрахунок за замовчуванням. */
@@ -39,6 +59,12 @@ export interface ProductSize {
   /** Фото саме цього розміру (якщо є). */
   image?: string;
 }
+
+export const BOUQUET_TYPE_LABELS: Record<BouquetType, string> = {
+  author: 'Авторський букет',
+  mono: 'Монобукет',
+  mixed: 'Змішаний букет',
+};
 
 export const CATEGORY_LABELS: Record<Category, string> = {
   bouquets: 'Авторські букети',

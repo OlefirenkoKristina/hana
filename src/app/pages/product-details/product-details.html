@@ -29,6 +29,7 @@
 
 
   <img class="lt-art lt-mock lt-mock-l" src="flowers/pd-lt-mock-l.png" alt="" aria-hidden="true" />
+  <img class="lt-art lt-mock lt-mock-l-peony" src="flowers/pd-lt-mock-l.png" alt="" aria-hidden="true" />
   <img class="lt-art lt-mock lt-mock-r" src="flowers/pd-lt-mock-r.png" alt="" aria-hidden="true" />
   <img class="lt-art lt-wp lt-wp-r" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
   <img class="lt-art lt-petal" style="left:59.510vw;top:6.280vw;width:5.682vw" src="flowers/pd-lt-mock-p1.png" alt="" aria-hidden="true" />
@@ -117,38 +118,11 @@
           </button>
         </div>
 
-        <details appReveal [revealDelay]="820" class="panel" open>
-          <summary>Склад букета</summary>
-          <ul class="composition">
-            @for (line of p.composition; track line) {
-              <li><app-icon name="flower" [size]="16" />{{ line }}</li>
-            }
-          </ul>
-          <p class="occasions">
-            Пасує для:
-            @for (o of p.occasions; track o; let last = $last) {
-              {{ occasionLabels[o] }}{{ last ? '' : ', ' }}
-            }
-          </p>
-        </details>
-
-        <details appReveal [revealDelay]="950" class="panel">
-          <summary>Доставка та оплата</summary>
-          <ul class="delivery">
-            <li><app-icon name="truck" [size]="18" /> Доставка по Києву — 150 грн, безкоштовно від 3 000 грн</li>
-            <li><app-icon name="clock" [size]="18" /> Доставимо за 2 години або у зручний для вас час</li>
-            <li><app-icon name="pin" [size]="18" /> Самовивіз — вул. Ярославів Вал, 14, щодня 08:00–21:00</li>
-            <li><app-icon name="cash" [size]="18" /> Оплата при отриманні або онлайн</li>
-          </ul>
-        </details>
-
-        <details appReveal [revealDelay]="1080" class="panel">
-          <summary>Догляд за квітами</summary>
-          <p>
-            Підріжте стебла під кутом на 1–2 см, поставте букет у чисту прохолодну воду та міняйте її щодня.
-            Тримайте квіти подалі від прямого сонця, батарей і фруктів.
-          </p>
-        </details>
+        @if (customizable()) {
+          <a class="btn btn--ghost custom-link" appReveal [revealDelay]="760" routerLink="/customize" [queryParams]="{ product: p.id }">
+            <app-icon name="flower" [size]="18" /> Змінити букет
+          </a>
+        }
       </div>
     </div>
   </div>
@@ -156,8 +130,6 @@
 
   <section class="section related" aria-labelledby="related-title">
 
-    <img class="decor rel-wp" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
-    <img class="decor rel-r" src="flowers/cart-peony-tr.png" alt="" aria-hidden="true" />
     <img class="decor decor--petal rel-p1" src="flowers/about-petal.png" alt="" aria-hidden="true" />
     <img class="decor decor--petal rel-p2" src="flowers/about-petal.png" alt="" aria-hidden="true" />
     <div class="container">

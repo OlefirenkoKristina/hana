@@ -471,3 +471,106 @@ a.name:hover {
     padding: var(--space-5);
   }
 }
+
+/* Порожній кошик: той самий дизайн, що й в «Обраному» та «Змінити букет» */
+.decor--fav-lines {
+  display: none;
+}
+
+.is-empty {
+  .decor--tr,
+  .decor--bl,
+  .art-lines {
+    display: none;
+  }
+
+  .decor--fav-lines {
+    display: block;
+    top: var(--header-h);
+    bottom: auto;
+    right: 0;
+    width: min(11vw, 182px);
+  }
+
+  .cta {
+    min-height: 56px;
+    padding-inline: var(--space-7);
+    font-size: 1rem;
+  }
+}
+
+:host-context([data-theme='dark']) .cart-page.is-empty {
+  background: #252d1a url('/flowers/fav-dark-bg.jpg') center bottom / cover no-repeat;
+}
+
+@media (max-width: 900px) {
+  .is-empty .decor--fav-lines {
+    display: none;
+  }
+}
+
+/* Порожній кошик: розміри й положення декору — точно як на сторінці «Обране» */
+.is-empty {
+  .decor--fav-l {
+    top: var(--header-h);
+    left: 0;
+    width: min(28vw, 480px);
+    opacity: 1;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .decor--fav-r {
+    right: 0;
+    bottom: 0;
+    width: min(33vw, 560px);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .decor--petal {
+    width: 66px;
+  }
+
+  .petal-1 {
+    top: 14%;
+    left: 22%;
+    right: auto;
+    bottom: auto;
+    transform: rotate(-20deg);
+  }
+
+  .petal-2 {
+    top: 30%;
+    right: 18%;
+    left: auto;
+    bottom: auto;
+    width: 78px;
+    transform: rotate(24deg);
+  }
+
+  .petal-3 {
+    top: auto;
+    right: auto;
+    bottom: 22%;
+    left: 34%;
+    width: 72px;
+    transform: rotate(-28deg);
+  }
+
+  .empty-state {
+    padding-block: 17svh 0;
+
+    h2 {
+      font-size: clamp(2.6rem, 4.6vw, 3.8rem);
+    }
+  }
+
+  .bag {
+    svg,
+    app-icon {
+      width: 58px;
+      height: 58px;
+    }
+  }
+}

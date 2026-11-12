@@ -1,6 +1,7 @@
 import { Component, computed, effect, inject, input, linkedSignal } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
+import { customizationFor } from '../../core/customization';
 import { MAX_QUANTITY, CartService } from '../../core/services/cart.service';
 import { CATEGORY_LABELS, OCCASION_LABELS, SizeCode } from '../../core/models/product.model';
 import { FavoritesService } from '../../core/services/favorites.service';
@@ -36,6 +37,10 @@ export class ProductDetails {
   protected readonly sizes = computed(() => {
     const p = this.product();
     return p ? this.products.sizesFor(p) : [];
+  });
+  protected readonly customizable = computed(() => {
+    const p = this.product();
+    return !!p && customizationFor(p, this.sizes().length > 0).enabled;
   });
   protected readonly related = computed(() => {
     const p = this.product();

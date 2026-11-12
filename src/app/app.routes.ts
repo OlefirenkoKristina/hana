@@ -18,11 +18,16 @@ export const routes: Routes = [
       import('./pages/product-details/product-details').then((m) => m.ProductDetails),
   },
   {
-    path: 'bouquet-builder',
-    title: 'Конструктор букета — HANA',
+    path: 'customize',
+    title: 'Змінити букет — HANA',
     loadComponent: () =>
-      import('./pages/bouquet-builder/bouquet-builder').then((m) => m.BouquetBuilder),
+      import('./pages/customize-bouquet/customize-bouquet').then((m) => m.CustomizeBouquet),
   },
+  {
+    path: 'product/:id/customize',
+    redirectTo: ({ params }) => `/customize?product=${params['id']}`,
+  },
+  { path: 'bouquet-builder', redirectTo: 'catalog' },
   {
     path: 'favorites',
     title: 'Обране — HANA',

@@ -1,8 +1,9 @@
-<div class="cart-page">
+<div class="cart-page" [class.is-empty]="cart.isEmpty()">
   <img class="decor lt-only decor--tr" src="flowers/cart-peony-tr.png" alt="" aria-hidden="true" />
   <img class="decor lt-only decor--bl" src="flowers/cart-peony-bl.png" alt="" aria-hidden="true" />
   <img class="decor lt-only decor--fav-l" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
   <img class="decor lt-only decor--fav-r" src="flowers/fav-peony-r.png" alt="" aria-hidden="true" />
+  <img class="decor lt-only decor--fav-lines" src="flowers/fav-lines-r.png" alt="" aria-hidden="true" />
   <!-- візерунок однаковий у світлій і темній темі -->
   <img class="decor art-lines art-lines--tl" src="flowers/cart-dark-lines-tl.png" alt="" aria-hidden="true" />
   <img class="decor art-lines art-lines--br" src="flowers/cart-dark-lines-r.png" alt="" aria-hidden="true" />
@@ -21,10 +22,9 @@
     <div class="empty-state">
       <div class="bag"><app-icon name="bag" [size]="56" [stroke]="1.1" /></div>
       <h2>Кошик порожній</h2>
-      <p>Додайте букет із каталогу або створіть власний у конструкторі.</p>
+      <p>Оберіть готовий букет у каталозі та персоналізуйте його.</p>
       <div class="actions">
-        <a routerLink="/catalog" class="btn btn--primary">До каталогу</a>
-        <a routerLink="/bouquet-builder" class="btn btn--ghost">Створити букет</a>
+        <a routerLink="/catalog" class="btn btn--primary cta">До каталогу <app-icon name="arrow" [size]="18" /></a>
       </div>
     </div>
 

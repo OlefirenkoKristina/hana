@@ -7,7 +7,7 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { Reveal } from '../../shared/reveal';
 import {
   CatalogFilters,
@@ -41,7 +41,7 @@ function keysOf<T extends string>(record: Record<T, string>): T[] {
 
 @Component({
   selector: 'app-catalog',
-  imports: [RouterLink, ProductCard, Icon, Reveal],
+  imports: [ProductCard, Icon, Reveal],
   templateUrl: './catalog.html',
   styleUrl: './catalog.scss',
 })

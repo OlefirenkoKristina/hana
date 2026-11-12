@@ -1,0 +1,165 @@
+@if (product(); as p) {
+  @if (config(); as cfg) {
+    <div class="container customizer">
+      <nav class="breadcrumbs" aria-label="Хлібні крихти">
+        <a routerLink="/">Головна</a><span aria-hidden="true">/</span>
+        <a routerLink="/catalog">Каталог</a><span aria-hidden="true">/</span>
+        <a [routerLink]="['/product', p.id]">{{ p.name }}</a><span aria-hidden="true">/</span>
+        <span>Персоналізація</span>
+      </nav>
+
+      <div class="layout">
+        <!-- Фото й підсумок -->
+        <div class="left">
+          <div class="stage" [class.stage--photo]="photo()">
+            @if (photo()) {
+              <img [src]="photo()" [alt]="p.name" />
+            } @else {
+              <app-bouquet-art [spec]="p.art" [label]="p.name" />
+            }
+          </div>
+          <p class="fixed-note">
+            <app-icon name="flower" [size]="16" />
+            Склад квітів залишається незмінним: {{ p.composition[0] }}
+          </p>
+        </div>
+
+        <!-- Налаштування -->
+        <div class="options">
+          <span class="eyebrow">{{ typeLabels[type()] }}</span>
+          <h1>{{ p.name }}</h1>
+          <p class="lead">Налаштуйте пакування, стрічку та листівку — ціна оновиться одразу.</p>
+
+          @if (!cfg.enabled) {
+            <p class="disabled-note">Для цього букета персоналізація недоступна.</p>
+            <a [routerLink]="['/product', p.id]" class="btn btn--primary">До букета</a>
+          } @else {
+            @if (cfg.allowSize && sizes().length) {
+              <fieldset class="group">
+                <legend>Розмір</legend>
+                <div class="size-list">
+                  @for (s of sizes(); track s.code) {
+                    <label class="size" [class.is-active]="sizeCode() === s.code">
+                      <input type="radio" name="size" class="sr-only" [checked]="sizeCode() === s.code" (change)="setSize(s.code)" />
+                      <span class="size-code">{{ s.code }}</span>
+                      <span class="size-label">{{ s.stems }} шт.</span>
+                      <span class="size-price">{{ s.price | uah }}</span>
+                    </label>
+                  }
+                </div>
+              </fieldset>
+            }
+
+            @if (cfg.allowPackaging) {
+              <fieldset class="group">
+                <legend>Пакування</legend>
+                <div class="swatches">
+                  @for (o of packagings(); track o.id) {
+                    <label class="swatch" [class.is-active]="packagingId() === o.id">
+                      <input type="radio" name="packaging" class="sr-only" [checked]="packagingId() === o.id" (change)="setPackaging(o.id)" />
+                      <span class="paper" [style.background]="o.color"></span>
+                      <strong>{{ o.name }}</strong>
+                      <span class="muted">{{ o.price ? '+' + (o.price | uah) : 'Включено' }}</span>
+                    </label>
+                  }
+                  @if (cfg.allowNoPackaging) {
+                    <label class="swatch" [class.is-active]="packagingId() === null">
+                      <input type="radio" name="packaging" class="sr-only" [checked]="packagingId() === null" (change)="setPackaging(null)" />
+                      <span class="paper none"><app-icon name="close" [size]="18" /></span>
+                      <strong>Без пакування</strong>
+                      <span class="muted">Включено</span>
+                    </label>
+                  }
+                </div>
+              </fieldset>
+            }
+
+            @if (cfg.allowRibbon) {
+              <fieldset class="group">
+                <legend>Стрічка</legend>
+                <div class="swatches">
+                  @for (o of ribbons(); track o.id) {
+                    <label class="swatch" [class.is-active]="ribbonId() === o.id">
+                      <input type="radio" name="ribbon" class="sr-only" [checked]="ribbonId() === o.id" (change)="setRibbon(o.id)" />
+                      <span class="ribbon" [style.background]="o.color"></span>
+                      <strong>{{ o.name }}</strong>
+                      <span class="muted">{{ o.price ? '+' + (o.price | uah) : 'Включено' }}</span>
+                    </label>
+                  }
+                  <label class="swatch" [class.is-active]="ribbonId() === null">
+                    <input type="radio" name="ribbon" class="sr-only" [checked]="ribbonId() === null" (change)="setRibbon(null)" />
+                    <span class="ribbon none"><app-icon name="close" [size]="18" /></span>
+                    <strong>Без стрічки</strong>
+                    <span class="muted">Включено</span>
+                  </label>
+                </div>
+              </fieldset>
+            }
+
+            @if (cfg.allowGreetingCard) {
+              <fieldset class="group">
+                <legend>Листівка</legend>
+                <label class="extra" [class.is-active]="wantsCard()">
+                  <input type="checkbox" [checked]="wantsCard()" (change)="setWantsCard($any($event.target).checked)" />
+                  <span class="extra-text">
+                    <strong>Додати листівку</strong>
+                    <span class="muted">З вашим текстом, написаним від руки</span>
+                  </span>
+                  <span class="extra-price">+{{ cardPriceValue | uah }}</span>
+                </label>
+                @if (wantsCard()) {
+                  <div class="card-text">
+                    <label class="sr-only" for="card-text">Текст листівки</label>
+                    <textarea
+                      id="card-text"
+                      class="input"
+                      [attr.maxlength]="cardMax"
+                      placeholder="З днем народження! Нехай кожен день буде як цей букет…"
+                      [value]="cardText()"
+                      (input)="setCardText($any($event.target).value)"
+                    ></textarea>
+                    <span class="hint">{{ cardText().length }} / {{ cardMax }}</span>
+                  </div>
+                }
+              </fieldset>
+            }
+
+            <!-- Підсумок -->
+            <section class="summary card" aria-label="Підсумок замовлення" aria-live="polite">
+              <div class="row">
+                <span>{{ p.name }}@if (selectedSize(); as s) { · розмір {{ s.code }} }</span>
+                <span>{{ basePrice() | uah }}</span>
+              </div>
+              @for (line of summary(); track line) {
+                <div class="row row--sub"><span>{{ line }}</span></div>
+              }
+              @if (packagingExtra() || ribbonExtra() || cardExtra()) {
+                <div class="row row--sub">
+                  <span>Доплата за опції</span>
+                  <span>+{{ packagingExtra() + ribbonExtra() + cardExtra() | uah }}</span>
+                </div>
+              }
+              <div class="row total">
+                <span>Разом</span>
+                <strong>{{ total() | uah }}</strong>
+              </div>
+            </section>
+
+            <button type="button" class="btn btn--primary add" (click)="addToCart()">
+              <app-icon name="bag" [size]="18" /> Додати в кошик · {{ total() | uah }}
+            </button>
+            <button type="button" class="btn btn--ghost remove" (click)="removeBouquet()">
+              <app-icon name="close" [size]="16" /> Видалити букет
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  }
+} @else {
+  <div class="container empty-state">
+    <h1>Букет не знайдено</h1>
+    <p>Можливо, його вже немає в каталозі. Перегляньте інші композиції.</p>
+    <a routerLink="/catalog" class="btn btn--primary">До каталогу</a>
+  </div>
+}

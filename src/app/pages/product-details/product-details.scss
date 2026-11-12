@@ -370,13 +370,6 @@
   position: relative;
   padding-bottom: 0;
 
-  .rel-wp {
-    top: -360px;
-    left: 0;
-    width: min(17vw, 326px);
-    opacity: 0.95;
-  }
-
   .container {
     position: relative;
     z-index: 1;
@@ -388,14 +381,6 @@
     width: min(16vw, 280px);
     -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0% 50%, #000 60%, transparent 96%);
     mask-image: radial-gradient(ellipse 100% 100% at 0% 50%, #000 60%, transparent 96%);
-  }
-
-  .rel-r {
-    top: -110px;
-    right: 0;
-    width: min(23vw, 400px);
-    -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 88%, transparent 100%);
-    mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 88%, transparent 100%);
   }
 
   .rel-p1 {
@@ -412,9 +397,7 @@
   }
 
   @media (max-width: 900px) {
-    .rel-wp,
     .rel-l,
-    .rel-r,
     .rel-p1,
     .rel-p2 {
       display: none;
@@ -546,11 +529,32 @@
   display: none;
 }
 
-.lt-mock-l { left: 0; top: 0; width: 20.633vw; }
-.lt-mock-r { left: 69.378vw; top: 0; width: 30.622vw; }
+/* листя лишається нагорі, а піон з макета опущено нижче по лівій смузі */
+.lt-mock-l {
+  left: 0;
+  top: 0;
+  width: 20.633vw;
+  -webkit-mask-image: linear-gradient(to bottom, #000 18%, transparent 32%);
+  mask-image: linear-gradient(to bottom, #000 18%, transparent 32%);
+}
+.lt-mock-l-peony {
+  left: 0;
+  top: 24vw;
+  width: 20.633vw;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 22%, #000 36%);
+  mask-image: linear-gradient(to bottom, transparent 22%, #000 36%);
+}
+/* нижній піон макета прибрано: лишається верхня квітка з листям */
+.lt-mock-r {
+  left: 69.378vw;
+  top: 0;
+  width: 30.622vw;
+  -webkit-mask-image: linear-gradient(to bottom, #000 66%, transparent 78%);
+  mask-image: linear-gradient(to bottom, #000 66%, transparent 78%);
+}
 /* цілі піони внизу: починаються там, де в макеті квітка виходить за край екрана */
 .lt-wp { width: 17vw; }
-.lt-wp-r { right: 0; top: 45vw; transform: scaleX(-1); }
+.lt-wp-r { right: 0; top: 59vw; transform: scaleX(-1); }
 
 /* власні кутові піони, листя й пелюстки світлої теми замінює картинка з макета */
 .decor--tr,
@@ -697,4 +701,12 @@
 
 :host-context([data-theme="dark"]) .pd-top > .container {
   max-width: var(--pd-wide);
+}
+
+.custom-link {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  margin-bottom: var(--space-5);
 }

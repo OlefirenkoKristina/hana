@@ -21,7 +21,7 @@ import { RouterLink } from '@angular/router';
           <a routerLink="/catalog">Каталог</a>
           <a routerLink="/catalog" [queryParams]="{ category: 'bouquets' }">Авторські букети</a>
           <a routerLink="/catalog" [queryParams]="{ category: 'roses' }">Троянди</a>
-          <a routerLink="/bouquet-builder">Конструктор букета</a>
+          <a routerLink="/customize">Змінити букет</a>
         </nav>
 
         <nav aria-label="Інформація">

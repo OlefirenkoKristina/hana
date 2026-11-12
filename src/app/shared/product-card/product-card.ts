@@ -1,5 +1,6 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { customizationFor } from '../../core/customization';
 import { NO_SIZE_CATEGORIES, Product } from '../../core/models/product.model';
 import { CartService } from '../../core/services/cart.service';
 import { FavoritesService } from '../../core/services/favorites.service';
@@ -21,6 +22,9 @@ export class ProductCard {
 
   readonly product = input.required<Product>();
 
+  protected readonly customizable = computed(() =>
+    customizationFor(this.product(), !NO_SIZE_CATEGORIES.includes(this.product().category)).enabled,
+  );
   protected readonly isFavorite = computed(() => this.favorites.ids().includes(this.product().id));
 
   protected toggleFavorite(): void {

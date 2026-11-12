@@ -1,0 +1,81 @@
+import {
+  GREETING_CARD_MAX,
+  GREETING_CARD_PRICE,
+  PACKAGING_OPTIONS,
+  RIBBON_OPTIONS,
+} from './data/customization-options';
+import { BouquetType, CustomizationConfig, Product, SizeCode } from './models/product.model';
+
+/** Вибір покупця на сторінці персоналізації. */
+export interface CustomizationChoice {
+  size?: SizeCode;
+  /** id пакування; null — без пакування. */
+  packagingId: string | null;
+  /** id стрічки; null — без стрічки. */
+  ribbonId: string | null;
+  /** Текст листівки; порожній рядок — без листівки. */
+  cardText: string;
+}
+
+const NON_FLOWER_LINE = /^(пакування|стрічка|атласна|упаковка)/i;
+
+/** Тип букета: задається в даних, інакше — монобукет для категорій одного виду квітів, а для авторських — за кількістю видів у складі. */
+export function bouquetTypeOf(product: Product): BouquetType {
+  if (product.type) return product.type;
+  if (product.category !== 'bouquets') return 'mono';
+  const flowerLines = product.composition.filter((l) => !NON_FLOWER_LINE.test(l.trim()));
+  return flowerLines.length >= 3 ? 'mixed' : 'author';
+}
+
+/** Налаштування персоналізації з урахуванням типу букета й перевизначень у товарі. */
+export function customizationFor(product: Product, hasSizes: boolean): CustomizationConfig {
+  const type = bouquetTypeOf(product);
+  const base: CustomizationConfig = {
+    enabled: true,
+    allowSize: type === 'mono' && hasSizes,
+    allowPackaging: true,
+    allowNoPackaging: true,
+    allowRibbon: true,
+    allowGreetingCard: true,
+    packagingIds: PACKAGING_OPTIONS.map((o) => o.id),
+    ribbonIds: RIBBON_OPTIONS.map((o) => o.id),
+  };
+  return { ...base, ...product.customization };
+}
+
+export function packagingPrice(id: string | null): number {
+  return PACKAGING_OPTIONS.find((o) => o.id === id)?.price ?? 0;
+}
+
+export function ribbonPrice(id: string | null): number {
+  return RIBBON_OPTIONS.find((o) => o.id === id)?.price ?? 0;
+}
+
+export function cardPrice(text: string): number {
+  return text.trim() ? GREETING_CARD_PRICE : 0;
+}
+
+/** Ціна одного букета: ціна розміру + доплати за обрані опції. */
+export function customizedPrice(basePrice: number, choice: CustomizationChoice): number {
+  return basePrice + packagingPrice(choice.packagingId) + ribbonPrice(choice.ribbonId) + cardPrice(choice.cardText);
+}
+
+/** Рядки опису вибору для кошика й замовлення. */
+export function describeChoice(choice: CustomizationChoice): string[] {
+  const pack = PACKAGING_OPTIONS.find((o) => o.id === choice.packagingId);
+  const ribbon = RIBBON_OPTIONS.find((o) => o.id === choice.ribbonId);
+  const text = choice.cardText.trim().slice(0, GREETING_CARD_MAX);
+  return [
+    pack ? `Пакування: ${pack.name.toLowerCase()}` : 'Без пакування',
+    ribbon ? `Стрічка: ${ribbon.name.toLowerCase()}` : 'Без стрічки',
+    ...(text ? [`Листівка: «${text}»`] : []),
+  ];
+}
+
+/** Ключ позиції в кошику: різні налаштування одного букета — різні позиції. */
+export function choiceKey(productId: string, choice: CustomizationChoice): string {
+  const card = choice.cardText.trim();
+  let hash = 0;
+  for (let i = 0; i < card.length; i++) hash = (Math.imul(hash, 31) + card.charCodeAt(i)) | 0;
+  return [productId, choice.size ?? '-', choice.packagingId ?? 'none', choice.ribbonId ?? 'none', card ? (hash >>> 0).toString(36) : '-'].join(':');
+}

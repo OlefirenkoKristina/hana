@@ -129,11 +129,10 @@ import { Reveal } from '../../shared/reveal';
       <div class="cta">
         <h2 appReveal>Знайдіть свій букет</h2>
         <p class="tagline" appReveal [revealDelay]="150">
-          Понад п'ятнадцять готових композицій і конструктор для власних ідей <app-icon name="heart" [size]="22" />
+          Готові композиції, які можна персоналізувати: пакування, стрічка й листівка <app-icon name="heart" [size]="22" />
         </p>
         <div class="cta-actions" appReveal [revealDelay]="300">
           <a routerLink="/catalog" class="btn btn--primary">До каталогу <app-icon name="arrow" [size]="18" /></a>
-          <a routerLink="/bouquet-builder" class="btn btn--ghost">Створити букет</a>
         </div>
       </div>
     </section>

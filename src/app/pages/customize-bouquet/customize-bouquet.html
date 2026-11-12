@@ -1,0 +1,21 @@
+<div class="page">
+  <img class="decor decor--l" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
+  <img class="decor decor--r" src="flowers/fav-peony-r.png" alt="" aria-hidden="true" />
+  <img class="decor decor--lines" src="flowers/fav-lines-r.png" alt="" aria-hidden="true" />
+  <img class="decor decor--petal petal-1" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+  <img class="decor decor--petal petal-2" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+  <img class="decor decor--petal petal-3" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+
+  @if (active(); as id) {
+    <app-bouquet-customizer [id]="id" />
+  } @else {
+    <div class="container">
+      <div class="empty">
+        <div class="mark"><app-icon name="flower" [size]="58" [stroke]="1.1" /></div>
+        <h1>Тут поки порожньо</h1>
+        <p>Перед тим як змінити букет, виберіть його з каталогу.</p>
+        <a routerLink="/catalog" class="btn btn--primary cta">До каталогу <app-icon name="arrow" [size]="18" /></a>
+      </div>
+    </div>
+  }
+</div>
