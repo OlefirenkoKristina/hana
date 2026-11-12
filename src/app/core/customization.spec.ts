@@ -23,6 +23,11 @@ describe('персоналізація готових букетів', () => {
     expect(customizationFor(author, false).allowSize).toBe(false);
   });
 
+  it('авторські букети не персоналізуються, троянди — так', () => {
+    expect(customizationFor(author, false).enabled).toBe(false);
+    expect(customizationFor(rose, true).enabled).toBe(true);
+  });
+
   it('перевизначення в товарі має пріоритет', () => {
     const p = { ...rose, customization: { enabled: false, allowRibbon: false } };
     const cfg = customizationFor(p, true);
@@ -77,7 +82,11 @@ describe('персоналізація готових букетів', () => {
     // такого пакування на фото немає зовсім: беремо фото з тією ж стрічкою
     expect(variantPhoto(red, 'S', 'unknown', 'pink')?.exact).toBe(false);
     // розмір без власних фото-варіантів: беремо фото іншого розміру, але позначаємо як умовне
-    expect(variantPhoto(red, 'M', 'powder', 'red')).toEqual({ src: 'flowers/classic-red-s-powder-red.webp', exact: false });
+    const onlyS = { ...red, photoVariants: { S: red.photoVariants!.S } };
+    expect(variantPhoto(onlyS, 'L', 'powder', 'red')).toEqual({ src: 'flowers/classic-red-s-powder-red.webp', exact: false });
+    // розміри S, M і L мають власні фото — точний збіг
+    expect(variantPhoto(red, 'M', 'powder', 'red')).toEqual({ src: 'flowers/classic-red-m-powder-red.webp', exact: true });
+    expect(variantPhoto(red, 'L', 'powder', 'red')).toEqual({ src: 'flowers/classic-red-l-powder-red.webp', exact: true });
     // товар без фото-варіантів взагалі
     expect(variantPhoto(PRODUCTS.find((p) => !p.photoVariants)!, 'M', 'powder', 'red')).toBeNull();
   });

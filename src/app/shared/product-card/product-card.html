@@ -33,6 +33,9 @@
     </button>
     @if (customizable()) {
       <a class="custom" routerLink="/customize" [queryParams]="{ product: product().id }">Персоналізувати</a>
+    } @else {
+      <!-- порожнє місце, щоб картки без персоналізації були тієї ж висоти -->
+      <span class="custom custom--empty" aria-hidden="true">Персоналізувати</span>
     }
   </div>
 </article>

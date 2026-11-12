@@ -12,17 +12,12 @@
 }
 
 :host-context([data-theme='dark']) .hero {
-  --hero-ink: #e8bcb6;
-  background: #1a1c19;
+  --hero-ink: #efe3cc;
+  background: #1d2418 url('/flowers/home-dark-hero.jpg') center / cover no-repeat;
 }
 
 :host-context([data-theme='dark']) .hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--img-home-hero-bg) center bottom / cover no-repeat;
-  opacity: 0.22;
+  display: none;
 }
 
 /* Центр лівого текстового блоку — 31% ширини, як на макеті */
@@ -551,8 +546,12 @@
   }
 }
 
+.bs-img--dark {
+  display: none;
+}
+
 :host-context([data-theme='dark']) .bs-bouquet img {
-  opacity: 0.6;
+  opacity: 1;
 }
 
 /* ---------- Історія ---------- */
@@ -747,5 +746,224 @@
 
   .story-quote {
     padding: var(--space-5);
+  }
+}
+
+
+/* ===== Темна тема головної: фони й декор із макетів, текст і картки — живі ===== */
+:host-context([data-theme='dark']) .pink-zone {
+  background: #252d1a;
+}
+
+:host-context([data-theme='dark']) .categories-section {
+  background: url('/flowers/home-dark-cat.jpg') center / cover no-repeat;
+}
+
+:host-context([data-theme='dark']) .categories {
+  padding-inline: 3vw;
+}
+
+:host-context([data-theme='dark']) .category {
+  border: 1px solid rgba(217, 185, 132, 0.6);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+}
+
+:host-context([data-theme='dark']) .builder-screen {
+  background: url('/flowers/home-dark-builder.jpg') center / cover no-repeat;
+}
+
+:host-context([data-theme='dark']) .bs-decor {
+  display: none;
+}
+
+:host-context([data-theme='dark']) .bs-card {
+  width: min(86%, 1440px);
+  border-color: rgba(217, 185, 132, 0.55);
+  background: rgba(42, 48, 36, 0.5);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+}
+
+:host-context([data-theme='dark']) .bs-bouquet img {
+  opacity: 1;
+}
+
+:host-context([data-theme='dark']) .bs-steps span {
+  border-color: rgba(217, 185, 132, 0.7);
+}
+
+:host-context([data-theme='dark']) .bs-btn {
+  background: #f1b9b1;
+  color: #2b2220;
+}
+
+.story-screen {
+  position: relative;
+  z-index: 1;
+}
+
+:host-context([data-theme='dark']) .story-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  background: url('/flowers/home-dark-story.jpg') center / cover no-repeat;
+}
+
+:host-context([data-theme='dark']) .story-screen .container {
+  max-width: 86vw;
+}
+
+:host-context([data-theme='dark']) .story,
+:host-context([data-theme='dark']) .advantages {
+  padding-block: var(--space-6);
+}
+
+:host-context([data-theme='dark']) .story-quote,
+:host-context([data-theme='dark']) .adv {
+  border: 1px solid rgba(217, 185, 132, 0.5);
+  background: rgba(42, 48, 36, 0.55);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
+}
+
+:host-context([data-theme='dark']) .adv-icon {
+  background: #e6b0a8;
+  color: #4a2f2c;
+}
+
+:host-context([data-theme='dark']) .bs-img--light {
+  display: none;
+}
+
+:host-context([data-theme='dark']) .bs-img--dark {
+  display: block;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+/* Макет: картка на 86% ширини, опущена на 30px від центру; блок категорій ближче до центру екрана */
+:host-context([data-theme='dark']) .bs-card {
+  width: 86vw;
+  margin-top: 60px;
+}
+
+:host-context([data-theme='dark']) .categories-section {
+  justify-content: center;
+  padding-top: calc(var(--header-h) + 1vw);
+}
+
+:host-context([data-theme='dark']) .categories {
+  flex: 0 0 auto;
+  height: clamp(440px, 49svh, 560px);
+}
+
+:host-context([data-theme='dark']) .story-screen {
+  padding-top: 44px;
+}
+
+:host-context([data-theme='dark']) .story-screen .container {
+  width: 84.3vw;
+  max-width: none;
+  margin-left: 7.2vw;
+  margin-right: 0;
+  padding-inline: 0;
+}
+
+:host-context([data-theme='dark']) .story-screen .advantages .container {
+  width: 82.8vw;
+  margin-left: 8.7vw;
+}
+
+:host-context([data-theme='dark']) .story-grid > div:last-child {
+  max-width: 37vw;
+}
+
+:host-context([data-theme='dark']) .story-quote {
+  min-height: 355px;
+}
+
+:host-context([data-theme='dark']) .adv {
+  min-height: 253px;
+}
+
+/* ===== Стики між екранами: кожен фон на краях плавно розчиняється в спільний колір ===== */
+:host-context([data-theme='dark']) {
+  .hero,
+  .categories-section,
+  .builder-screen,
+  .story-screen {
+    --seam: #222614;
+    --seam-h: clamp(60px, 7vw, 130px);
+    isolation: isolate;
+  }
+
+  .story-screen {
+    --seam-end: #252d1a; /* внизу — колір футера */
+  }
+}
+
+:host-context([data-theme='dark']) .categories-section::before,
+:host-context([data-theme='dark']) .builder-screen::before,
+:host-context([data-theme='dark']) .story-screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  height: var(--seam-h);
+  background: linear-gradient(to bottom, var(--seam), transparent);
+  pointer-events: none;
+}
+
+:host-context([data-theme='dark']) .hero::after,
+:host-context([data-theme='dark']) .categories-section::after,
+:host-context([data-theme='dark']) .builder-screen::after,
+:host-context([data-theme='dark']) .story-screen::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  height: var(--seam-h);
+  background: linear-gradient(to top, var(--seam-end, var(--seam)), transparent);
+  pointer-events: none;
+}
+
+/* Темна тема: останній екран упирається прямо у футер, без порожньої смуги між ними */
+:host-context([data-theme='dark']) .pink-zone {
+  padding-bottom: 0;
+}
+
+/* Об'ємний букет: тінь від букета на скляну картку, тепле світло навколо, легка гойдалка */
+:host-context([data-theme='dark']) .bs-bouquet::before {
+  content: '';
+  position: absolute;
+  inset: 4% -6% -10% -14%;
+  background: radial-gradient(ellipse 58% 52% at 52% 56%, rgba(241, 185, 177, 0.2), rgba(241, 185, 177, 0.06) 55%, transparent 72%);
+}
+
+:host-context([data-theme='dark']) .bs-img--dark {
+  transform-origin: 55% 100%;
+  filter: drop-shadow(-16px 14px 22px rgba(0, 0, 0, 0.55)) drop-shadow(-3px 4px 6px rgba(0, 0, 0, 0.4)) saturate(1.08) contrast(1.05);
+  animation: bs-sway 8s ease-in-out infinite;
+}
+
+@keyframes bs-sway {
+  0%,
+  100% {
+    transform: rotate(-0.6deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(0.7deg) scale(1.012);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host-context([data-theme='dark']) .bs-img--dark {
+    animation: none;
   }
 }

@@ -31,7 +31,8 @@ export function bouquetTypeOf(product: Product): BouquetType {
 export function customizationFor(product: Product, hasSizes: boolean): CustomizationConfig {
   const type = bouquetTypeOf(product);
   const base: CustomizationConfig = {
-    enabled: true,
+    // авторські букети (категорія «bouquets») збирає флорист — кнопки «Змінити букет» для них немає
+    enabled: product.category !== 'bouquets',
     allowSize: type === 'mono' && hasSizes,
     allowPackaging: true,
     allowNoPackaging: true,

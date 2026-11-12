@@ -173,3 +173,9 @@
     color: var(--berry);
   }
 }
+
+.custom--empty {
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+}

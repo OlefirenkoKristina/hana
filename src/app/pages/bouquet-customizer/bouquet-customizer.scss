@@ -25,6 +25,11 @@
   border-radius: var(--radius-lg);
   background: var(--blush);
 
+  /* фото мають пропорції 3:4 — рамка такого ж формату, щоб нічого не обрізалось */
+  &.stage--photo {
+    aspect-ratio: 3 / 4;
+  }
+
   img {
     display: block;
     width: 100%;

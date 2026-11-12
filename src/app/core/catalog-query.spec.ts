@@ -38,10 +38,10 @@ describe('catalog-query', () => {
     });
 
     it('кольори в межах групи працюють як «АБО»', () => {
-      const result = filterProducts(PRODUCTS, { ...EMPTY_FILTERS, colors: ['red', 'purple'] });
-      expect(result.every((p) => p.colors.includes('red') || p.colors.includes('purple'))).toBe(true);
+      const result = filterProducts(PRODUCTS, { ...EMPTY_FILTERS, colors: ['red', 'blue'] });
+      expect(result.every((p) => p.colors.includes('red') || p.colors.includes('blue'))).toBe(true);
       expect(result.some((p) => p.colors.includes('red'))).toBe(true);
-      expect(result.some((p) => p.colors.includes('purple'))).toBe(true);
+      expect(result.some((p) => p.colors.includes('blue'))).toBe(true);
     });
 
     it('різні групи фільтрів поєднуються як «І»', () => {
