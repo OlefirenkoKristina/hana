@@ -10,6 +10,7 @@ import {
   packagingPrice,
   ribbonPrice,
   cardPrice,
+  variantPhoto,
 } from '../../core/customization';
 import {
   GREETING_CARD_MAX,
@@ -84,14 +85,29 @@ export class BouquetCustomizer {
   });
   protected readonly ribbonId = computed<string | null>(() => {
     const v = this.saved()?.ribbonId;
-    if (v === null) return null;
-    return v !== undefined && this.ribbons().some((o) => o.id === v) ? v : (this.ribbons()[0]?.id ?? null);
+    return v && this.ribbons().some((o) => o.id === v) ? v : (this.ribbons()[0]?.id ?? null);
   });
   protected readonly wantsCard = computed(() => this.saved()?.wantsCard ?? false);
   protected readonly cardText = computed(() => this.saved()?.cardText ?? '');
 
   protected readonly selectedSize = computed(() => this.sizes().find((s) => s.code === this.sizeCode()));
-  protected readonly photo = computed(() => this.selectedSize()?.image ?? this.product()?.image);
+  /** Фото з обраними пакуванням і стрічкою (якщо є), інакше — звичайне фото розміру. */
+  private readonly variant = computed(() => {
+    const p = this.product();
+    const c = this.config();
+    if (!p || !c) return null;
+    return variantPhoto(
+      p,
+      this.sizeCode() ?? undefined,
+      c.allowPackaging ? this.packagingId() : null,
+      c.allowRibbon ? this.ribbonId() : null,
+    );
+  });
+  protected readonly photo = computed(
+    () => this.variant()?.src ?? this.selectedSize()?.image ?? this.product()?.image,
+  );
+  /** Є фото-варіанти, але точної комбінації немає — попереджаємо, що фото умовне. */
+  protected readonly approximate = computed(() => !!this.variant() && !this.variant()!.exact);
   protected readonly basePrice = computed(() => this.selectedSize()?.price ?? this.product()?.price ?? 0);
 
   protected readonly choice = computed<CustomizationChoice>(() => ({
@@ -152,6 +168,7 @@ export class BouquetCustomizer {
       price: this.total(),
       size: c.size,
       art: p.art,
+      image: this.photo(),
       details: describeChoice(c),
     });
     this.toast.show(`«${p.name}» додано в кошик`, { label: 'Кошик', link: '/cart' });

@@ -19,17 +19,14 @@ export interface RibbonOption {
 export const PACKAGING_OPTIONS: PackagingOption[] = [
   { id: 'white-matte', name: 'Біле матове', color: '#F6F2EC', price: 0 },
   { id: 'powder', name: 'Пудрове', color: '#E9C5C8', price: 0 },
-  { id: 'kraft', name: 'Крафтове', color: '#C9A27A', price: 0 },
   { id: 'transparent', name: 'Прозоре', color: '#E4EEF2', price: 0 },
-  { id: 'black', name: 'Чорне', color: '#26282A', price: 60 },
 ];
 
 export const RIBBON_OPTIONS: RibbonOption[] = [
   { id: 'red', name: 'Червона', color: '#C23B4E', price: 0 },
   { id: 'pink', name: 'Рожева', color: '#E9A5B5', price: 0 },
-  { id: 'milk', name: 'Молочна', color: '#F4EBDD', price: 0 },
-  { id: 'black', name: 'Чорна', color: '#26282A', price: 0 },
-  { id: 'burgundy', name: 'Бордова', color: '#7A2F45', price: 30 },
+  { id: 'milk', name: 'Біла', color: '#FFFFFF', price: 0 },
+  { id: 'blue', name: 'Блакитна', color: '#9DB8DA', price: 0 },
 ];
 
 /** Вартість листівки з текстом. */

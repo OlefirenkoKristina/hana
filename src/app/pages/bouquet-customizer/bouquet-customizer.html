@@ -22,6 +22,12 @@
             <app-icon name="flower" [size]="16" />
             Склад квітів залишається незмінним: {{ p.composition[0] }}
           </p>
+          @if (approximate()) {
+            <p class="fixed-note">
+              <app-icon name="clock" [size]="16" />
+              Фото умовне: саме з такою комбінацією пакування й стрічки ми збираємо букет на замовлення.
+            </p>
+          }
         </div>
 
         <!-- Налаштування -->
@@ -53,21 +59,20 @@
             @if (cfg.allowPackaging) {
               <fieldset class="group">
                 <legend>Пакування</legend>
-                <div class="swatches">
+                <div class="swatches swatches--text">
                   @for (o of packagings(); track o.id) {
-                    <label class="swatch" [class.is-active]="packagingId() === o.id">
+                    <label class="swatch swatch--text" [class.is-active]="packagingId() === o.id">
                       <input type="radio" name="packaging" class="sr-only" [checked]="packagingId() === o.id" (change)="setPackaging(o.id)" />
-                      <span class="paper" [style.background]="o.color"></span>
                       <strong>{{ o.name }}</strong>
-                      <span class="muted">{{ o.price ? '+' + (o.price | uah) : 'Включено' }}</span>
+                      @if (o.price) {
+                        <span class="muted">+{{ o.price | uah }}</span>
+                      }
                     </label>
                   }
                   @if (cfg.allowNoPackaging) {
-                    <label class="swatch" [class.is-active]="packagingId() === null">
+                    <label class="swatch swatch--text" [class.is-active]="packagingId() === null">
                       <input type="radio" name="packaging" class="sr-only" [checked]="packagingId() === null" (change)="setPackaging(null)" />
-                      <span class="paper none"><app-icon name="close" [size]="18" /></span>
                       <strong>Без пакування</strong>
-                      <span class="muted">Включено</span>
                     </label>
                   }
                 </div>
@@ -77,21 +82,16 @@
             @if (cfg.allowRibbon) {
               <fieldset class="group">
                 <legend>Стрічка</legend>
-                <div class="swatches">
+                <div class="swatches swatches--text">
                   @for (o of ribbons(); track o.id) {
-                    <label class="swatch" [class.is-active]="ribbonId() === o.id">
+                    <label class="swatch swatch--text" [class.is-active]="ribbonId() === o.id">
                       <input type="radio" name="ribbon" class="sr-only" [checked]="ribbonId() === o.id" (change)="setRibbon(o.id)" />
-                      <span class="ribbon" [style.background]="o.color"></span>
                       <strong>{{ o.name }}</strong>
-                      <span class="muted">{{ o.price ? '+' + (o.price | uah) : 'Включено' }}</span>
+                      @if (o.price) {
+                        <span class="muted">+{{ o.price | uah }}</span>
+                      }
                     </label>
                   }
-                  <label class="swatch" [class.is-active]="ribbonId() === null">
-                    <input type="radio" name="ribbon" class="sr-only" [checked]="ribbonId() === null" (change)="setRibbon(null)" />
-                    <span class="ribbon none"><app-icon name="close" [size]="18" /></span>
-                    <strong>Без стрічки</strong>
-                    <span class="muted">Включено</span>
-                  </label>
                 </div>
               </fieldset>
             }

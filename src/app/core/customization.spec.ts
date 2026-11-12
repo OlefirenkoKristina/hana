@@ -4,6 +4,7 @@ import {
   customizationFor,
   customizedPrice,
   describeChoice,
+  variantPhoto,
 } from './customization';
 import { PRODUCTS } from './data/products';
 
@@ -29,11 +30,10 @@ describe('персоналізація готових букетів', () => {
     expect(cfg.allowPackaging).toBe(true);
   });
 
-  it('ціна = база + доплати за пакування, стрічку й листівку', () => {
+  it('ціна = база + доплати за опції (зараз платна лише листівка)', () => {
     const base = { packagingId: 'white-matte', ribbonId: 'red', cardText: '' };
     expect(customizedPrice(1000, base)).toBe(1000);
-    expect(customizedPrice(1000, { ...base, packagingId: 'black' })).toBe(1060);
-    expect(customizedPrice(1000, { ...base, ribbonId: 'burgundy' })).toBe(1030);
+    expect(customizedPrice(1000, { ...base, packagingId: 'powder' })).toBe(1000);
     expect(customizedPrice(1000, { ...base, cardText: 'Привіт' })).toBe(1050);
     expect(customizedPrice(1000, { packagingId: null, ribbonId: null, cardText: '   ' })).toBe(1000);
   });
@@ -43,18 +43,35 @@ describe('персоналізація готових букетів', () => {
       'Без пакування',
       'Без стрічки',
     ]);
-    expect(describeChoice({ packagingId: 'kraft', ribbonId: 'pink', cardText: 'Дякую' })).toEqual([
-      'Пакування: крафтове',
+    expect(describeChoice({ packagingId: 'powder', ribbonId: 'pink', cardText: 'Дякую' })).toEqual([
+      'Пакування: пудрове',
       'Стрічка: рожева',
       'Листівка: «Дякую»',
     ]);
   });
 
+  it('фото змінюється разом із пакуванням і стрічкою', () => {
+    const red = PRODUCTS.find((p) => p.id === 'classic-red')!;
+    expect(variantPhoto(red, 'S', 'powder', 'red')).toEqual({ src: 'flowers/classic-red-s-powder-red.webp', exact: true });
+    expect(variantPhoto(red, 'S', null, 'pink')?.src).toContain('none-pink');
+    expect(variantPhoto(red, 'S', null, 'blue')?.exact).toBe(true);
+  });
+
+  it('якщо точної комбінації немає — найближче фото з позначкою «умовне»', () => {
+    const red = PRODUCTS.find((p) => p.id === 'classic-red')!;
+    // пудрове з рожевою стрічкою не фотографували: беремо пудрове з іншою стрічкою
+    expect(variantPhoto(red, 'S', 'powder', 'pink')).toEqual({ src: 'flowers/classic-red-s-powder-red.webp', exact: false });
+    // такого пакування на фото немає зовсім: беремо фото з тією ж стрічкою
+    expect(variantPhoto(red, 'S', 'unknown', 'pink')?.exact).toBe(false);
+    // розмір без фото-варіантів
+    expect(variantPhoto(red, 'M', 'powder', 'red')).toBeNull();
+  });
+
   it('різні налаштування одного букета мають різні ключі в кошику', () => {
-    const a = choiceKey('x', { size: 'M', packagingId: 'kraft', ribbonId: 'red', cardText: '' });
-    const b = choiceKey('x', { size: 'M', packagingId: 'kraft', ribbonId: 'pink', cardText: '' });
-    const c = choiceKey('x', { size: 'M', packagingId: 'kraft', ribbonId: 'red', cardText: 'Привіт' });
+    const a = choiceKey('x', { size: 'M', packagingId: 'powder', ribbonId: 'red', cardText: '' });
+    const b = choiceKey('x', { size: 'M', packagingId: 'powder', ribbonId: 'pink', cardText: '' });
+    const c = choiceKey('x', { size: 'M', packagingId: 'powder', ribbonId: 'red', cardText: 'Привіт' });
     expect(new Set([a, b, c]).size).toBe(3);
-    expect(choiceKey('x', { size: 'M', packagingId: 'kraft', ribbonId: 'red', cardText: '' })).toBe(a);
+    expect(choiceKey('x', { size: 'M', packagingId: 'powder', ribbonId: 'red', cardText: '' })).toBe(a);
   });
 });

@@ -24,6 +24,18 @@ export const PRODUCTS: Product[] = [
       M: { stems: 23, price: 2100, image: 'flowers/classic-red.jpg' },
       L: { stems: 51, price: 4700, image: 'flowers/classic-red-l.jpg' },
     },
+    photoVariants: {
+      S: {
+        'white-matte|red': 'flowers/classic-red-s.jpg',
+        'white-matte|milk': 'flowers/classic-red-s-white-matte-milk.webp',
+        'powder|red': 'flowers/classic-red-s-powder-red.webp',
+        'transparent|red': 'flowers/classic-red-s-transparent-red.webp',
+        'none|red': 'flowers/classic-red-s-none-red.webp',
+        'none|milk': 'flowers/classic-red-s-none-milk.webp',
+        'none|pink': 'flowers/classic-red-s-none-pink.webp',
+        'none|blue': 'flowers/classic-red-s-none-blue.webp',
+      },
+    },
     badge: 'hit',
     popularity: 95,
     addedAt: '2025-12-20',

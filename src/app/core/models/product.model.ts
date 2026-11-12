@@ -45,6 +45,11 @@ export interface Product {
   type?: BouquetType;
   /** Перевизначення налаштувань персоналізації для цього букета. */
   customization?: Partial<CustomizationConfig>;
+  /**
+   * Фото букета з різним пакуванням і стрічкою, окремо для кожного розміру.
+   * Ключ: `<id пакування або none>|<id стрічки або none>`, наприклад `powder|red` чи `none|pink`.
+   */
+  photoVariants?: Partial<Record<SizeCode, Record<string, string>>>;
   /** Шлях до фотографії. Якщо не задано — показується SVG-ілюстрація. */
   image?: string;
   /** Власні розміри з реальними фото. Для розмірів, яких тут немає, лишається розрахунок за замовчуванням. */

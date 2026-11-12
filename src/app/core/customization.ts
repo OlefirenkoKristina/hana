@@ -79,3 +79,33 @@ export function choiceKey(productId: string, choice: CustomizationChoice): strin
   for (let i = 0; i < card.length; i++) hash = (Math.imul(hash, 31) + card.charCodeAt(i)) | 0;
   return [productId, choice.size ?? '-', choice.packagingId ?? 'none', choice.ribbonId ?? 'none', card ? (hash >>> 0).toString(36) : '-'].join(':');
 }
+
+export interface VariantPhoto {
+  src: string;
+  /** true — фото саме з такою комбінацією пакування й стрічки; false — найближче доступне. */
+  exact: boolean;
+}
+
+/**
+ * Фото букета для обраних пакування й стрічки. Спершу точний збіг, далі — те саме пакування
+ * з іншою стрічкою, далі — та сама стрічка. Якщо для розміру немає жодного варіанта — null.
+ */
+export function variantPhoto(
+  product: Product,
+  size: SizeCode | undefined,
+  packagingId: string | null,
+  ribbonId: string | null,
+): VariantPhoto | null {
+  const variants = product.photoVariants?.[size ?? 'M'];
+  if (!variants) return null;
+  const pack = packagingId ?? 'none';
+  const ribbon = ribbonId ?? 'none';
+  const exact = variants[`${pack}|${ribbon}`];
+  if (exact) return { src: exact, exact: true };
+  const entries = Object.entries(variants);
+  const samePack = entries.find(([k]) => k.startsWith(`${pack}|`));
+  if (samePack) return { src: samePack[1], exact: false };
+  const sameRibbon = entries.find(([k]) => k.endsWith(`|${ribbon}`));
+  if (sameRibbon) return { src: sameRibbon[1], exact: false };
+  return null;
+}
