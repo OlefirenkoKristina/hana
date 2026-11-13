@@ -584,6 +584,8 @@
   .stage.stage--photo {
     width: min(100%, calc((100svh - var(--header-h) - 70px) * 0.9));
     aspect-ratio: 9 / 10;
+    /* фото трохи правіше від лівого краю колонки */
+    margin-left: clamp(24px, 3.4vw, 64px);
   }
 
   /* світла тема: вертикальні відступи блоку інформації, як на макеті */
@@ -618,6 +620,11 @@
     margin-bottom: 0;
   }
 
+  /* кнопка «Змінити букет» трохи нижче за блок купівлі */
+  .custom-link {
+    margin-top: clamp(10px, 3svh, 32px);
+  }
+
   .size {
     padding-block: clamp(8px, 1.6svh, 20px);
   }
@@ -627,22 +634,7 @@
   }
 
   /* темна тема: ті самі вертикальні розміри, що й світла (усе вміщується в перший екран) */
-  :host-context([data-theme='dark']) .pd-top > .container {
-    width: auto;
-    max-width: var(--pd-wide);
-    margin-inline: auto;
-    padding-inline: var(--gutter);
-  }
-
-  :host-context([data-theme='dark']) .product {
-    grid-template-columns: minmax(0, 545px) minmax(0, 1fr);
-    column-gap: clamp(48px, 8.8vw, 147px);
-  }
-
-  :host-context([data-theme='dark']) .stage.stage--photo {
-    width: min(100%, calc((100svh - var(--header-h) - 70px) * 0.9));
-    aspect-ratio: 9 / 10;
-  }
+  /* темна тема: розкладка така сама, як у світлої */
 }
 
 @media (max-width: 1099px) {
@@ -689,9 +681,6 @@
   }
 }
 
-:host-context([data-theme="dark"]) .pd-top > .container {
-  max-width: var(--pd-wide);
-}
 
 .custom-link {
   display: flex;

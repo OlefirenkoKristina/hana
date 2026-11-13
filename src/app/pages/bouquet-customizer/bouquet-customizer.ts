@@ -122,6 +122,11 @@ export class BouquetCustomizer {
   protected readonly ribbonExtra = computed(() => ribbonPrice(this.choice().ribbonId));
   protected readonly cardExtra = computed(() => cardPrice(this.choice().cardText));
   protected readonly summary = computed(() => describeChoice(this.choice()));
+  /** Рядки калькулятора: що вибрано і скільки це коштує понад базову ціну. */
+  protected readonly summaryRows = computed(() => {
+    const prices = [this.packagingExtra(), this.ribbonExtra(), this.cardExtra()];
+    return this.summary().map((label, i) => ({ label, price: prices[i] ?? 0 }));
+  });
 
   constructor() {
     const title = inject(Title);

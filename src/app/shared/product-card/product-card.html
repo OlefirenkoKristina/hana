@@ -32,10 +32,10 @@
       <span>Додати в кошик</span>
     </button>
     @if (customizable()) {
-      <a class="custom" routerLink="/customize" [queryParams]="{ product: product().id }">Персоналізувати</a>
+      <a class="custom" routerLink="/customize" [queryParams]="{ product: product().id }">Змінити букет</a>
     } @else {
       <!-- порожнє місце, щоб картки без персоналізації були тієї ж висоти -->
-      <span class="custom custom--empty" aria-hidden="true">Персоналізувати</span>
+      <span class="custom custom--empty" aria-hidden="true">Змінити букет</span>
     }
   </div>
 </article>

@@ -36,10 +36,11 @@ describe('персоналізація готових букетів', () => {
     expect(cfg.allowPackaging).toBe(true);
   });
 
-  it('ціна = база + доплати за опції (зараз платна лише листівка)', () => {
-    const base = { packagingId: 'white-matte', ribbonId: 'red', cardText: '' };
+  it('ціна = база + доплати за пакування, стрічку й листівку', () => {
+    const base = { packagingId: 'white-matte', ribbonId: 'milk', cardText: '' };
     expect(customizedPrice(1000, base)).toBe(1000);
-    expect(customizedPrice(1000, { ...base, packagingId: 'powder' })).toBe(1000);
+    expect(customizedPrice(1000, { ...base, packagingId: 'powder' })).toBe(1100);
+    expect(customizedPrice(1000, { ...base, packagingId: 'transparent', ribbonId: 'blue' })).toBe(1200);
     expect(customizedPrice(1000, { ...base, cardText: 'Привіт' })).toBe(1050);
     expect(customizedPrice(1000, { packagingId: null, ribbonId: null, cardText: '   ' })).toBe(1000);
   });

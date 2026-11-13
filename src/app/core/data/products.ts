@@ -20,9 +20,9 @@ export const PRODUCTS: Product[] = [
       'Троянди глибокого червоного кольору на довгому стеблі в білому пакуванні. Букет, що говорить сам за себе. Оберіть розмір: від 18 до 51 троянди.',
     composition: ['Троянда червона — 18 / 23 / 51 шт. залежно від розміру', 'Пакування біле', 'Атласна стрічка червона'],
     sizeOverrides: {
-      S: { stems: 18, price: 1650, image: 'flowers/classic-red-s.jpg' },
-      M: { stems: 23, price: 2100, image: 'flowers/classic-red-m-white-matte-red.webp' },
-      L: { stems: 51, price: 4700, image: 'flowers/classic-red-l-white-matte-red.webp' },
+      S: { stems: 18, price: 1650, image: 'flowers/classic-red-s-white-matte-milk.webp' },
+      M: { stems: 23, price: 2100, image: 'flowers/classic-red-m-white-matte-milk.webp' },
+      L: { stems: 51, price: 4700, image: 'flowers/classic-red-l-white-matte-milk.webp' },
     },
     photoVariants: {
       L: {
@@ -83,7 +83,7 @@ export const PRODUCTS: Product[] = [
     badge: 'hit',
     popularity: 95,
     addedAt: '2025-12-20',
-    image: 'flowers/classic-red-m-white-matte-red.webp',
+    image: 'flowers/classic-red-m-white-matte-milk.webp',
     art: {
       stems: stems(['rose', PETAL.red, 19]),
       wrap: '#7A2F45',
@@ -226,8 +226,8 @@ export const PRODUCTS: Product[] = [
       'Білі троянди з кремовою серцевиною на довгому стеблі в м’ятному пакуванні з білою стрічкою. Оберіть розмір: від 18 до 51 троянди.',
     composition: ['Троянда біла — 18 / 31 / 51 шт. залежно від розміру', 'Пакування м’ятне', 'Атласна стрічка біла'],
     sizeOverrides: {
-      S: { stems: 18, price: 1650, image: 'flowers/classic-white-s-white-matte-red.webp' },
-      M: { stems: 31, price: 2850, image: 'flowers/classic-white-m-white-matte-red.webp' },
+      S: { stems: 18, price: 1650, image: 'flowers/classic-white-s-white-matte-milk.webp' },
+      M: { stems: 31, price: 2850, image: 'flowers/classic-white-m-white-matte-milk.webp' },
       L: { stems: 51, price: 4700, image: 'flowers/classic-white-l.jpg' },
     },
     photoVariants: {
@@ -271,7 +271,7 @@ export const PRODUCTS: Product[] = [
     badge: 'new',
     popularity: 93,
     addedAt: '2026-10-27',
-    image: 'flowers/classic-white-m-white-matte-red.webp',
+    image: 'flowers/classic-white-m-white-matte-milk.webp',
     art: { stems: stems(['rose', PETAL.white, 19]), wrap: '#C9D8CF', ribbon: '#FFFFFF' },
   },
   {

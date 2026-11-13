@@ -18,10 +18,6 @@
               <app-bouquet-art [spec]="p.art" [label]="p.name" />
             }
           </div>
-          <p class="fixed-note">
-            <app-icon name="flower" [size]="16" />
-            Склад квітів залишається незмінним: {{ p.composition[0] }}
-          </p>
           @if (approximate()) {
             <p class="fixed-note">
               <app-icon name="clock" [size]="16" />
@@ -130,13 +126,10 @@
                 <span>{{ p.name }}@if (selectedSize(); as s) { · розмір {{ s.code }} }</span>
                 <span>{{ basePrice() | uah }}</span>
               </div>
-              @for (line of summary(); track line) {
-                <div class="row row--sub"><span>{{ line }}</span></div>
-              }
-              @if (packagingExtra() || ribbonExtra() || cardExtra()) {
+              @for (r of summaryRows(); track r.label) {
                 <div class="row row--sub">
-                  <span>Доплата за опції</span>
-                  <span>+{{ packagingExtra() + ribbonExtra() + cardExtra() | uah }}</span>
+                  <span>{{ r.label }}</span>
+                  <span class="row-price" [class.is-extra]="r.price > 0">{{ r.price > 0 ? '+' + (r.price | uah) : 'входить у ціну' }}</span>
                 </div>
               }
               <div class="row total">
@@ -145,12 +138,14 @@
               </div>
             </section>
 
+            <div class="actions">
             <button type="button" class="btn btn--primary add" (click)="addToCart()">
-              <app-icon name="bag" [size]="18" /> Додати в кошик · {{ total() | uah }}
-            </button>
-            <button type="button" class="btn btn--ghost remove" (click)="removeBouquet()">
-              <app-icon name="close" [size]="16" /> Видалити букет
-            </button>
+                <app-icon name="bag" [size]="18" /> Додати в кошик · {{ total() | uah }}
+              </button>
+              <button type="button" class="btn btn--ghost remove" (click)="removeBouquet()">
+                <app-icon name="close" [size]="16" /> Видалити букет
+              </button>
+            </div>
           }
         </div>
       </div>
