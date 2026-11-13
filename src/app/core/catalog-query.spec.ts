@@ -14,8 +14,8 @@ describe('catalog-query', () => {
     });
 
     it('шукає за назвою без урахування регістру', () => {
-      const result = filterProducts(PRODUCTS, { ...EMPTY_FILTERS, query: 'classic RED' });
-      expect(result.map((p) => p.id)).toEqual(['classic-red']);
+      const result = filterProducts(PRODUCTS, { ...EMPTY_FILTERS, query: 'ВЕРШКОВА ніжність' });
+      expect(result.map((p) => p.id)).toEqual(['ivory-blush']);
     });
 
     it('шукає за складом букета', () => {

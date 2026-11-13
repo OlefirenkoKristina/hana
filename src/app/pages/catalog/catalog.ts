@@ -7,6 +7,7 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { Reveal } from '../../shared/reveal';
 import {
@@ -44,10 +45,12 @@ function keysOf<T extends string>(record: Record<T, string>): T[] {
   imports: [ProductCard, Icon, Reveal],
   templateUrl: './catalog.html',
   styleUrl: './catalog.scss',
+  host: { '(window:scroll)': 'onScroll()' },
 })
 export class Catalog {
   private readonly router = inject(Router);
   private readonly productService = inject(ProductService);
+  private readonly document = inject(DOCUMENT);
 
   /** Query-параметри ?q=…&category=… (через withComponentInputBinding). */
   readonly q = input<string>();
@@ -80,6 +83,20 @@ export class Catalog {
   protected readonly selectedStems = signal<StemRange[]>([]);
   protected readonly sort = signal<SortOption>('popular');
   /** Який випадаючий фільтр відкритий (null — жоден). */
+  /** Кнопка «нагору» з'являється, коли сторінку прогорнули нижче першого екрана. */
+  protected readonly showToTop = signal(false);
+
+  protected onScroll(): void {
+    const y = this.document.defaultView?.scrollY ?? 0;
+    this.showToTop.set(y > 600);
+  }
+
+  protected scrollToTop(): void {
+    const win = this.document.defaultView;
+    const reduce = win?.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    win?.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  }
+
   protected readonly openMenu = signal<'color' | 'price' | 'stems' | null>(null);
 
   protected readonly filters = computed<CatalogFilters>(() => ({

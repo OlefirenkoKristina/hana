@@ -9,7 +9,7 @@ import { Product } from '../models/product.model';
 export const PRODUCTS: Product[] = [
   {
     id: 'classic-red',
-    name: 'Classic Red',
+    name: 'Червоні троянди',
     category: 'roses',
     price: 2100,
     stems: 23,
@@ -96,7 +96,7 @@ export const PRODUCTS: Product[] = [
   // Букети з фотографіями (public/flowers/<id>.jpg)
   {
     id: 'ivory-blush',
-    name: 'Ivory Blush',
+    name: 'Вершкова ніжність',
     category: 'bouquets',
     price: 2200,
     stems: 29,
@@ -113,7 +113,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'blue-mist',
-    name: 'Blue Mist',
+    name: 'Небесний серпанок',
     category: 'bouquets',
     price: 2450,
     stems: 25,
@@ -130,7 +130,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'peach-whisper',
-    name: 'Peach Whisper',
+    name: 'Персиковий шепіт',
     category: 'bouquets',
     price: 2300,
     stems: 25,
@@ -147,7 +147,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'love-letter',
-    name: 'Love Letter',
+    name: 'Любовний лист',
     category: 'bouquets',
     price: 2750,
     stems: 41,
@@ -164,7 +164,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'hydrangea-blush',
-    name: 'Hydrangea Blush',
+    name: 'Бузкова мрія',
     category: 'bouquets',
     price: 2900,
     stems: 27,
@@ -181,7 +181,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'fuchsia-kiss',
-    name: 'Fuchsia Kiss',
+    name: 'Малиновий поцілунок',
     category: 'bouquets',
     price: 2350,
     stems: 31,
@@ -198,7 +198,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'blush-garden',
-    name: 'Blush Garden',
+    name: 'Рожевий сад',
     category: 'bouquets',
     price: 2600,
     stems: 35,
@@ -215,7 +215,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'classic-white',
-    name: 'Classic White',
+    name: 'Білі троянди',
     category: 'roses',
     price: 2850,
     stems: 31,
@@ -294,7 +294,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'classic-pink',
-    name: 'Classic Pink',
+    name: 'Рожеві троянди',
     category: 'roses',
     price: 2300,
     stems: 25,
@@ -373,7 +373,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'spray-peach',
-    name: 'Spray Peach',
+    name: 'Персикові кущові троянди',
     category: 'roses',
     price: 2400,
     stems: 19,
@@ -447,7 +447,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'spray-fuchsia',
-    name: 'Spray Fuchsia',
+    name: 'Малинові кущові троянди',
     category: 'roses',
     price: 2400,
     stems: 19,
@@ -470,7 +470,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'peony-pink',
-    name: 'Pink Peonies',
+    name: 'Рожеві півонії',
     category: 'peonies',
     price: 2600,
     stems: 25,
@@ -493,7 +493,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'peony-duo',
-    name: 'Peony Duo',
+    name: 'Рожеві й білі півонії',
     category: 'peonies',
     price: 2800,
     stems: 25,
@@ -516,7 +516,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'peony-white',
-    name: 'White Peonies',
+    name: 'Білі півонії',
     category: 'peonies',
     price: 2800,
     stems: 25,
@@ -539,7 +539,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'hydrangea-pink',
-    name: 'Pink Hydrangea',
+    name: 'Рожеві гортензії',
     category: 'hydrangeas',
     price: 1800,
     stems: 5,
@@ -562,7 +562,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'hydrangea-blue',
-    name: 'Blue Hydrangea',
+    name: 'Блакитні гортензії',
     category: 'hydrangeas',
     price: 1800,
     stems: 5,
@@ -585,7 +585,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'pink-kraft',
-    name: 'Pink Kraft',
+    name: 'Крафтова романтика',
     category: 'bouquets',
     price: 2200,
     stems: 31,
@@ -603,7 +603,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'pink-duo',
-    name: 'Pink Duo',
+    name: 'Рожевий дует',
     category: 'bouquets',
     price: 2700,
     stems: 35,
@@ -621,7 +621,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'hydrangea-mix',
-    name: 'Hydrangea Mix',
+    name: 'Мікс гортензій',
     category: 'hydrangeas',
     price: 4900,
     stems: 14,
@@ -644,7 +644,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'hydrangea-white',
-    name: 'White Hydrangea',
+    name: 'Білі гортензії',
     category: 'hydrangeas',
     price: 3200,
     stems: 9,
@@ -667,7 +667,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'snow-romance',
-    name: 'Snow Romance',
+    name: 'Снігова романтика',
     category: 'bouquets',
     price: 3900,
     stems: 25,
@@ -685,7 +685,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ruby-berry',
-    name: 'Ruby Berry',
+    name: 'Рубінова ягода',
     category: 'bouquets',
     price: 4200,
     stems: 26,
@@ -703,7 +703,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'blue-cloud',
-    name: 'Blue Cloud',
+    name: 'Блакитна хмара',
     category: 'bouquets',
     price: 3600,
     stems: 18,
@@ -720,7 +720,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'pink-silk',
-    name: 'Pink Silk',
+    name: 'Рожевий шовк',
     category: 'bouquets',
     price: 3800,
     stems: 23,
@@ -737,7 +737,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'freesia-blush',
-    name: 'Freesia Blush',
+    name: 'Персикова фрезія',
     category: 'bouquets',
     price: 3300,
     stems: 23,

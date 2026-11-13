@@ -72,9 +72,9 @@
           @let phone = form.controls.contact;
           <div class="field">
             <label for="c-phone">Телефон *</label>
-            <input id="c-phone" class="input" type="tel" formControlName="contact" autocomplete="tel" placeholder="+380 67 123 45 67" [class.is-invalid]="invalid(phone)" [attr.aria-invalid]="invalid(phone)" />
+            <input id="c-phone" class="input" type="tel" formControlName="contact" autocomplete="tel" placeholder="096 123 45 67 або +380 96 123 45 67" (focus)="onPhoneFocus()" (blur)="onPhoneBlur()" [class.is-invalid]="invalid(phone)" [attr.aria-invalid]="invalid(phone)" />
             @if (invalid(phone)) {
-              <span class="field-error">{{ phone.hasError('required') ? 'Вкажіть телефон' : 'Формат: +380 XX XXX XX XX' }}</span>
+              <span class="field-error">{{ phone.hasError('required') ? 'Вкажіть телефон' : 'Формат: 096 123 45 67 або +380 96 123 45 67' }}</span>
             }
           </div>
 
@@ -99,13 +99,9 @@
 
         @let message = form.controls.message;
         <div class="field">
-          <label for="c-message">Повідомлення *</label>
+          <label for="c-message">Повідомлення</label>
           <textarea id="c-message" class="input" formControlName="message" maxlength="500" placeholder="Ваше повідомлення…" [class.is-invalid]="invalid(message)" [attr.aria-invalid]="invalid(message)"></textarea>
-          @if (invalid(message)) {
-            <span class="field-error">Напишіть хоча б 10 символів</span>
-          } @else {
-            <span class="field-hint">{{ message.value.length }} / 500</span>
-          }
+          <span class="field-hint">{{ message.value.length }} / 500</span>
         </div>
 
         <button type="submit" class="submit">Надіслати повідомлення <app-icon name="arrow" [size]="20" /></button>

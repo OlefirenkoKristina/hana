@@ -523,3 +523,62 @@
     width: 100%;
   }
 }
+
+/* ---------- Кнопка «нагору» ---------- */
+.to-top {
+  position: fixed;
+  right: clamp(16px, 2.4vw, 40px);
+  bottom: clamp(16px, 3vh, 36px);
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  background: rgba(77, 91, 75, 0.55);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 22px rgba(60, 50, 50, 0.18);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), background 0.2s;
+
+  app-icon {
+    display: block;
+    transform: rotate(-90deg);
+  }
+
+  &.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(77, 91, 75, 0.85);
+  }
+}
+
+:host-context([data-theme='dark']) .to-top {
+  border-color: rgba(233, 183, 178, 0.45);
+  background: rgba(233, 183, 178, 0.3);
+  color: #f6dcd8;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(233, 183, 178, 0.55);
+    color: #2b201e;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top {
+    transition: none;
+  }
+}

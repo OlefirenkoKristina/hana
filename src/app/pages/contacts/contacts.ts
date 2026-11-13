@@ -24,8 +24,23 @@ export class Contacts {
     contact: ['', [Validators.required, uaPhoneValidator]],
     email: ['', [Validators.email]],
     topic: [this.topics[0]],
-    message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
+    // повідомлення необов'язкове: обов'язкові лише ім'я й телефон
+    message: ['', [Validators.maxLength(500)]],
   });
+
+  private static readonly PHONE_PREFIX = '+38 0';
+
+  /** Клік у порожнє поле телефону підставляє «+38 0» — далі людина дописує решту цифр. */
+  protected onPhoneFocus(): void {
+    const c = this.form.controls.contact;
+    if (!c.value.trim()) c.setValue(Contacts.PHONE_PREFIX);
+  }
+
+  /** Якщо в полі лишився самий префікс — прибираємо його, щоб не було «заповненого» порожнього значення. */
+  protected onPhoneBlur(): void {
+    const c = this.form.controls.contact;
+    if (c.value.trim() === Contacts.PHONE_PREFIX.trim()) c.setValue('');
+  }
 
   protected invalid(control: AbstractControl): boolean {
     return control.invalid && (control.touched || this.submitted());

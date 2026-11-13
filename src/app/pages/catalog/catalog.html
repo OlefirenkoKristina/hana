@@ -213,3 +213,7 @@
     </section>
   </div>
 </div>
+
+<button type="button" class="to-top" [class.is-visible]="showToTop()" (click)="scrollToTop()" aria-label="Повернутися на початок каталогу" [attr.tabindex]="showToTop() ? 0 : -1">
+  <app-icon name="arrow" [size]="22" />
+</button>
