@@ -530,12 +530,12 @@
     }
 
     .stage {
-      width: min(100%, calc((100svh - var(--header-h) - 70px) * 0.9));
+      width: min(100%, calc((100svh - var(--header-h) - 70px) * 0.75));
       margin-inline: 0;
     }
 
     .stage.stage--photo {
-      aspect-ratio: 9 / 10;
+      aspect-ratio: 3 / 4;
     }
 
     .fixed-note {

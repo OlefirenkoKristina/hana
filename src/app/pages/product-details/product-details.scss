@@ -582,8 +582,8 @@
 
   /* фото цілком вміщується в перший екран: висота = вікно мінус шапка й хлібні крихти */
   .stage.stage--photo {
-    width: min(100%, calc((100svh - var(--header-h) - 70px) * 0.9));
-    aspect-ratio: 9 / 10;
+    width: min(100%, calc((100svh - var(--header-h) - 70px) * 0.75));
+    aspect-ratio: 3 / 4;
     /* фото трохи правіше від лівого краю колонки */
     margin-left: clamp(24px, 3.4vw, 64px);
   }
