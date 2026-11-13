@@ -13,7 +13,7 @@
 
 :host-context([data-theme='dark']) .hero {
   --hero-ink: #efe3cc;
-  background: #1d2418 url('/flowers/home-dark-hero.jpg') center / cover no-repeat;
+  background: #1d2418 var(--img-home-dark-hero) center / cover no-repeat;
 }
 
 :host-context([data-theme='dark']) .hero::before {
@@ -756,7 +756,7 @@
 }
 
 :host-context([data-theme='dark']) .categories-section {
-  background: url('/flowers/home-dark-cat.jpg') center / cover no-repeat;
+  background: var(--img-home-dark-cat) center / cover no-repeat;
 }
 
 :host-context([data-theme='dark']) .categories {
@@ -769,7 +769,7 @@
 }
 
 :host-context([data-theme='dark']) .builder-screen {
-  background: url('/flowers/home-dark-builder.jpg') center / cover no-repeat;
+  background: var(--img-home-dark-builder) center / cover no-repeat;
 }
 
 :host-context([data-theme='dark']) .bs-decor {
@@ -807,7 +807,7 @@
   flex-direction: column;
   justify-content: center;
   min-height: 100svh;
-  background: url('/flowers/home-dark-story.jpg') center / cover no-repeat;
+  background: var(--img-home-dark-story) center / cover no-repeat;
 }
 
 :host-context([data-theme='dark']) .story-screen .container {
