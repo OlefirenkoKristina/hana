@@ -257,3 +257,17 @@
     display: none;
   }
 }
+
+/* Мобільна версія: піон у кутку не лежить за іконками шапки */
+@media (max-width: 640px) {
+  :host-context([data-theme='dark']) .dk-corner {
+    top: var(--header-h);
+    width: 44vw;
+    opacity: 0.5;
+  }
+
+  .decor--l,
+  .decor--lines {
+    opacity: 0.6;
+  }
+}

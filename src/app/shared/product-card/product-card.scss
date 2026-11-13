@@ -179,3 +179,17 @@
   pointer-events: none;
   user-select: none;
 }
+
+/* Мобільна версія: підпис кнопки «Додати в кошик» не переноситься на другий рядок */
+@media (max-width: 560px) {
+  .add {
+    gap: 4px;
+    padding-inline: 6px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+
+  .custom {
+    font-size: 0.8rem;
+  }
+}

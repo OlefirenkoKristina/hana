@@ -832,6 +832,15 @@ import { Reveal } from '../../shared/reveal';
         grid-template-columns: 1fr;
       }
     }
+    /* Мобільна версія: піони у верхньому куті не лежать за іконками шапки */
+    @media (max-width: 640px) {
+      .deco--peony,
+      .dk-peony-tr {
+        top: var(--header-h);
+        width: 40vw;
+        opacity: 0.55;
+      }
+    }
   `,
 })
 export class About {

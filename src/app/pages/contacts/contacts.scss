@@ -442,3 +442,19 @@
   right: 0;
   width: min(31vw, 560px);
 }
+
+/* Мобільна версія: піон не лежить за іконками шапки */
+@media (max-width: 640px) {
+  .decor--top {
+    top: var(--header-h);
+    width: 46vw;
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 640px) {
+  .decor--dark-right,
+  .decor--dark-left {
+    top: var(--header-h);
+  }
+}

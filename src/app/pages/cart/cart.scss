@@ -574,3 +574,12 @@ a.name:hover {
     }
   }
 }
+
+/* Мобільна версія: піон не лежить за іконками шапки */
+@media (max-width: 640px) {
+  .decor--tr {
+    top: var(--header-h);
+    width: 42vw;
+    opacity: 0.55;
+  }
+}

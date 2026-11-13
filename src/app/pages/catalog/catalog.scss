@@ -582,3 +582,11 @@
     transition: none;
   }
 }
+
+/* Мобільна версія: бічні квіти темної теми не налізають на заголовок, пошук і фільтри */
+@media (max-width: 640px) {
+  :host-context([data-theme='dark']) .side,
+  :host-context([data-theme='dark']) .decor {
+    display: none;
+  }
+}

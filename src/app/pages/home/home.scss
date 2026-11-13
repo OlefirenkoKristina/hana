@@ -967,3 +967,25 @@
     animation: none;
   }
 }
+
+/* ===== Мобільна версія банера: текст читається поверх піонів ===== */
+@media (max-width: 760px) {
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(252, 241, 238, 0.5) 0%, rgba(252, 241, 238, 0.36) 55%, rgba(252, 241, 238, 0.12) 100%);
+  }
+
+  :host-context([data-theme='dark']) .hero {
+    background-position: 82% center;
+  }
+
+  :host-context([data-theme='dark']) .hero::before {
+    display: block;
+    opacity: 1;
+    background: linear-gradient(180deg, rgba(22, 26, 17, 0.5) 0%, rgba(22, 26, 17, 0.62) 55%, rgba(22, 26, 17, 0.28) 100%);
+  }
+}
