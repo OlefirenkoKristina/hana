@@ -2,13 +2,14 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CartService, FREE_DELIVERY_FROM, MAX_QUANTITY } from '../../core/services/cart.service';
 import { BouquetArt } from '../../shared/bouquet-art/bouquet-art';
+import { EmptyScene } from '../../shared/empty-scene/empty-scene';
 import { Icon } from '../../shared/icon/icon';
 import { QuantityStepper } from '../../shared/quantity-stepper/quantity-stepper';
 import { UahPipe } from '../../shared/uah.pipe';
 
 @Component({
   selector: 'app-cart',
-  imports: [RouterLink, BouquetArt, Icon, QuantityStepper, UahPipe],
+  imports: [RouterLink, BouquetArt, Icon, QuantityStepper, UahPipe, EmptyScene],
   templateUrl: './cart.html',
   styleUrl: './cart.scss',
 })

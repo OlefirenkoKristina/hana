@@ -1,3 +1,6 @@
+@if (cart.isEmpty()) {
+  <app-empty-scene icon="bag" title="Кошик порожній" text="Оберіть готовий букет у каталозі та персоналізуйте його." />
+} @else {
 <div class="cart-page" [class.is-empty]="cart.isEmpty()">
   <img class="decor lt-only decor--tr" src="flowers/cart-peony-tr.png" alt="" aria-hidden="true" />
   <img class="decor lt-only decor--bl" src="flowers/cart-peony-bl.png" alt="" aria-hidden="true" />
@@ -138,3 +141,4 @@
   }
 </div>
 </div>
+}

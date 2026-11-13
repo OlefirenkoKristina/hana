@@ -1,42 +1,40 @@
 import { Component, computed, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Product } from '../../core/models/product.model';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { ProductService } from '../../core/services/product.service';
-import { Icon } from '../../shared/icon/icon';
+import { EmptyScene } from '../../shared/empty-scene/empty-scene';
 import { ProductCard } from '../../shared/product-card/product-card';
 
 @Component({
   selector: 'app-favorites',
-  imports: [RouterLink, ProductCard, Icon],
+  imports: [ProductCard, EmptyScene],
   template: `
-    <div class="fav-page">
-      <img class="decor decor--l" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
-      <img class="decor decor--r" src="flowers/fav-peony-r.png" alt="" aria-hidden="true" />
-      <img class="decor decor--lines" src="flowers/fav-lines-r.png" alt="" aria-hidden="true" />
-      <img class="decor decor--petal petal-1" src="flowers/about-petal.png" alt="" aria-hidden="true" />
-      <img class="decor decor--petal petal-2" src="flowers/about-petal.png" alt="" aria-hidden="true" />
-      <img class="decor decor--petal petal-3" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+    @if (items().length) {
+      <div class="fav-page">
+        <img class="decor decor--l" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
+        <img class="decor decor--r" src="flowers/fav-peony-r.png" alt="" aria-hidden="true" />
+        <img class="decor decor--lines" src="flowers/fav-lines-r.png" alt="" aria-hidden="true" />
+        <img class="decor decor--petal petal-1" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+        <img class="decor decor--petal petal-2" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+        <img class="decor decor--petal petal-3" src="flowers/about-petal.png" alt="" aria-hidden="true" />
 
-      <h1 class="fav-title container" [class.sr-only]="!items().length">Обране</h1>
+        <h1 class="fav-title container">Обране</h1>
 
-      <div class="container">
-        @if (items().length) {
+        <div class="container">
           <div class="product-grid">
             @for (p of items(); track p.id) {
               <app-product-card [product]="p" />
             }
           </div>
-        } @else {
-          <div class="empty">
-            <div class="heart"><app-icon name="heart" [size]="58" [stroke]="1.1" /></div>
-            <h2>Тут поки порожньо</h2>
-            <p>Натисніть на сердечко на картці букета, щоб зберегти його тут і повернутися пізніше.</p>
-            <a routerLink="/catalog" class="btn btn--primary cta">До каталогу <app-icon name="arrow" [size]="18" /></a>
-          </div>
-        }
+        </div>
       </div>
-    </div>
+    } @else {
+      <app-empty-scene
+        icon="heart"
+        title="Тут поки порожньо"
+        text="Натисніть на сердечко на картці букета, щоб зберегти його тут і повернутися пізніше."
+      />
+    }
   `,
   styles: `
     :host {

@@ -827,9 +827,57 @@ import { Reveal } from '../../shared/reveal';
         padding-block: var(--space-7) calc(var(--space-7) + var(--space-7));
       }
     }
-    @media (max-width: 560px) {
+    /* Телефон: чотири кроки — це 4 квадратики 2×2, а не довгий список */
+    @media (max-width: 900px) {
       .process {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: auto;
+        gap: var(--space-3);
+      }
+      .step {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        justify-content: flex-end;
+        padding: var(--space-4);
+        border-radius: 20px;
+      }
+      .step .num {
+        position: absolute;
+        top: var(--space-3);
+        left: var(--space-4);
+        font-size: 2.2rem;
+      }
+      .step .step-ico,
+      :host-context([data-theme='dark']) .step-ico {
+        position: absolute;
+        top: var(--space-3);
+        right: var(--space-3);
+      }
+    }
+    @media (max-width: 560px) {
+      .step {
+        padding: var(--space-3);
+        gap: 2px;
+      }
+      .step .num {
+        top: var(--space-2);
+        left: var(--space-3);
+        font-size: 1.8rem;
+      }
+      .step .step-ico,
+      :host-context([data-theme='dark']) .step-ico {
+        top: var(--space-2);
+        right: var(--space-2);
+        width: 26px;
+        height: 26px;
+      }
+      .step h3 {
+        font-size: 1.05rem;
+        line-height: 1.15;
+      }
+      .step p {
+        font-size: 0.74rem;
+        line-height: 1.35;
       }
     }
     /* Мобільна версія: піони у верхньому куті не лежать за іконками шапки */

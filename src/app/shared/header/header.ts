@@ -56,10 +56,10 @@ export class Header {
   private readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
   protected readonly links = [
-    { path: '/catalog', label: 'Каталог', exact: false },
-    { path: '/customize', label: 'Змінити букет', exact: false },
-    { path: '/about', label: 'Про нас', exact: false },
-    { path: '/contacts', label: 'Контакти', exact: false },
+    { path: '/catalog', label: 'Каталог', exact: false, icon: 'flower' as const },
+    { path: '/customize', label: 'Змінити букет', exact: false, icon: 'sparkle' as const },
+    { path: '/about', label: 'Про нас', exact: false, icon: 'leaf' as const },
+    { path: '/contacts', label: 'Контакти', exact: false, icon: 'mail' as const },
   ];
 
   constructor() {

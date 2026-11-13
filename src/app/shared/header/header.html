@@ -21,6 +21,23 @@
       />
     </a>
 
+    <!-- На телефоні й планшеті сторінки — значками просто в шапці (замість бургер-меню) -->
+    <nav class="nav-icons" aria-label="Сторінки сайту">
+      @for (link of links; track link.path) {
+        <a
+          class="icon-btn"
+          [routerLink]="link.path"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: link.exact }"
+          ariaCurrentWhenActive="page"
+          [attr.aria-label]="link.label"
+          [title]="link.label"
+        >
+          <app-icon [name]="link.icon" [size]="20" />
+        </a>
+      }
+    </nav>
+
     <nav id="main-nav" class="nav" [class.is-open]="menuOpen()" aria-label="Основна навігація">
       @for (link of links; track link.path) {
         <a

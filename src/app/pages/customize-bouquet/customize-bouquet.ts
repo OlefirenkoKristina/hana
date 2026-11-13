@@ -1,8 +1,7 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CustomizationDraftService } from '../../core/services/customization-draft.service';
 import { ProductService } from '../../core/services/product.service';
-import { Icon } from '../../shared/icon/icon';
+import { EmptyScene } from '../../shared/empty-scene/empty-scene';
 import { BouquetCustomizer } from '../bouquet-customizer/bouquet-customizer';
 
 /**
@@ -11,7 +10,7 @@ import { BouquetCustomizer } from '../bouquet-customizer/bouquet-customizer';
  */
 @Component({
   selector: 'app-customize-bouquet',
-  imports: [RouterLink, Icon, BouquetCustomizer],
+  imports: [EmptyScene, BouquetCustomizer],
   templateUrl: './customize-bouquet.html',
   styleUrl: './customize-bouquet.scss',
 })

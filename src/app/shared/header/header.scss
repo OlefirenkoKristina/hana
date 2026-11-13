@@ -159,6 +159,11 @@
   display: none;
 }
 
+/* Значки сторінок: лише на вузьких екранах */
+.nav-icons {
+  display: none;
+}
+
 /* Пошук: рожева панель під шапкою, заокруглене поле зі скляним ефектом і швидкі запити */
 .search {
   position: relative;
@@ -277,9 +282,30 @@
 }
 
 @media (max-width: 1000px) {
-  .burger {
-    display: inline-grid;
-    margin-left: -10px;
+  /* бургер і висувне меню замінені значками в шапці */
+  .burger,
+  .nav {
+    display: none;
+  }
+
+  .nav-icons {
+    display: flex;
+    gap: 2px;
+  }
+
+  .nav-icons .icon-btn,
+  .actions .icon-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .nav-icons .icon-btn.is-active {
+    color: var(--berry);
+    background: var(--blush);
+  }
+
+  .actions {
+    gap: 0;
   }
 
   .bar {
@@ -291,7 +317,7 @@
   }
 
   .logo-img {
-    height: 42px;
+    height: 32px;
   }
 
   .nav {
@@ -371,5 +397,26 @@
   .hint {
     border-color: rgba(216, 178, 150, 0.4);
     background: rgba(255, 255, 255, 0.04);
+  }
+}
+
+/* Дуже вузькі телефони: значки трохи менші, щоб усе вміщалось в один ряд */
+@media (max-width: 380px) {
+  .nav-icons .icon-btn,
+  .actions .icon-btn {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 340px) {
+  .nav-icons .icon-btn,
+  .actions .icon-btn {
+    width: 26px;
+    height: 26px;
+  }
+
+  .logo-img {
+    height: 28px;
   }
 }
