@@ -132,7 +132,7 @@ export class BouquetCustomizer {
     const title = inject(Title);
     effect(() => {
       const p = this.product();
-      title.setTitle(p ? `Персоналізація: ${p.name} — HANA` : 'Товар не знайдено — HANA');
+      title.setTitle(p ? `Змінити букет: ${p.name} — HANA` : 'Товар не знайдено — HANA');
     });
   }
 

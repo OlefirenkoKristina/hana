@@ -95,7 +95,6 @@
   background: var(--surface);
   text-align: center;
   cursor: pointer;
-  transition: border-color 0.2s;
 
   &:focus-within {
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--berry) 28%, transparent);
@@ -139,7 +138,6 @@
   background: var(--surface);
   text-align: center;
   cursor: pointer;
-  transition: border-color 0.2s;
 
   &:hover {
     border-color: var(--rose);
@@ -201,7 +199,6 @@
   border-radius: var(--radius);
   background: var(--surface);
   cursor: pointer;
-  transition: border-color 0.2s;
 
   input {
     width: 20px;

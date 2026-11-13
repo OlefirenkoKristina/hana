@@ -594,3 +594,15 @@ a.name:hover {
     background: #252d1a;
   }
 }
+
+/* Телефон і планшет: той самий декор, що й на порожніх сторінках; власні піони кошика ховаємо */
+@media (max-width: 900px) {
+  .cart-page > .decor,
+  .cart-page > .art-lines {
+    display: none;
+  }
+
+  :host-context([data-theme='dark']) .cart-page {
+    background: #252d1a;
+  }
+}

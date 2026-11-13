@@ -5,10 +5,11 @@ import { ProductService } from '../../core/services/product.service';
 import { BouquetArt } from '../../shared/bouquet-art/bouquet-art';
 import { Icon, IconName } from '../../shared/icon/icon';
 import { Reveal } from '../../shared/reveal';
+import { SceneDecor } from '../../shared/scene-decor/scene-decor';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, BouquetArt, Icon, Reveal],
+  imports: [RouterLink, BouquetArt, Icon, Reveal, SceneDecor],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

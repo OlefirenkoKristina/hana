@@ -12,11 +12,10 @@ import { Icon } from '../../shared/icon/icon';
 import { ProductCard } from '../../shared/product-card/product-card';
 import { QuantityStepper } from '../../shared/quantity-stepper/quantity-stepper';
 import { UahPipe } from '../../shared/uah.pipe';
-import { Reveal } from '../../shared/reveal';
 
 @Component({
   selector: 'app-product-details',
-  imports: [RouterLink, BouquetArt, Icon, ProductCard, QuantityStepper, UahPipe, Reveal],
+  imports: [RouterLink, BouquetArt, Icon, ProductCard, QuantityStepper, UahPipe],
   templateUrl: './product-details.html',
   styleUrl: './product-details.scss',
 })

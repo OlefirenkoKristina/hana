@@ -44,7 +44,7 @@
     <img class="dk-art dk-a-corner" src="flowers/contacts-dark-peony.png" alt="" aria-hidden="true" />
     <img class="dk-art dk-br pd-cl" src="flowers/pd-cl-a.jpg" alt="" aria-hidden="true" />
   <div class="container">
-    <nav class="breadcrumbs crumbs" appReveal aria-label="Хлібні крихти">
+    <nav class="breadcrumbs crumbs" aria-label="Хлібні крихти">
       <a routerLink="/">Головна</a><span aria-hidden="true">/</span>
       <a routerLink="/catalog">Каталог</a><span aria-hidden="true">/</span>
       <a routerLink="/catalog" [queryParams]="{ category: p.category }">{{ categoryLabels[p.category] }}</a>
@@ -54,7 +54,7 @@
     <div class="product">
       <!-- Галерея -->
       <div class="gallery">
-        <div class="stage" [class.stage--photo]="photo()" appReveal="photo-left">
+        <div class="stage" [class.stage--photo]="photo()">
           @if (p.badge; as badge) {
             <span class="badge tag" [class.badge--hit]="badge === 'hit'">{{ badge === 'hit' ? 'Хіт' : 'Новинка' }}</span>
           }
@@ -68,18 +68,18 @@
 
       <!-- Інформація -->
       <div class="info">
-        <span class="eyebrow" appReveal [revealDelay]="100">{{ categoryLabels[p.category] }}</span>
-        <h1 appReveal [revealDelay]="220">{{ p.name }}</h1>
-        <p class="price" appReveal [revealDelay]="340">
+        <span class="eyebrow">{{ categoryLabels[p.category] }}</span>
+        <h1>{{ p.name }}</h1>
+        <p class="price">
           {{ unitPrice() | uah }}
           @if (selectedSize(); as s) {
             <span class="price-note">· розмір {{ s.code }}, {{ s.stems }} шт.</span>
           }
         </p>
-        <p class="description" appReveal [revealDelay]="460">{{ p.description }}</p>
+        <p class="description">{{ p.description }}</p>
 
         @if (sizes().length) {
-          <fieldset class="sizes" appReveal [revealDelay]="580">
+          <fieldset class="sizes">
             <legend>Розмір букета</legend>
             <div class="size-list">
               @for (s of sizes(); track s.code) {
@@ -94,7 +94,7 @@
           </fieldset>
         }
 
-        <div class="buy" appReveal [revealDelay]="700">
+        <div class="buy">
           <app-quantity-stepper
             [value]="quantity()"
             [max]="maxQuantity"
@@ -119,7 +119,7 @@
         </div>
 
         @if (customizable()) {
-          <a class="btn btn--ghost custom-link" appReveal [revealDelay]="760" routerLink="/customize" [queryParams]="{ product: p.id }">
+          <a class="btn btn--ghost custom-link" routerLink="/customize" [queryParams]="{ product: p.id }">
             <app-icon name="flower" [size]="18" /> Змінити букет
           </a>
         }
@@ -133,13 +133,13 @@
     <img class="decor decor--petal rel-p1" src="flowers/about-petal.png" alt="" aria-hidden="true" />
     <img class="decor decor--petal rel-p2" src="flowers/about-petal.png" alt="" aria-hidden="true" />
     <div class="container">
-      <div class="section-head" appReveal>
+      <div class="section-head">
         <h2 id="related-title">Схожі букети</h2>
         <a routerLink="/catalog" class="link">Весь каталог <app-icon name="arrow" [size]="18" /></a>
       </div>
       <div class="product-grid">
         @for (r of related(); track r.id; let i = $index) {
-          <div appReveal [revealDelay]="(i % 4) * 130"><app-product-card [product]="r" /></div>
+          <div><app-product-card [product]="r" /></div>
         }
       </div>
     </div>

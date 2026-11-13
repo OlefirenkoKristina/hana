@@ -18,68 +18,6 @@
   background: #252d1a var(--img-fav-dark-bg) center bottom / cover no-repeat;
 }
 
-.decor {
-  position: absolute;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* ---------- Комп'ютер ---------- */
-
-.dk {
-  display: none;
-}
-
-:host-context([data-theme='dark']) .lt,
-:host-context([data-theme='dark']) .petal {
-  display: none;
-}
-
-.d-l {
-  top: var(--header-h);
-  left: 0;
-  width: min(28vw, 480px);
-}
-
-.d-r {
-  right: 0;
-  bottom: 0;
-  width: min(33vw, 560px);
-}
-
-.d-lines {
-  top: var(--header-h);
-  right: 0;
-  width: min(11vw, 182px);
-}
-
-.petal {
-  width: 66px;
-}
-
-.p1 {
-  top: 14%;
-  left: 22%;
-  transform: rotate(-20deg);
-}
-
-.p2 {
-  top: 30%;
-  right: 18%;
-  width: 78px;
-  transform: rotate(24deg);
-}
-
-.p3 {
-  bottom: 22%;
-  left: 34%;
-  width: 72px;
-  transform: rotate(-28deg);
-}
-
-.p4 {
-  display: none;
-}
 
 .empty {
   display: flex;
@@ -127,7 +65,8 @@
   font-size: 1rem;
 }
 
-/* ---------- Телефон і планшет: один набір, однаково для обох тем ---------- */
+
+/* ---------- Телефон і планшет ---------- */
 
 @media (max-width: 900px) {
   :host-context([data-theme='dark']) .scene {
@@ -141,103 +80,5 @@
   .mark::before,
   .mark::after {
     width: 18vw;
-  }
-
-  /* піон зверху ліворуч */
-  .d-l,
-  .dk-l {
-    top: var(--header-h);
-    left: 0;
-    width: 56vw;
-  }
-
-  /* піон і букет знизу праворуч */
-  .d-r,
-  .dk-r {
-    right: 0;
-    bottom: 0;
-    width: 66vw;
-    opacity: 1;
-  }
-
-  /* листя зверху праворуч */
-  .d-lines,
-  .dk-lines {
-    top: calc(var(--header-h) + 10vw);
-    right: 0;
-    width: 22vw;
-  }
-
-  /* темна тема: ті самі коробки, а всередині — шматки темного фото */
-  :host-context([data-theme='dark']) .dk {
-    display: block;
-    background-image: var(--img-fav-dark-bg);
-    background-repeat: no-repeat;
-  }
-
-  /* м'які краї, щоб шматки фото непомітно зливались із фоном */
-  .dk-l {
-    height: 72vw;
-    background-size: 167vw auto;
-    background-position: left top;
-    -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0% 0%, #000 52%, transparent 100%);
-    mask-image: radial-gradient(ellipse 100% 100% at 0% 0%, #000 52%, transparent 100%);
-  }
-
-  .dk-r {
-    height: 52vw;
-    background-size: 158vw auto;
-    background-position: right bottom;
-    -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 52%, transparent 100%);
-    mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 52%, transparent 100%);
-  }
-
-  .dk-lines {
-    height: 24vw;
-    background-size: 159vw auto;
-    background-position: right top;
-    -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 45%, transparent 100%);
-    mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 45%, transparent 100%);
-  }
-
-  /* пелюстки: у світлій темі окремі, у темній вони вже є у фото */
-  .petal {
-    width: 14vw;
-  }
-
-  .p1 {
-    top: 17%;
-    left: 50%;
-    right: auto;
-    bottom: auto;
-    transform: rotate(-20deg);
-  }
-
-  .p2 {
-    top: 32%;
-    left: auto;
-    right: 14%;
-    bottom: auto;
-    width: 15vw;
-    transform: rotate(18deg);
-  }
-
-  .p3 {
-    top: auto;
-    left: 9%;
-    right: auto;
-    bottom: 22%;
-    width: 14vw;
-    transform: rotate(-22deg);
-  }
-
-  .p4 {
-    display: block;
-    top: auto;
-    right: auto;
-    left: 56%;
-    bottom: 12%;
-    width: 14vw;
-    transform: rotate(30deg);
   }
 }

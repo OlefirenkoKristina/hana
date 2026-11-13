@@ -25,6 +25,7 @@
 
 <!-- Категорії -->
 <section class="section categories-section" aria-labelledby="cat-title">
+  <app-scene-decor corner="tr" [mobileOnly]="true" />
   <div class="container">
     <div class="section-head" appReveal>
       <div>
@@ -53,6 +54,7 @@
 
 <!-- Персоналізація -->
 <section class="builder-screen" aria-labelledby="builder-title">
+  <app-scene-decor corner="bl" [mobileOnly]="true" />
   <img class="bs-decor bs-decor--peony-tl" src="flowers/builder-peony-tl.png" alt="" aria-hidden="true" />
   <img class="bs-decor bs-decor--peony-br" src="flowers/builder-peony-br.png" alt="" aria-hidden="true" />
   <img class="bs-decor bs-decor--lines-l" src="flowers/builder-lines-l.png" alt="" aria-hidden="true" />
@@ -89,6 +91,7 @@
 <div class="story-screen">
 <!-- Історія бренду -->
 <section class="section story" aria-labelledby="story-title">
+  <app-scene-decor corner="tl" [mobileOnly]="true" />
   <div class="container story-grid">
     <div class="story-quote" appReveal="left">
       <span class="mark" aria-hidden="true">“</span>
@@ -110,6 +113,7 @@
 
 <!-- Переваги -->
 <section class="section advantages" aria-label="Наші переваги">
+  <app-scene-decor corner="br" [mobileOnly]="true" />
   <div class="container adv-grid">
     @for (a of advantages; track a.title; let i = $index) {
       <div class="adv" appReveal [revealDelay]="i * 130">

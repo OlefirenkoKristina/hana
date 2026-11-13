@@ -3,14 +3,16 @@ import { Product } from '../../core/models/product.model';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { ProductService } from '../../core/services/product.service';
 import { EmptyScene } from '../../shared/empty-scene/empty-scene';
+import { SceneDecor } from '../../shared/scene-decor/scene-decor';
 import { ProductCard } from '../../shared/product-card/product-card';
 
 @Component({
   selector: 'app-favorites',
-  imports: [ProductCard, EmptyScene],
+  imports: [ProductCard, EmptyScene, SceneDecor],
   template: `
     @if (items().length) {
       <div class="fav-page">
+        <app-scene-decor [mobileOnly]="true" />
         <img class="decor decor--l" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
         <img class="decor decor--r" src="flowers/fav-peony-r.png" alt="" aria-hidden="true" />
         <img class="decor decor--lines" src="flowers/fav-lines-r.png" alt="" aria-hidden="true" />
@@ -146,15 +148,13 @@ import { ProductCard } from '../../shared/product-card/product-card';
       padding-inline: var(--space-7);
       font-size: 1rem;
     }
+    /* Телефон і планшет: той самий декор, що й на порожніх сторінках; власні піони ховаємо */
     @media (max-width: 900px) {
-      .decor--l,
-      .decor--lines,
-      .petal-3 {
+      .fav-page > .decor {
         display: none;
       }
-      .decor--r {
-        width: 60vw;
-        opacity: 0.8;
+      :host-context([data-theme='dark']) .fav-page {
+        background: #252d1a;
       }
     }
   `,

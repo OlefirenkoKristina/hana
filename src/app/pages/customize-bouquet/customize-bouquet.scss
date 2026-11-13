@@ -271,3 +271,13 @@
     opacity: 0.6;
   }
 }
+
+/* Телефон і планшет: той самий декор, що на порожніх сторінках, кошику й обраному; власний декор ховаємо */
+@media (max-width: 900px) {
+  .page > .decor,
+  .page > .lt-art,
+  .page > .dk-art,
+  :host-context([data-theme='dark']) .page > .dk-corner {
+    display: none !important;
+  }
+}

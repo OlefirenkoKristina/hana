@@ -2,6 +2,7 @@ import { Component, computed, effect, inject, input } from '@angular/core';
 import { CustomizationDraftService } from '../../core/services/customization-draft.service';
 import { ProductService } from '../../core/services/product.service';
 import { EmptyScene } from '../../shared/empty-scene/empty-scene';
+import { SceneDecor } from '../../shared/scene-decor/scene-decor';
 import { BouquetCustomizer } from '../bouquet-customizer/bouquet-customizer';
 
 /**
@@ -10,7 +11,7 @@ import { BouquetCustomizer } from '../bouquet-customizer/bouquet-customizer';
  */
 @Component({
   selector: 'app-customize-bouquet',
-  imports: [EmptyScene, BouquetCustomizer],
+  imports: [EmptyScene, BouquetCustomizer, SceneDecor],
   templateUrl: './customize-bouquet.html',
   styleUrl: './customize-bouquet.scss',
 })

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Icon, IconName } from '../icon/icon';
+import { SceneDecor } from '../scene-decor/scene-decor';
 
 /**
  * Порожній стан сторінки (кошик, обране, «Змінити букет»): один дизайн для всіх трьох і для обох тем,
@@ -10,21 +11,10 @@ import { Icon, IconName } from '../icon/icon';
 @Component({
   selector: 'app-empty-scene',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, Icon],
+  imports: [RouterLink, Icon, SceneDecor],
   template: `
     <div class="scene">
-      <!-- Світла тема: піони з PNG -->
-      <img class="decor lt d-l" src="flowers/fav-peony-l.png" alt="" aria-hidden="true" />
-      <img class="decor lt d-r" src="flowers/fav-peony-r.png" alt="" aria-hidden="true" />
-      <img class="decor lt d-lines" src="flowers/fav-lines-r.png" alt="" aria-hidden="true" />
-      <!-- Темна тема на телефоні: ті самі місця, але шматки темного фото -->
-      <i class="decor dk dk-l" aria-hidden="true"></i>
-      <i class="decor dk dk-r" aria-hidden="true"></i>
-      <i class="decor dk dk-lines" aria-hidden="true"></i>
-      <img class="decor petal p1" src="flowers/about-petal.png" alt="" aria-hidden="true" />
-      <img class="decor petal p2" src="flowers/about-petal.png" alt="" aria-hidden="true" />
-      <img class="decor petal p3" src="flowers/about-petal.png" alt="" aria-hidden="true" />
-      <img class="decor petal p4" src="flowers/about-petal.png" alt="" aria-hidden="true" />
+      <app-scene-decor />
 
       <div class="container">
         <div class="empty">
