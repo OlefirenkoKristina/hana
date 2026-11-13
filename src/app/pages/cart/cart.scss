@@ -583,3 +583,14 @@ a.name:hover {
     opacity: 0.55;
   }
 }
+
+/* Мобільна версія: без дрібних пелюсток поверх тексту; темний фон — рівний колір замість розтягнутої картинки */
+@media (max-width: 640px) {
+  .decor--petal {
+    display: none;
+  }
+
+  :host-context([data-theme='dark']) .cart-page {
+    background: #252d1a;
+  }
+}

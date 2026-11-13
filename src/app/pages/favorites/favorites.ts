@@ -56,6 +56,14 @@ import { ProductCard } from '../../shared/product-card/product-card';
       /* темна тема: готове фото з яскравими піонами */
       background: #252d1a var(--img-fav-dark-bg) center bottom / cover no-repeat;
     }
+    @media (max-width: 640px) {
+      :host-context([data-theme='dark']) .fav-page {
+        background: #252d1a;
+      }
+      .decor--petal {
+        display: none;
+      }
+    }
     :host-context([data-theme='dark']) .decor {
       display: none;
     }

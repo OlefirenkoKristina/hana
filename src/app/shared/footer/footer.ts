@@ -160,6 +160,81 @@ import { RouterLink } from '@angular/router';
         gap: var(--space-6);
       }
     }
+
+    /* Мобільна версія: мінімалістичний футер — логотип, один рядок посилань, контакти, копірайт */
+    @media (max-width: 640px) {
+      .footer {
+        margin-top: var(--space-5);
+        padding-top: var(--space-5);
+        font-size: 0.88rem;
+      }
+      :host-context([data-theme='dark']) .leaf {
+        display: none;
+      }
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px 22px;
+        text-align: center;
+      }
+      .brand {
+        flex: 0 0 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .logo img {
+        height: 44px;
+      }
+      .brand p {
+        margin: 0;
+        max-width: none;
+        font-size: 0.8rem;
+      }
+      h3 {
+        display: none;
+      }
+      /* обидва меню зливаються в один рядок посилань, зайве прибираємо */
+      nav {
+        display: contents;
+      }
+      nav[aria-label='Магазин'] a:nth-of-type(2),
+      nav[aria-label='Магазин'] a:nth-of-type(3) {
+        display: none;
+      }
+      nav a {
+        font-size: 0.9rem;
+        padding-block: 4px;
+      }
+      .contacts {
+        flex: 0 0 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px 18px;
+        margin-top: 6px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        font-size: 0.85rem;
+      }
+      .contacts p {
+        flex: 0 0 100%;
+        margin: 0;
+        font-size: 0.78rem;
+      }
+      .bottom {
+        justify-content: center;
+        margin-top: var(--space-3);
+        padding-block: 10px;
+        text-align: center;
+        font-size: 0.72rem;
+      }
+      .bottom span:last-child {
+        display: none;
+      }
+    }
   `,
 })
 export class Footer {}

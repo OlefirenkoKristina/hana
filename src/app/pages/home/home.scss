@@ -989,3 +989,355 @@
     background: linear-gradient(180deg, rgba(22, 26, 17, 0.5) 0%, rgba(22, 26, 17, 0.62) 55%, rgba(22, 26, 17, 0.28) 100%);
   }
 }
+
+/* ===== Мобільна версія: блок «Зробіть букет особливим» компактніший ===== */
+@media (max-width: 640px) {
+  .builder-screen {
+    padding: var(--space-5) var(--gutter) var(--space-6);
+  }
+
+  .bs-card {
+    padding: var(--space-5) var(--space-5) 0;
+    border-radius: 26px;
+    min-height: 0;
+  }
+
+  .bs-text h2 {
+    margin-top: var(--space-2);
+    font-size: 1.9rem;
+  }
+
+  .bs-eyebrow {
+    font-size: 0.7rem;
+  }
+
+  .bs-lead {
+    margin-top: var(--space-3);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .bs-steps {
+    gap: var(--space-2) var(--space-3);
+    margin: var(--space-4) 0;
+
+    li {
+      font-size: 0.85rem;
+    }
+
+    span {
+      width: 28px;
+      height: 28px;
+      font-size: 0.78rem;
+    }
+  }
+
+  .bs-btn {
+    min-height: 48px;
+    padding-inline: var(--space-5);
+    font-size: 0.92rem;
+  }
+
+  .bs-bouquet {
+    width: min(64%, 230px);
+    height: 210px;
+    margin-top: var(--space-3);
+  }
+}
+
+/* ===== Мобільна версія банера: текст розтягнуто на весь екран ===== */
+@media (max-width: 640px) {
+  .hero {
+    justify-content: space-between;
+    gap: var(--space-5);
+    min-height: 100svh;
+    padding: calc(var(--header-h) + var(--space-5)) var(--gutter) var(--space-7);
+  }
+
+  .hero-content {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .sprig {
+    width: 30%;
+    max-width: 130px;
+  }
+
+  .hero h1 {
+    font-size: clamp(4.2rem, 21vw, 5.6rem);
+  }
+
+  .shop {
+    width: 100%;
+    margin-top: var(--space-3);
+    font-size: 0.85rem;
+  }
+
+  .hero .lead {
+    max-width: 30ch;
+    margin-top: var(--space-5);
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+
+  .hero-actions {
+    margin-top: var(--space-6);
+  }
+
+  .hero-actions .btn {
+    min-height: 56px;
+    padding-inline: var(--space-7);
+    font-size: 1rem;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    row-gap: 0;
+
+    > div {
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 6px;
+      padding-inline: 4px;
+      text-align: center;
+
+      &:first-child {
+        padding-left: 4px;
+      }
+    }
+
+    span {
+      align-items: center;
+    }
+
+    dd {
+      font-size: 1.45rem;
+    }
+
+    dt {
+      font-size: 0.74rem;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  :host-context([data-theme='dark']) .stats dt {
+    color: #e6dccf;
+  }
+
+  :host-context([data-theme='dark']) .sprig {
+    opacity: 1;
+    filter: brightness(1.6);
+  }
+}
+
+/* ===== Мобільна версія: секція «Що подарувати сьогодні?» компактніша ===== */
+@media (max-width: 640px) {
+  .categories-section {
+    min-height: 0;
+    gap: var(--space-4);
+    padding-block: var(--space-6) var(--space-5);
+  }
+
+  .pink-zone .section-head {
+    margin-bottom: 0;
+    gap: 6px;
+
+    h2 {
+      font-size: 1.8rem;
+    }
+  }
+
+  .tagline {
+    margin-top: 4px;
+    font-size: 0.98rem;
+  }
+
+  .categories {
+    flex: 0 0 auto;
+    min-height: 0;
+    gap: var(--space-2);
+    padding-inline: var(--gutter);
+  }
+
+  .category {
+    flex: 1 1 calc(50% - var(--space-2));
+    min-height: 0;
+    aspect-ratio: 4 / 4.6;
+    border-radius: 20px;
+  }
+
+  .category-info {
+    padding: var(--space-3);
+  }
+
+  .category-name {
+    font-size: 1.15rem;
+  }
+
+  .category-count {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  :host-context([data-theme='dark']) .categories-section {
+    justify-content: flex-start;
+    padding-top: var(--space-6);
+  }
+
+  :host-context([data-theme='dark']) .categories {
+    height: auto;
+    padding-inline: var(--gutter);
+  }
+}
+
+/* ===== Мобільна версія: секція «Наша історія» компактніша ===== */
+@media (max-width: 640px) {
+  .story,
+  :host-context([data-theme='dark']) .story {
+    padding-block: var(--space-6) var(--space-4);
+  }
+
+  .story-grid {
+    gap: var(--space-4);
+
+    h2 {
+      margin-bottom: var(--space-2);
+      font-size: 1.6rem;
+    }
+
+    .lead {
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+  }
+
+  .story-quote,
+  :host-context([data-theme='dark']) .story-quote {
+    min-height: 0;
+    padding: var(--space-4) var(--space-5);
+    border-radius: 22px;
+
+    p {
+      font-size: 1.3rem;
+      line-height: 1.3;
+    }
+  }
+
+  .mark {
+    height: 30px;
+    font-size: 4rem;
+  }
+
+  .author {
+    margin-top: var(--space-3);
+    font-size: 0.82rem;
+  }
+
+  .more {
+    margin-top: var(--space-3);
+  }
+
+  /* темна тема: на телефоні блоки на всю ширину, без обмежень вебверсії */
+  :host-context([data-theme='dark']) .story-screen {
+    min-height: 0;
+    padding-top: 0;
+  }
+
+  :host-context([data-theme='dark']) .story-screen .container,
+  :host-context([data-theme='dark']) .story-screen .advantages .container {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: var(--gutter);
+  }
+
+  :host-context([data-theme='dark']) .story-grid > div:last-child {
+    max-width: none;
+  }
+}
+
+/* ===== Мобільна версія: переваги — сітка 2×2 замість довгого списку ===== */
+@media (max-width: 640px) {
+  .advantages,
+  :host-context([data-theme='dark']) .advantages {
+    padding-block: 0 var(--space-6);
+  }
+
+  .adv-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .adv,
+  :host-context([data-theme='dark']) .adv {
+    min-height: 0;
+    padding: var(--space-3);
+    border-radius: 18px;
+
+    h3 {
+      margin: var(--space-2) 0 4px;
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+  }
+
+  .adv-icon {
+    width: 38px;
+    height: 38px;
+
+    app-icon {
+      transform: scale(0.8);
+    }
+  }
+}
+
+/* Мобільна версія: текст і кнопка блоку «Зробіть букет особливим» по центру */
+@media (max-width: 640px) {
+  .bs-card {
+    align-items: center;
+  }
+
+  .bs-text {
+    width: 100%;
+    text-align: center;
+  }
+
+  .bs-eyebrow {
+    justify-content: center;
+  }
+
+  .bs-steps {
+    justify-content: center;
+  }
+
+  .bs-btn {
+    margin-inline: auto;
+  }
+}
+
+/* Мобільна версія: темна тема має ті самі розміри блоків, що й світла */
+@media (max-width: 640px) {
+  :host-context([data-theme='dark']) .bs-card {
+    width: 100%;
+    margin-top: 0;
+    padding: var(--space-5) var(--space-5) 0;
+  }
+
+  :host-context([data-theme='dark']) .builder-screen {
+    padding: var(--space-5) var(--gutter) var(--space-6);
+  }
+
+  :host-context([data-theme='dark']) .categories-section {
+    padding-block: var(--space-6) var(--space-5);
+  }
+}

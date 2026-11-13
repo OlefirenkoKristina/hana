@@ -573,3 +573,24 @@
     margin-left: clamp(24px, 3.4vw, 64px);
   }
 }
+
+/* Мобільна версія: компактніша сторінка «Змінити букет» */
+@media (max-width: 640px) {
+  .customizer {
+    padding-top: var(--space-3);
+  }
+
+  .stage,
+  .fixed-note {
+    max-width: 300px;
+  }
+
+  .layout {
+    gap: var(--space-5);
+    margin-top: var(--space-3);
+  }
+
+  .options h1 {
+    font-size: 1.9rem;
+  }
+}

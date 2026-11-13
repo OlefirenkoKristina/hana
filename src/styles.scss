@@ -585,3 +585,21 @@ select.input {
     will-change: translate;
   }
 }
+
+/* ===== Мобільна версія: компактніший заголовок сторінок і хлібні крихти ===== */
+@media (max-width: 640px) {
+  .page-hero {
+    padding-block: var(--space-5) var(--space-4);
+  }
+
+  .page-hero h1 {
+    font-size: 2rem;
+  }
+
+  .breadcrumbs {
+    flex-wrap: wrap;
+    gap: 2px 8px;
+    margin-bottom: var(--space-3);
+    font-size: 0.8rem;
+  }
+}

@@ -458,3 +458,16 @@
     top: var(--header-h);
   }
 }
+
+/* Мобільна версія: однаково в обох темах — без хлібних крихт, піони нижче шапки */
+@media (max-width: 640px) {
+  .crumbs,
+  :host-context([data-theme='dark']) .crumbs {
+    display: none;
+  }
+
+  :host-context([data-theme='dark']) .decor--dark-peony {
+    top: var(--header-h);
+    opacity: 0.55;
+  }
+}
