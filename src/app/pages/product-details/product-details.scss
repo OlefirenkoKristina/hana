@@ -502,8 +502,8 @@
 
 /* цілі кластери з макета: притиснуті до краю екрана, решта країв розчиняється в фон */
 .pd-cl {
-  --fade: linear-gradient(to right, #000 70%, transparent 100%);
-  --fade-v: linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+  --fade: linear-gradient(to right, #000 38%, transparent 100%);
+  --fade-v: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%);
   -webkit-mask-image: var(--fade), var(--fade-v);
   mask-image: var(--fade), var(--fade-v);
   -webkit-mask-composite: source-in;
@@ -582,62 +582,51 @@
 
   /* фото цілком вміщується в перший екран: висота = вікно мінус шапка й хлібні крихти */
   .stage.stage--photo {
-    width: min(100%, calc((100svh - var(--header-h) - 80px) * 0.9));
+    width: min(100%, calc((100svh - var(--header-h) - 70px) * 0.9));
     aspect-ratio: 9 / 10;
   }
 
   /* світла тема: вертикальні відступи блоку інформації, як на макеті */
   .crumbs {
-    padding-top: var(--space-3);
+    padding-top: 0;
+    margin-bottom: clamp(6px, 1.2svh, 14px);
   }
 
+  /* усе вміщується в перший екран: відступи й заголовок стискаються разом із висотою вікна */
   .info {
-    padding-top: 10px;
-    gap: 26px;
+    padding-top: 0;
+    gap: clamp(6px, 1.5svh, 20px);
+
+    h1 {
+      font-size: clamp(2.2rem, 6.6svh, 4rem);
+    }
   }
 
   .price {
-    margin-top: 18px;
+    margin-top: 0;
   }
 
   .sizes {
-    margin-top: 22px;
+    margin-top: clamp(2px, 0.6svh, 12px);
+  }
+
+  .gallery {
+    position: static;
+  }
+
+  .buy {
+    margin-bottom: 0;
   }
 
   .size {
-    padding-block: 20px;
+    padding-block: clamp(8px, 1.6svh, 20px);
   }
 
   .buy {
     margin-top: 6px;
   }
 
-  /* темна тема лишається зі своїм макетом */
-  :host-context([data-theme='dark']) .crumbs {
-    padding-top: calc(var(--space-5) + 36px);
-  }
-
-  :host-context([data-theme='dark']) .info {
-    padding-top: 14px;
-    gap: var(--space-4);
-  }
-
-  :host-context([data-theme='dark']) .price {
-    margin-top: 10px;
-  }
-
-  :host-context([data-theme='dark']) .sizes {
-    margin-top: var(--space-4);
-  }
-
-  :host-context([data-theme='dark']) .size {
-    padding-block: var(--space-3);
-  }
-
-  :host-context([data-theme='dark']) .buy {
-    margin-top: 0;
-  }
-
+  /* темна тема: ті самі вертикальні розміри, що й світла (усе вміщується в перший екран) */
   :host-context([data-theme='dark']) .pd-top > .container {
     width: auto;
     max-width: var(--pd-wide);
@@ -651,8 +640,8 @@
   }
 
   :host-context([data-theme='dark']) .stage.stage--photo {
-    width: min(100%, 545px);
-    aspect-ratio: 5 / 6;
+    width: min(100%, calc((100svh - var(--header-h) - 70px) * 0.9));
+    aspect-ratio: 9 / 10;
   }
 }
 
@@ -710,4 +699,16 @@
   gap: var(--space-2);
   width: 100%;
   margin-bottom: var(--space-5);
+}
+
+/* Темна тема: піони по краях першого екрана не обрізаються рівною лінією — вони продовжуються
+   нижче й плавно розчиняються по краях */
+:host-context([data-theme='dark']) .pd-top {
+  overflow: visible;
+}
+
+:host-context([data-theme='dark']) .dk-a-left-top,
+:host-context([data-theme='dark']) .dk-a-corner {
+  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
 }
