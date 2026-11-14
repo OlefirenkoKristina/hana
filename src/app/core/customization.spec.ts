@@ -75,8 +75,8 @@ describe('персоналізація готових букетів', () => {
     }
   });
 
-  it('кущові троянди (персикові й малинові): фото для кожної комбінації в усіх розмірах', () => {
-    for (const id of ['spray-peach', 'spray-fuchsia']) {
+  it('персикові, малинові й рожеві півонії: фото для кожної комбінації в усіх розмірах', () => {
+    for (const id of ['spray-peach', 'spray-fuchsia', 'peony-pink']) {
       const product = PRODUCTS.find((p) => p.id === id)!;
       for (const size of ['S', 'M', 'L'] as const) {
         for (const pack of PACKAGING_OPTIONS.map((o) => o.id).concat([null as unknown as string])) {
@@ -106,6 +106,19 @@ describe('персоналізація готових букетів', () => {
     expect(customizedPrice(2400, { ...base, ribbonId: 'red' }, o)).toBe(2430);
     // для інших букетів діють спільні ціни
     expect(customizedPrice(2400, { ...base, packagingId: 'powder' })).toBe(2500);
+  });
+
+  it('рожеві півонії: головне фото каталогу = рожеве пакування + біла стрічка (S, M, L), безкоштовні лише вони', () => {
+    const p = PRODUCTS.find((x) => x.id === 'peony-pink')!;
+    expect(p.defaultVariant).toEqual({ packagingId: 'powder', ribbonId: 'milk' });
+    expect(p.image).toBe(variantPhoto(p, 'M', 'powder', 'milk')!.src);
+    for (const size of ['S', 'M', 'L'] as const) {
+      expect(p.sizeOverrides?.[size]?.image).toBe(variantPhoto(p, size, 'powder', 'milk')!.src);
+    }
+    const base = { packagingId: 'powder', ribbonId: 'milk', cardText: '' };
+    expect(customizedPrice(2600, base, p.optionPrices)).toBe(2600);
+    expect(customizedPrice(2600, { ...base, packagingId: 'white-matte' }, p.optionPrices)).toBe(2700);
+    expect(customizedPrice(2600, { ...base, ribbonId: 'blue' }, p.optionPrices)).toBe(2650);
   });
 
   it('якщо точної комбінації немає — найближче фото з позначкою «умовне»', () => {
