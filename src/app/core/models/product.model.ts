@@ -50,6 +50,10 @@ export interface Product {
    * Ключ: `<id пакування або none>|<id стрічки або none>`, наприклад `powder|red` чи `none|pink`.
    */
   photoVariants?: Partial<Record<SizeCode, Record<string, string>>>;
+  /** Пакування й стрічка, обрані за замовчуванням (збігаються з головним фото каталогу). */
+  /** Власні доплати за пакування й стрічки цього букета (id → грн); решта береться зі спільного каталогу. */
+  optionPrices?: { packaging?: Record<string, number>; ribbon?: Record<string, number> };
+  defaultVariant?: { packagingId: string | null; ribbonId: string | null };
   /** Шлях до фотографії. Якщо не задано — показується SVG-ілюстрація. */
   image?: string;
   /** Власні розміри з реальними фото. Для розмірів, яких тут немає, лишається розрахунок за замовчуванням. */

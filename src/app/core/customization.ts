@@ -44,12 +44,16 @@ export function customizationFor(product: Product, hasSizes: boolean): Customiza
   return { ...base, ...product.customization };
 }
 
-export function packagingPrice(id: string | null): number {
-  return PACKAGING_OPTIONS.find((o) => o.id === id)?.price ?? 0;
+type OptionPrices = Product['optionPrices'];
+
+export function packagingPrice(id: string | null, overrides?: OptionPrices): number {
+  const own = id === null ? undefined : overrides?.packaging?.[id];
+  return own ?? PACKAGING_OPTIONS.find((o) => o.id === id)?.price ?? 0;
 }
 
-export function ribbonPrice(id: string | null): number {
-  return RIBBON_OPTIONS.find((o) => o.id === id)?.price ?? 0;
+export function ribbonPrice(id: string | null, overrides?: OptionPrices): number {
+  const own = id === null ? undefined : overrides?.ribbon?.[id];
+  return own ?? RIBBON_OPTIONS.find((o) => o.id === id)?.price ?? 0;
 }
 
 export function cardPrice(text: string): number {
@@ -57,8 +61,13 @@ export function cardPrice(text: string): number {
 }
 
 /** Ціна одного букета: ціна розміру + доплати за обрані опції. */
-export function customizedPrice(basePrice: number, choice: CustomizationChoice): number {
-  return basePrice + packagingPrice(choice.packagingId) + ribbonPrice(choice.ribbonId) + cardPrice(choice.cardText);
+export function customizedPrice(basePrice: number, choice: CustomizationChoice, overrides?: OptionPrices): number {
+  return (
+    basePrice +
+    packagingPrice(choice.packagingId, overrides) +
+    ribbonPrice(choice.ribbonId, overrides) +
+    cardPrice(choice.cardText)
+  );
 }
 
 /** Рядки опису вибору для кошика й замовлення. */

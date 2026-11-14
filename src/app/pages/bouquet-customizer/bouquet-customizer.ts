@@ -62,10 +62,19 @@ export class BouquetCustomizer {
     const p = this.product();
     return p ? customizationFor(p, this.sizes().length > 0) : null;
   });
+  private readonly optionPrices = computed(() => this.product()?.optionPrices);
   protected readonly packagings = computed(() =>
-    PACKAGING_OPTIONS.filter((o) => this.config()?.packagingIds.includes(o.id)),
+    PACKAGING_OPTIONS.filter((o) => this.config()?.packagingIds.includes(o.id)).map((o) => ({
+      ...o,
+      price: packagingPrice(o.id, this.optionPrices()),
+    })),
   );
-  protected readonly ribbons = computed(() => RIBBON_OPTIONS.filter((o) => this.config()?.ribbonIds.includes(o.id)));
+  protected readonly ribbons = computed(() =>
+    RIBBON_OPTIONS.filter((o) => this.config()?.ribbonIds.includes(o.id)).map((o) => ({
+      ...o,
+      price: ribbonPrice(o.id, this.optionPrices()),
+    })),
+  );
 
   /** Збережений вибір для цього букета (інакше — значення за замовчуванням). */
   private readonly saved = computed(() => {
@@ -81,11 +90,15 @@ export class BouquetCustomizer {
   protected readonly packagingId = computed<string | null>(() => {
     const v = this.saved()?.packagingId;
     if (v === null) return null;
-    return v !== undefined && this.packagings().some((o) => o.id === v) ? v : (this.packagings()[0]?.id ?? null);
+    if (v !== undefined && this.packagings().some((o) => o.id === v)) return v;
+    const d = this.product()?.defaultVariant?.packagingId;
+    return d && this.packagings().some((o) => o.id === d) ? d : (this.packagings()[0]?.id ?? null);
   });
   protected readonly ribbonId = computed<string | null>(() => {
     const v = this.saved()?.ribbonId;
-    return v && this.ribbons().some((o) => o.id === v) ? v : (this.ribbons()[0]?.id ?? null);
+    if (v && this.ribbons().some((o) => o.id === v)) return v;
+    const d = this.product()?.defaultVariant?.ribbonId;
+    return d && this.ribbons().some((o) => o.id === d) ? d : (this.ribbons()[0]?.id ?? null);
   });
   protected readonly wantsCard = computed(() => this.saved()?.wantsCard ?? false);
   protected readonly cardText = computed(() => this.saved()?.cardText ?? '');
@@ -117,9 +130,9 @@ export class BouquetCustomizer {
     cardText: this.config()?.allowGreetingCard && this.wantsCard() ? this.cardText() : '',
   }));
 
-  protected readonly total = computed(() => customizedPrice(this.basePrice(), this.choice()));
-  protected readonly packagingExtra = computed(() => packagingPrice(this.choice().packagingId));
-  protected readonly ribbonExtra = computed(() => ribbonPrice(this.choice().ribbonId));
+  protected readonly total = computed(() => customizedPrice(this.basePrice(), this.choice(), this.optionPrices()));
+  protected readonly packagingExtra = computed(() => packagingPrice(this.choice().packagingId, this.optionPrices()));
+  protected readonly ribbonExtra = computed(() => ribbonPrice(this.choice().ribbonId, this.optionPrices()));
   protected readonly cardExtra = computed(() => cardPrice(this.choice().cardText));
   protected readonly summary = computed(() => describeChoice(this.choice()));
   /** Рядки калькулятора: що вибрано і скільки це коштує понад базову ціну. */

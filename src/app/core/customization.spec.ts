@@ -75,6 +75,39 @@ describe('персоналізація готових букетів', () => {
     }
   });
 
+  it('кущові троянди (персикові й малинові): фото для кожної комбінації в усіх розмірах', () => {
+    for (const id of ['spray-peach', 'spray-fuchsia']) {
+      const product = PRODUCTS.find((p) => p.id === id)!;
+      for (const size of ['S', 'M', 'L'] as const) {
+        for (const pack of PACKAGING_OPTIONS.map((o) => o.id).concat([null as unknown as string])) {
+          for (const ribbon of RIBBON_OPTIONS.map((o) => o.id)) {
+            expect(variantPhoto(product, size, pack, ribbon)?.exact, `${id} ${size} ${pack}|${ribbon}`).toBe(true);
+          }
+        }
+      }
+    }
+  });
+
+  it('малинові кущові троянди: головне фото каталогу = пудрове пакування + біла стрічка (S, M, L)', () => {
+    const p = PRODUCTS.find((x) => x.id === 'spray-fuchsia')!;
+    expect(p.defaultVariant).toEqual({ packagingId: 'powder', ribbonId: 'milk' });
+    expect(p.image).toBe(variantPhoto(p, 'M', 'powder', 'milk')!.src);
+    for (const size of ['S', 'M', 'L'] as const) {
+      expect(p.sizeOverrides?.[size]?.image).toBe(variantPhoto(p, size, 'powder', 'milk')!.src);
+    }
+  });
+
+  it('малинові кущові троянди: безкоштовні лише пудрове пакування й біла стрічка, інше — доплата', () => {
+    const o = PRODUCTS.find((x) => x.id === 'spray-fuchsia')!.optionPrices;
+    const base = { packagingId: 'powder', ribbonId: 'milk', cardText: '' };
+    expect(customizedPrice(2400, base, o)).toBe(2400);
+    expect(customizedPrice(2400, { ...base, packagingId: 'white-matte' }, o)).toBe(2500);
+    expect(customizedPrice(2400, { ...base, packagingId: 'transparent' }, o)).toBe(2550);
+    expect(customizedPrice(2400, { ...base, ribbonId: 'red' }, o)).toBe(2430);
+    // для інших букетів діють спільні ціни
+    expect(customizedPrice(2400, { ...base, packagingId: 'powder' })).toBe(2500);
+  });
+
   it('якщо точної комбінації немає — найближче фото з позначкою «умовне»', () => {
     const red = PRODUCTS.find((p) => p.id === 'classic-red')!;
     // невідоме пакування: беремо фото з тією самою стрічкою, але позначаємо як умовне
